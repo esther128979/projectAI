@@ -1,0 +1,51 @@
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.deps.json
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.pdb
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.AssemblyReference.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfoInputs.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfo.cs
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.CoreCompileInputs.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\refint\Bl.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.pdb
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\ref\Bl.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.runtimeconfig.json
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.genruntimeconfig.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.pdb
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.Up2Date
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.deps.json
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.runtimeconfig.json
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.pdb
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.pdb
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.AssemblyReference.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.GeneratedMSBuildEditorConfig.editorconfig
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfoInputs.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfo.cs
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.CoreCompileInputs.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.Up2Date
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\refint\Bl.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.pdb
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.genruntimeconfig.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\ref\Bl.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.deps.json
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.runtimeconfig.json
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Bl.pdb
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\bin\Debug\net8.0\Dal.pdb
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.AssemblyReference.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.GeneratedMSBuildEditorConfig.editorconfig
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfoInputs.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.AssemblyInfo.cs
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.CoreCompileInputs.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.csproj.Up2Date
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\refint\Bl.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.pdb
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\Bl.genruntimeconfig.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Bl\obj\Debug\net8.0\ref\Bl.dll

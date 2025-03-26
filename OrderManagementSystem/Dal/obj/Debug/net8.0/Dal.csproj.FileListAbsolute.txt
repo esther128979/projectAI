@@ -1,0 +1,42 @@
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.deps.json
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.pdb
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.AssemblyReference.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfoInputs.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfo.cs
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.CoreCompileInputs.cache
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\refint\Dal.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.pdb
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\ref\Dal.dll
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.runtimeconfig.json
+C:\Users\משתמש\Desktop\כיתה יד\פרויקט בינה\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.genruntimeconfig.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.deps.json
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.runtimeconfig.json
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.pdb
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.AssemblyReference.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.GeneratedMSBuildEditorConfig.editorconfig
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfoInputs.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfo.cs
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.CoreCompileInputs.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\refint\Dal.dll
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.pdb
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.genruntimeconfig.cache
+E:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\ref\Dal.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.deps.json
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.runtimeconfig.json
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\bin\Debug\net8.0\Dal.pdb
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.AssemblyReference.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.GeneratedMSBuildEditorConfig.editorconfig
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfoInputs.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.AssemblyInfo.cs
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.csproj.CoreCompileInputs.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\refint\Dal.dll
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.pdb
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\Dal.genruntimeconfig.cache
+F:\לימודים\פרויקט גמר\OrderManagementSystem\Dal\obj\Debug\net8.0\ref\Dal.dll
