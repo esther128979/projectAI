@@ -23,6 +23,25 @@ namespace Dal.Services
                 throw new Exception("Error retrieving customers", ex);
             }
         }
+        public async Task<Customer> GetById(int id)
+        {
+            try
+            {
+                var existCustomer = await db.Customers.FindAsync(id);
+
+                if (existCustomer == null)
+                {
+                    throw new Exception("Customer not found");
+                }
+
+                return existCustomer;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+        }
+
     }
 
 

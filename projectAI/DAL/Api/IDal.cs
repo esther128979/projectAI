@@ -1,5 +1,7 @@
 ﻿
 
+using DAL.Api;
+
 namespace Dal.Api
 {
     // מה צריך להכיל שכבת הדל
@@ -7,5 +9,7 @@ namespace Dal.Api
     {
         public ICustomer Customer { get; }
         public IOrder Order { get; }
+        public IMovies Movies { get; }
+
     }
 }
