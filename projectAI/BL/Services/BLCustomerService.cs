@@ -2,6 +2,7 @@
 using Dal.Api;
 using BL.Models;
 using Dal.Models;
+using DAL.Models;
 
 
 namespace BL.Services

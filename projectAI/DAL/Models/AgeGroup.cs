@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Models;
+namespace DAL.Models;
 
 [Table("AgeGroup")]
 public partial class AgeGroup

@@ -1,5 +1,7 @@
 ﻿using Dal.Api;
 using Dal.Models;
+using DAL.Api;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -72,5 +74,47 @@ namespace Dal.Services
                 throw new Exception("Error retrieving orders", ex);
             }
         }
+
+        public Task<Order> Create(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Order> Update(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Order> Delete(Order t)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Order>> IOrder.GetOrdersByIdCustomer(int idC)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Order>> IOrder.GetOrdersToday()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Order>> IOrder.GetOrdersByStatusFalse()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Order>> IOrder.GetOrdersByDateRange(DateTime startDate, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Order>> ICrud<Order>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+      
     }
 }

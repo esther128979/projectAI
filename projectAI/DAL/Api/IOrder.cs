@@ -1,6 +1,7 @@
-﻿using Dal.Models;
+﻿using Dal.Api;
+using DAL.Models;
 
-namespace Dal.Api
+namespace DAL.Api
 {
     public interface IOrder : ICrud<Order>
     {

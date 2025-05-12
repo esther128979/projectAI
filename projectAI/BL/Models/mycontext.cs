@@ -86,9 +86,9 @@ public partial class mycontext : DbContext
                 .HasMaxLength(15)
                 .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
-            entity.HasOne(d => d.AgeGroupNavigation).WithMany(p => p.Customers)
-                .HasForeignKey(d => d.AgeGroup)
-                .HasConstraintName("FK_Customers_ToTable");
+            //entity.HasOne(d => d.AgeGroupNavigation).WithMany(p => p.Customers)
+            //    .HasForeignKey(d => d.AgeGroup)
+            //    .HasConstraintName("FK_Customers_ToTable");
         });
 
         modelBuilder.Entity<BLMovie>(entity =>

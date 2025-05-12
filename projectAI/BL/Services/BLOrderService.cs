@@ -9,6 +9,7 @@ using iText.Layout;
 using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Colors;
+using DAL.Models;
 
 namespace BL.Services
 {

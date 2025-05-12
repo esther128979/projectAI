@@ -2,6 +2,7 @@
 
 using Dal.Api;
 using Dal.Models;
+using DAL.Api;
 
 namespace Dal.Api
 {
@@ -12,7 +13,8 @@ namespace Dal.Api
         public IOrder Order { get; }
         public ICategory Category { get; }
         public IMovie Movie { get; }
-      
+        public IAgeGruop AgeGruop { get; }
+
 
     }
 }
