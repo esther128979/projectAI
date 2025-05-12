@@ -1,94 +1,82 @@
-// import React, { useState } from "react";
-// import { Card, Avatar, Flex, Switch } from "antd";
-// import {
-//   EditOutlined,
-//   EllipsisOutlined,
-//   SettingOutlined,
-// } from "@ant-design/icons";
+// import React from 'react';
+// import { UserProfileCard } from '../UserProfileCard/UserProfileCard';
+// import { User } from '../../models/User';
 
-// const { Meta } = Card;
+// interface UserListProps {
+//   users: User[];
+//   onShowOrders?: (userId: number) => void;
+// }
 
-// const CustomerList: React.FC = () => {
-//   const [loading, setLoading] = useState(true);
-
-//   const actions = [
-//     <EditOutlined key="edit" />,
-//     <SettingOutlined key="setting" />,
-//     <EllipsisOutlined key="ellipsis" />,
-//   ];
-
+// const UserList = ({ users, onShowOrders }: UserListProps) => {
 //   return (
-//     <Flex gap="middle" align="start" vertical>
-//       <Switch checked={!loading} onChange={(checked) => setLoading(!checked)} />
-
-//       <Card loading={loading} actions={actions} style={{ minWidth: 300 }}>
-//         <Meta
-//           avatar={
-//             <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />
-//           }
-//           title="Card title"
-//           description={
-//             <>
-//               <p>This is the description</p>
-//               <p>This is the description</p>
-//             </>
-//           }
+//     <div className="flex flex-col items-center gap-4 p-4">
+//       {users.map((user) => (
+//         <UserProfileCard
+//           key={user.Id}
+//           user={user}
+//           onShowOrders={onShowOrders}
 //         />
-//       </Card>
-
-//       <Card loading={loading} actions={actions} style={{ minWidth: 300 }}>
-//         <Meta
-//           avatar={
-//             <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />
-//           }
-//           title="Card title"
-//           description={
-//             <>
-//               <p>This is the description</p>
-//               <p>This is the description</p>
-//             </>
-//           }
-//         />
-//       </Card>
-//     </Flex>
+//       ))}
+//     </div>
 //   );
 // };
 
-// export default CustomerList;
-
-
-//מקבל רשימה של משתמשים ויוצר רשימה של כרטיסים מהקומפוננטה כרטיס
-import React from 'react';
+// export default UserList;
+import React, { useState } from 'react';
 import { UserProfileCard } from '../UserProfileCard/UserProfileCard';
 import { User } from '../../models/User';
+import OrdersModal from '../OrdersModal/OrdersModal';
+import { Order } from '../../models/Order';
 
+interface UserListProps {
+  users: User[];
+}
 
-const moviesExemple: User[] = [
-  {
-    Id: 123,
-    Name: 'Chaim',
-    Phone: '0548523531',
-    Email: 'leah23531@gmail.com'
-  },
-  {
-    Id: 456,
-    Name: 'Elisheva',
-    Phone: '0548523531',
-    Email: 'leah23531@gmail.com'
-  },
-  {
-    Id: 789,
-    Name: 'Tamar',
-    Phone: '0548523531',
-    Email: 'leah23531@gmail.com'
-  }
-]
-const UserList = ({ users }: { users: User[] }) => {
+const fetchOrdersForUser = async (userId: number): Promise<Order[]> => {
+  // כאן אפשר להחליף לקריאת fetch אמיתית בעתיד
+  return [
+    {
+      id: 1,
+      date: '2025-05-01',
+      movies: ['סרט א', 'סרט ב'],
+      price: 75,
+      paid: true,
+    },
+    {
+      id: 2,
+      date: '2025-04-20',
+      movies: ['סרט ג'],
+      price: 30,
+      paid: false,
+    },
+  ];
+};
+
+const UserList = ({ users }: UserListProps) => {
+  const [selectedOrders, setSelectedOrders] = useState<Order[] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleShowOrders = async (userId: number) => {
+    const orders = await fetchOrdersForUser(userId);
+    setSelectedOrders(orders);
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="user-list">
+    <div className="flex flex-col items-center gap-4 p-4">
       {users.map((user) => (
-        <UserProfileCard key={user.Id} user={user} />
+        <UserProfileCard
+          key={user.Id}
+          user={user}
+          onShowOrders={handleShowOrders}
+        />
       ))}
+
+      <OrdersModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        orders={selectedOrders || []}
+      />
     </div>
   );
 };

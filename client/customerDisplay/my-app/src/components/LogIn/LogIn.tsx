@@ -16,7 +16,6 @@ export function LogIn(props: LogInProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         // Basic validation
         if (!email || !password) {
             setError('Both fields are required');
@@ -69,7 +68,6 @@ export function LogIn(props: LogInProps) {
                 <p className="sub-text">
                     Not a member? <a href="#">Start a 14 day free trial</a>
                 </p>
-
                 <form onSubmit={handleSubmit}>
                     {error && <p className="error">{error}</p>}
 
