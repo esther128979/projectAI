@@ -1,0 +1,34 @@
+.user-card {
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  
+    .card-header {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      background-color: #f9fafb;
+  
+      h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #111827;
+      }
+    }
+  
+    .card-content {
+      padding: 1rem;
+  
+      p {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+        color: #374151;
+      }
+    }
+  }
+  

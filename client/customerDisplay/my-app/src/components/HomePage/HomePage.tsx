@@ -6,7 +6,7 @@ import {
   Tab
 } from '@mui/material';
 import './HomePage.scss';
-import MovieList from '../MovieList/MovieList';
+import {MovieCard} from '../MovieCard/MovieCard';
 import { AgeGroup, CategoryGroup, Movie } from '../../models/Movie';
 
 interface HomePageProps {}
@@ -152,6 +152,20 @@ const moviesExemple: Movie[] = [
     MoviePrice: 9.99
   }
 ];
+const m={
+  Id: 1,
+  CategoryGroup: CategoryGroup.Children,
+  AgeGroup: AgeGroup.Children,
+  ThereIsWoman: true,
+  Length: 90,
+  AmountOfUses: 120,
+  FilmProductionDate: new Date("2020-06-15"),
+  MovieName: "The Magical Forest",
+  MovieDescription: "An adventure of a young girl discovering a hidden forest.",
+  MovieUrl: "https://example.com/magical-forest",
+  MovieImage: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_05652-Edit-Edit-2-300x300.jpg",
+  MoviePrice: 12.99
+}
 const HomePage: FC<HomePageProps> = () => {
     const [value, setValue] = useState(0);
 
@@ -196,7 +210,7 @@ const HomePage: FC<HomePageProps> = () => {
       </Tabs>
     {loading && <CircularProgress />}
     {error && <Typography color="error">{error}</Typography>}
-    {value === 0 &&  <MovieList movies={moviesToView}/>}
+    {value === 0 &&  <MovieCard movie={m}/>}
     {value === 1 && <div>הצגת נתונים מותאמים כאן</div>}
 
   </div>
