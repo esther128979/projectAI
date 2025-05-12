@@ -1,63 +1,65 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
-  List, ListItem, ListItemText, Button, CircularProgress,
-  Typography, TextField, Dialog, DialogTitle, DialogContent, IconButton, Box
+  List, Button, Typography, Dialog, DialogTitle, DialogContent, IconButton, Box
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './MovieList.scss';
-import { Movie, CategoryGroup, AgeGroup } from '../../models/Movie';
+import { MovieObject } from '../../models/Movie';
+import Movie from '../Movie/Movie';
+import OrderDialog from '../OrderDialog/OrderDialog';
+import { submitOrder } from '../../services/ordersService';
 
-interface MovieListProps { 
-  movies:Movie[]
+
+
+interface MovieListProps {
+  movies: MovieObject[];
 }
 
-const MovieList: FC<MovieListProps> = ({movies}) => {
+const MovieList: FC<MovieListProps> = ({ movies }) => {
+  const [selectedMovie, setSelectedMovie] = useState<MovieObject | null>(null);
+  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-
-
-  const handleSelectMovie = (movie: Movie) => {
+  const handleSelectMovie = (movie: MovieObject) => {
     setSelectedMovie(movie);
   };
-  const handleOrder = (movie: Movie) => {
-    //כאן נגדיר מה יקרה בעת הזמנה
+
+  const handleOrder = () => {
+    setOrderDialogOpen(true);
   };
 
+  const handleOrderSubmit = async (email: string) => {
+    if (selectedMovie) {
+      const orderData = {
+        email,
+        movieName: selectedMovie.MovieName, // תוודא ששם הסרט נכון
+      };
+      
+      try {
+        await submitOrder(orderData); 
+        console.log("הזמנה נשלחה בהצלחה");
+      } catch (error) {
+        console.error("אירעה שגיאה בעת שליחת ההזמנה", error);
+      }
+    }
+  
+    setOrderDialogOpen(false);
+    setSelectedMovie(null);
+  };
+  
 
+  const handleOrderCancel = () => {
+    setOrderDialogOpen(false);
+  };
 
   return (
-
     <div className="MovieList">
-
-
-
       <List className="movie-container">
-        {movies.map((movie) => (
-          <ListItem key={movie.Id} className="movie-item">
-            <img
-              src={movie.MovieImage}
-              alt={movie.MovieName}
-              style={{ width: 100, height: 100, borderRadius: 8, marginRight: 16 }}
-            />
-            <ListItemText
-              primary={
-                <span dangerouslySetInnerHTML={{
-                  __html: movie.MovieName
-                }} />
-              }
-              secondary={
-                <span dangerouslySetInnerHTML={{
-                  __html: `Number of views ${movie.AmountOfUses}`
-                }} />
-              }
-            />
-            <Button variant="outlined" onClick={() => handleSelectMovie(movie)}>
-              To view movie details and to order
-            </Button>
-          </ListItem>
+        {movies.map((m) => (
+          <Movie key={m.Id} movie={m} handleSelectMovie={handleSelectMovie} />
         ))}
       </List>
-      <Dialog open={!!selectedMovie} onClose={() => { setSelectedMovie(null) }} maxWidth="md" fullWidth>
+
+      <Dialog open={!!selectedMovie} onClose={() => setSelectedMovie(null)} maxWidth="md" fullWidth>
         {selectedMovie && (
           <>
             <DialogTitle>
@@ -67,7 +69,7 @@ const MovieList: FC<MovieListProps> = ({movies}) => {
                 style={{ width: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '8px' }}
               />
               {selectedMovie.MovieName}
-              <IconButton onClick={() => { setSelectedMovie(null) }} style={{ position: 'absolute', right: 10, top: 10 }}>
+              <IconButton onClick={() => setSelectedMovie(null)} style={{ position: 'absolute', right: 10, top: 10 }}>
                 <CloseIcon />
               </IconButton>
             </DialogTitle>
@@ -91,20 +93,26 @@ const MovieList: FC<MovieListProps> = ({movies}) => {
                   💰 {selectedMovie.MoviePrice} ₪
                 </Typography>
               </Box>
-             
-              <Button variant="contained" style={{ marginRight: '1rem', marginTop: '1rem' }} onClick={()=>{handleOrder(selectedMovie)}}>
+
+              <Button
+                variant="contained"
+                style={{ marginRight: '1rem', marginTop: '1rem' }}
+                onClick={handleOrder}
+              >
                 Order Now
               </Button>
-           
-             
             </DialogContent>
           </>
         )}
       </Dialog>
+
+      <OrderDialog
+        open={orderDialogOpen}
+        onClose={handleOrderCancel}
+        onSubmit={handleOrderSubmit}
+      />
     </div>
-  )
+  );
 };
+
 export default MovieList;
-
-
-
