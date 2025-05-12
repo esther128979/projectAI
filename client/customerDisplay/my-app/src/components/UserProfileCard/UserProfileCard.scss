@@ -1,0 +1,25 @@
+.user-card {
+  width: 260px; // צמצמנו
+  margin: 0 auto; // למרכז
+
+  .card-header {
+    padding: 1rem;
+    h3 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .card-content {
+    padding: 1rem;
+    p {
+      font-size: 0.9rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+}
