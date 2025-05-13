@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Dal.Services;
 using DAL.Api;
 using DAL.Models;
-using DAL.Services;
+//using DAL.Services;
 namespace Dal;
 
 public class DalManager : IDal
@@ -22,7 +22,7 @@ public class DalManager : IDal
  
     public IMovie Movie { get; }
 
-    public IAgeGruop AgeGruop { get; }
+    //public IAgeGruop AgeGruop { get; }
 
     public DalManager()
     {
@@ -37,7 +37,7 @@ public class DalManager : IDal
         serCollection.AddScoped<IOrder, OrderService>();
         serCollection.AddScoped<IMovie, MovieService>();
         serCollection.AddScoped<ICategory, CategoryService>();
-        serCollection.AddScoped<IAgeGruop, AgeGruopService>();
+        //serCollection.AddScoped<IAgeGruop, AgeGruopService>();
 
         // הגדרת ספק מחלקות שרות
         ServiceProvider p = serCollection.BuildServiceProvider();
@@ -45,7 +45,7 @@ public class DalManager : IDal
         Order = p.GetRequiredService<IOrder>();
         Movie= p.GetRequiredService<IMovie>();  
         Category = p.GetRequiredService<ICategory>();
-        AgeGruop=p.GetRequiredService<IAgeGruop>();
+        //AgeGruop=p.GetRequiredService<IAgeGruop>();
      
       
 
