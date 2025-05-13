@@ -1,14 +1,16 @@
 // components/OrdersModal.tsx
 import { DialogPanel,Dialog,DialogTitle } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Order } from "../../models/Order";
 
-type Order = {
-  id: number;
-  date: string;
-  movies: string[];
-  price: number;
-  paid: boolean;
-};
+// type Order = {
+//   id: number;
+//   date: string;
+//   movies: string[];
+//   price: number;
+//   completed: boolean;
+// };
+
 interface OrdersModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -47,7 +49,7 @@ export default function OrdersModal({ isOpen, onClose, orders }:OrdersModalProps
                   <td className="border px-2 py-1">{order.movies.join(', ')}</td>
                   <td className="border px-2 py-1">{order.price} ₪</td>
                   <td className="border px-2 py-1">
-                    {order.paid ? 'שולם' : 'לא שולם'}
+                    {order.completed ? 'טופל' : 'לא טופל'}
                   </td>
                 </tr>
               ))}

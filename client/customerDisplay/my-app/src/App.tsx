@@ -38,6 +38,8 @@ import HomePage from './components/HomePage/HomePage';
 import { LogIn } from './components/LogIn/LogIn';
 import { NotFound } from './components/NotFound/NotFound';
 import { AdminScreen } from './components/AdminScreen/AdminScreen';
+import  AdminNav  from './components/AdminNav/AdminNav';
+
 import UserCardList from './components/UserCardList/UserCardList';
 import { User, Gender } from './models/User';
 
@@ -64,22 +66,36 @@ function App() {
   return (
     <div className='row'>
       {isLoggedIn ? (
-        <Routes>
-          <Route path='/' element={<LogIn  onLogin={() => setIsLoggedIn(true)}  />} />
-          {/* <Route path="/" element={<HomePage />} > */}
-            {/* <Route path='' element={<div style={{ width: '101vw', height: '100vh', margin: 0, padding: 0 }}>
-            <img
-              src="https://img.freepik.com/free-vector/gradient-bright-color-background_23-2149365050.jpg?ga=GA1.1.1115303456.1707422680&semt=ais_hybrid&w=740"
-              alt="background"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-          </div>} /> */}
-            {/* <Route path='admin' element={<Activities />} /> */}
-          {/* </Route> */}
-          <Route path='admin' element={<UserCardList users={arrayOfUsers} />}/>
-          <Route path='home' element={<HomePage />}/>
-          <Route path='*' element={<NotFound></NotFound>}></Route>
-        </Routes>
+         
+        // <Routes>
+        //   <Route path='/' element={<LogIn  onLogin={() => setIsLoggedIn(true)}  />} />
+        //   {/* <Route path="/" element={<HomePage />} > */}
+        //     {/* <Route path='' element={<div style={{ width: '101vw', height: '100vh', margin: 0, padding: 0 }}>
+        //     <img
+        //       src="https://img.freepik.com/free-vector/gradient-bright-color-background_23-2149365050.jpg?ga=GA1.1.1115303456.1707422680&semt=ais_hybrid&w=740"
+        //       alt="background"
+        //       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        //     />
+        //   </div>} /> */}
+        //     {/* <Route path='admin' element={<Activities />} /> */}
+        //   {/* </Route> */}
+        //   <Route path='/admin/clients' element={<UserCardList users={arrayOfUsers} />}/>
+        //   <Route path='admin' element={<AdminScreen />}/>
+        //   <Route path='home' element={<HomePage />}/>
+        //   <Route path='*' element={<NotFound></NotFound>}></Route>
+        // </Routes>
+        <>
+        <AdminNav /> {/* הניווט הקבוע */}
+        <div className="main-content"> {/* תוכן הדפים */}
+          <Routes>
+            <Route path='/' element={<LogIn onLogin={() => setIsLoggedIn(true)} />} />
+            <Route path='/admin/clients' element={<UserCardList users={arrayOfUsers} />} />
+            <Route path='/admin' element={<AdminScreen />} />
+            <Route path='/home' element={<HomePage />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
+      </>
       ) :
         (<LogIn onLogin={() => setIsLoggedIn(true)} />)}
     </div>

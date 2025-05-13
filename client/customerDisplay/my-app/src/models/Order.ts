@@ -3,5 +3,5 @@ export interface Order {
   date: string;
   movies: string[];
   price: number;
-  paid: boolean;
+  completed: boolean;
 }
