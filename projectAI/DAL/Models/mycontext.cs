@@ -1,4 +1,5 @@
 ﻿
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dal.Models;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Models;
+namespace DAL.Models;
 
 [Index("CustomerNumber", Name = "UQ__tmp_ms_x__48D47E1E8014A696", IsUnique = true)]
 public partial class Customer

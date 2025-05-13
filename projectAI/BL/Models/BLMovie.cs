@@ -2,6 +2,7 @@
 using Dal.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BL.Models;
 
@@ -22,6 +23,10 @@ public partial class BLMovie
     public DateOnly? FilmProductionDate { get; set; }
 
     public virtual BLAgeGroup? AgeCodeNavigation { get; set; }
+
+    public int? Price { get; set; }
+
+    public string? Link { get; set; }
 
     public virtual BLCategory? CodeCategoryNavigation { get; set; }
     //public string MovieName { get; set; }

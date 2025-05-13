@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Models;
+namespace DAL.Models;
 
 public partial class Movie
 {
@@ -22,6 +22,11 @@ public partial class Movie
     public int? AmountOfUses { get; set; }
 
     public DateOnly? FilmProductionDate { get; set; }
+
+    public int? Price { get; set; }
+
+    [Column(TypeName = "text")]
+    public string? Link { get; set; }
 
     [ForeignKey("AgeCode")]
     [InverseProperty("Movies")]

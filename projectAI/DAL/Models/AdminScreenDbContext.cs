@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace Dal.Models;
 
 public partial class AdminScreenDbContext : DbContext

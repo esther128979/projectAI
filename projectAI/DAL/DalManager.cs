@@ -8,28 +8,46 @@ using Microsoft.Extensions.DependencyInjection;
 using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 using Dal.Services;
-namespace Dal
+using DAL.Api;
+using DAL.Models;
+using DAL.Services;
+namespace Dal;
+
+public class DalManager : IDal
 {
-    public class DalManager : IDal
+    public ICustomer Customer { get; }
+    public IOrder Order { get; }
+
+    public ICategory Category { get; }
+ 
+    public IMovie Movie { get; }
+
+    public IAgeGruop AgeGruop { get; }
+
+    public DalManager()
     {
-        public ICustomer Customer { get; }
-        public IOrder Order { get; }
+        ServiceCollection serCollection = new ServiceCollection();
+        serCollection.AddDbContext<mycontext>(options =>
+         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\214991887\\Desktop\\projectAI\\projectAI\\adminScreen_DB.mdf;Integrated Security=True;Connect Timeout=30"));
 
-        public DalManager()
-        {
-            ServiceCollection serCollection = new ServiceCollection();
-            serCollection.AddDbContext<mycontext>(options =>
-             options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"E:\\לימודים\\פרויקט גמר\\OrderManagementSystem\\adminScreen_DB.mdf\";Integrated Security=True;Connect Timeout=30"));
+        serCollection.AddSingleton<mycontext>();
 
-            serCollection.AddSingleton<mycontext>();
-            serCollection.AddScoped<ICustomer, CustomerService>();
-            serCollection.AddScoped<IOrder, OrderService>();
+        serCollection.AddScoped<IDal, DalManager>();//צריך לבדוק!!!
+        serCollection.AddScoped<ICustomer, CustomerService>();
+        serCollection.AddScoped<IOrder, OrderService>();
+        serCollection.AddScoped<IMovie, MovieService>();
+        serCollection.AddScoped<ICategory, CategoryService>();
+        serCollection.AddScoped<IAgeGruop, AgeGruopService>();
 
-            // הגדרת ספק מחלקות שרות
-            ServiceProvider p = serCollection.BuildServiceProvider();
-            Customer = p.GetRequiredService<ICustomer>();
-            Order = p.GetRequiredService<IOrder>();
+        // הגדרת ספק מחלקות שרות
+        ServiceProvider p = serCollection.BuildServiceProvider();
+        Customer = p.GetRequiredService<ICustomer>();
+        Order = p.GetRequiredService<IOrder>();
+        Movie= p.GetRequiredService<IMovie>();  
+        Category = p.GetRequiredService<ICategory>();
+        AgeGruop=p.GetRequiredService<IAgeGruop>();
+     
+      
 
-        }
     }
 }

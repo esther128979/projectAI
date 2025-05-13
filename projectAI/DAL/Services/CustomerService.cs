@@ -1,5 +1,7 @@
 ﻿using Dal.Api;
 using Dal.Models;
+using DAL.Api;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 //using DAL.Models;
 
@@ -76,6 +78,15 @@ namespace Dal.Services
             throw new NotImplementedException("עדיין לא ברור מה הפונקציה אמורה לעשות בדיוק");
         }
 
+        Task<List<Customer>> ICustomer.GetCastomerById()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Customer>> ICrud<Customer>.GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 
