@@ -1,0 +1,47 @@
+body {
+    padding-top: 70px; /* גובה ה־navbar (בערך) */
+  }
+.custom-navbar {
+    padding: 10px 20px;
+    direction: rtl;
+    text-align: center;
+
+  }
+  
+  .nav-square {
+    background-color: white;
+    color: #007C91 !important;
+    border: 2px solid #007C91;
+    margin: 5px;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-align: center;
+
+  }
+  
+  .nav-square:hover {
+    background-color: #007C91;
+    color: white !important;
+    border-color: white;
+  }
+
+  
+  .home-button {
+    font-size: 1rem;
+  }
+  .simple-link {
+    color: #007C91 !important;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 8px 16px;
+   
+  }
+  
+  .simple-link:hover {
+    text-decoration: none;
+    color: #066070 !important;
+    text-decoration: underline;
+  }
