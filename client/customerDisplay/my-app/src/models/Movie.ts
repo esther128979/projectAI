@@ -24,7 +24,7 @@ export enum CategoryGroup
     Plot
 }
 
-export interface Movie {
+export interface MovieObject {
     Id:number;
     CategoryGroup:CategoryGroup;
     AgeGroup:AgeGroup;

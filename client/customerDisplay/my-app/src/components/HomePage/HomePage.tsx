@@ -7,10 +7,10 @@ import {
 } from '@mui/material';
 import './HomePage.scss';
 import MovieList from '../MovieList/MovieList';
-import { AgeGroup, CategoryGroup, Movie } from '../../models/Movie';
+import { AgeGroup, CategoryGroup, MovieObject } from '../../models/Movie';
 
 interface HomePageProps {}
-const moviesExemple: Movie[] = [
+const moviesExemple: MovieObject[] = [
   {
     Id: 1,
     CategoryGroup: CategoryGroup.Children,
@@ -155,8 +155,8 @@ const moviesExemple: Movie[] = [
 const HomePage: FC<HomePageProps> = () => {
     const [value, setValue] = useState(0);
 
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [moviesToView, setMoviesToView] = useState<Movie[]>(movies);
+    const [movies, setMovies] = useState<MovieObject[]>([]);
+    const [moviesToView, setMoviesToView] = useState<MovieObject[]>(movies);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     useEffect(() => {

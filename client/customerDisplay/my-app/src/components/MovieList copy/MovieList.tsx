@@ -33,19 +33,19 @@ const MovieList: FC<MovieListProps> = ({ movies }) => {
         email,
         movieName: selectedMovie.MovieName, // תוודא ששם הסרט נכון
       };
-      
+
       try {
-        await submitOrder(orderData); 
+        await submitOrder(orderData);
         console.log("הזמנה נשלחה בהצלחה");
       } catch (error) {
         console.error("אירעה שגיאה בעת שליחת ההזמנה", error);
       }
     }
-  
+
     setOrderDialogOpen(false);
     setSelectedMovie(null);
   };
-  
+
 
   const handleOrderCancel = () => {
     setOrderDialogOpen(false);
@@ -81,26 +81,32 @@ const MovieList: FC<MovieListProps> = ({ movies }) => {
               <Typography>Length: {selectedMovie.Length}</Typography>
               <Typography>Number of views: {selectedMovie.AmountOfUses}</Typography>
               <Typography>Movie Description: {selectedMovie.MovieDescription}</Typography>
-              <Box sx={{
-                display: "inline-block",
-                padding: "8px 16px",
-                backgroundColor: "#ffeb3b",
-                borderRadius: "8px",
-                color: "#333",
-                fontWeight: "bold"
-              }}>
-                <Typography variant="h6">
-                  💰 {selectedMovie.MoviePrice} ₪
-                </Typography>
-              </Box>
 
-              <Button
-                variant="contained"
-                style={{ marginRight: '1rem', marginTop: '1rem' }}
-                onClick={handleOrder}
-              >
-                Order Now
-              </Button>
+              {/* עטיפת כפתורים ומחיר */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 3 }}>
+                <Box
+                  sx={{
+                    padding: '8px 16px',
+                    backgroundColor: '#ffeb3b',
+                    borderRadius: '8px',
+                    color: '#333',
+                    fontWeight: 'bold',
+                    width: 'fit-content',
+                  }}
+                >
+                  <Typography variant="h6" sx={{ m: 0 }}>
+                    💰 {selectedMovie.MoviePrice} ₪
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                  <Button variant="contained" onClick={handleOrder}>
+                    Order Now
+                  </Button>
+                  <Button variant="outlined" onClick={handleOrder}>
+                    Add to Bag
+                  </Button>
+                </Box>
+              </Box>
             </DialogContent>
           </>
         )}
