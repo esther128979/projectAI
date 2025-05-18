@@ -312,7 +312,7 @@ const AppContent: FC<AppContentProps> = () => {
 
             </AppBar>
 
-            <Container sx={{ flexGrow: 1, marginTop: '2rem' }}>
+            <Container sx={{ flexGrow: 1, marginTop: '2rem', paddingLeft:'2rem' }} maxWidth={false} disableGutters>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/all-movies" element={<MovieList movies={moviesExemple} />} />

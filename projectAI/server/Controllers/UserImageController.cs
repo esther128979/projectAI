@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 namespace Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("DosFlix/[controller]")]
     public class UserImageController : ControllerBase
     {
         private readonly IWebHostEnvironment _env;

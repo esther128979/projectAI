@@ -23,14 +23,13 @@ const MovieCard: FC<MovieCardProps> = ({ movie, onOrderNow, onAddToCart }) => {
   return (
     <Card
       sx={{
-        width: 320,
-        height: 490,
+        backgroundColor: '#f8fafc',      // רקע בהיר
+        color: '#3e3e3e',                // צבע טקסט כהה
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         boxShadow: 6,
         borderRadius: 4,
-        marginBottom: 3,
         overflow: 'hidden',
         transition: 'transform 0.3s',
         '&:hover': {
@@ -52,6 +51,7 @@ const MovieCard: FC<MovieCardProps> = ({ movie, onOrderNow, onAddToCart }) => {
           component="div"
           dir="rtl"
           sx={{
+            color: '#3e3e3e',
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
@@ -66,7 +66,7 @@ const MovieCard: FC<MovieCardProps> = ({ movie, onOrderNow, onAddToCart }) => {
             variant="body2"
             color="text.secondary"
             dir="rtl"
-            sx={{ fontSize: 14, lineHeight: 1.4 }}
+            sx={{ fontSize: 14, lineHeight: 1.4, color: '#3e3e3e' }}
           >
             {movie.Description}
           </Typography>
@@ -74,14 +74,14 @@ const MovieCard: FC<MovieCardProps> = ({ movie, onOrderNow, onAddToCart }) => {
 
         <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} dir="rtl">
           <Box display="flex" alignItems="center" gap={0.5}>
-            <VisibilityIcon sx={{ fontSize: 18 }} />
-            <Typography variant="body2" color="text.secondary" sx={{ fontSize: 13 }}>
+            <VisibilityIcon sx={{ fontSize: 18, color: '#3e3e3e' }} />
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: 13, color: '#3e3e3e' }}>
               {movie.AmountOfViews}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" gap={0.5}>
-            <AccessTimeIcon sx={{ fontSize: 18 }} />
-            <Typography variant="body2" color="text.secondary" sx={{ fontSize: 13 }}>
+            <AccessTimeIcon sx={{ fontSize: 18, color: '#3e3e3e' }} />
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: 13, color: '#3e3e3e' }}>
               {movie.Duration} דקות
             </Typography>
           </Box>
@@ -95,61 +95,76 @@ const MovieCard: FC<MovieCardProps> = ({ movie, onOrderNow, onAddToCart }) => {
             display: 'inline-block',
             px: 1.5,
             py: 0.5,
-            backgroundColor: 'rgba(255,0,0,0.05)',
+            backgroundColor: '#b8399a41', 
             borderRadius: 1,
             fontWeight: 'bold',
-            color: 'secondary.main',
+            color: '#3e3e3e',
           }}
         >
           ₪{movie.Price}
         </Typography>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: 'space-around', paddingBottom: 2 }}>
-        <Button
-          size="medium"
-          variant="contained"
-          color="secondary"
-          onClick={() => onOrderNow(movie.Id)}
-          sx={{
-            fontWeight: 'bold',
-            px: 3,
-            py: 1.2,
-            textTransform: 'none',
-            boxShadow: '0 4px 12px #c1dbca',
-            transition: 'background-color 0.3s, transform 0.2s',
-            '&:hover': {
-              backgroundColor: '#c1dbca',
-              transform: 'scale(1.1)',
-              boxShadow: '0 6px 16px #c1dbca',
-            }
-          }}
+      <CardActions sx={{ px: 2, pb: 2 }}>
+        <Box
+          display="flex"
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          gap={1.5}
+          width="100%"
         >
-          הזמן עכשיו
-        </Button>
-        <Button
-          size="medium"
-          variant="outlined"
-          color="secondary"
-          startIcon={<ShoppingCartIcon />}
-          onClick={() => onAddToCart(movie.Id)}
-          sx={{
-            fontWeight: 'bold',
-            px: 3,
-            py: 1.2,
-            textTransform: 'none',
-            borderColor: 'secondary.main',
-            color: 'secondary.main',
-            '&:hover': {
-              backgroundColor: 'rgba(211, 47, 47, 0.1)',
-              borderColor: '#c1dbca',
-              color: '#c1dbca',
-            }
-          }}
-        >
-          הוסף לעגלה
-        </Button>
+          <Button
+            fullWidth
+            size="medium"
+            variant="contained"
+            onClick={() => onOrderNow(movie.Id)}
+            sx={{
+              fontWeight: 'bold',
+              px: 2,
+              py: 1.2,
+              textTransform: 'none',
+              boxShadow: '0 4px 12px #c1dbca',
+              transition: 'background-color 0.3s, transform 0.2s',
+              color: '#3e3e3e',
+              backgroundColor: '#f8fafc',
+              border: '1px solid #3e3e3e',
+              '&:hover': {
+                backgroundColor: '#740d5c',
+                color: '#f8fafc',
+                transform: 'scale(1.03)',
+                boxShadow: '0 6px 16px #3e3e3e',
+              }
+            }}
+          >
+            הזמן עכשיו
+          </Button>
+
+          <Button
+            fullWidth
+            size="medium"
+            variant="outlined"
+            startIcon={<ShoppingCartIcon sx={{ ml: 0.5, color: '#740d5c' }} />}
+            onClick={() => onAddToCart(movie.Id)}
+            sx={{
+              fontWeight: 'bold',
+              px: 2,
+              py: 1.2,
+              textTransform: 'none',
+              borderColor: '#740d5c',
+              color: '#740d5c',
+              backgroundColor: '#f8fafc',
+              '&:hover': {
+                backgroundColor: '#b8399a41',
+                transform: 'scale(1.03)',
+                boxShadow: '0 6px 16px #3e3e3e',
+               
+              }
+            }}
+          >
+            הוסף לעגלה
+          </Button>
+        </Box>
       </CardActions>
+
     </Card>
   );
 };

@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("DosFlix/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
