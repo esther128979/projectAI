@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+.main-content {
+  padding-right: 220px; /* תואם לרוחב של AdminNav */
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +38,4 @@
     transform: rotate(360deg);
   }
 }
+

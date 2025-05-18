@@ -1,47 +1,65 @@
-body {
-    padding-top: 70px; /* גובה ה־navbar (בערך) */
-  }
-.custom-navbar {
-    padding: 10px 20px;
-    direction: rtl;
-    text-align: center;
+// body {
+//   padding-right: 220px; /* מקום לניווט בצד ימין */
+// }
+.main-content {
+  padding-right: 220px; /* תואם לרוחב של AdminNav */
+}
 
-  }
-  
-  .nav-square {
-    background-color: white;
-    color: #007C91 !important;
-    border: 2px solid #007C91;
-    margin: 5px;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: bold;
-    transition: 0.3s;
-    text-align: center;
+.custom-navbar-vertical {
+  position: fixed;
+  top: 100px; /* מתחת לפרופיל */
+  right:  0px;
+  width: 200px;
+  height: calc(100vh - 70px); /* גובה כל הדף פחות הכותרת */
+  background-color: #f8f9fa6b;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 0 5px rgba(255, 255, 255, 0.392);
+  direction: rtl;
+  //z-index: 999;
+  border-radius: 0 0 0 10px;
+}
 
-  }
-  
-  .nav-square:hover {
-    background-color: #007C91;
-    color: white !important;
-    border-color: white;
-  }
+.nav-pills {
+  width: 100%;
+  padding: 0;
+}
 
-  
-  .home-button {
-    font-size: 1rem;
-  }
-  .simple-link {
-    color: #007C91 !important;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 8px 16px;
-   
-  }
-  
-  .simple-link:hover {
-    text-decoration: none;
-    color: #066070 !important;
-    text-decoration: underline;
-  }
+.nav-item {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.nav-square {
+  display: block;
+  width: 100%;
+  text-align: center;
+  //background-color: white;
+  color: #007C91 !important;
+  border: 2px solid #007C91;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-square:hover {
+  background-color: #007C91;
+  color: white !important;
+  border-color: white;
+}
+
+.simple-link {
+  color: #007C91 !important;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.simple-link:hover {
+  text-decoration: none;
+  color: #066070 !important;
+}

@@ -1,61 +1,81 @@
 
-import React, { useState } from 'react';
-import { UserProfileCard } from '../UserProfileCard/UserProfileCard';
-import { User } from '../../models/User';
-import OrdersModal from '../OrdersModal/OrdersModal';
-import { Order } from '../../models/Order';
+import React, { useState } from "react";
+import { Box } from "@mui/material";
+import { UserCard } from "../UserCard/UserCard";
+import { Order } from "../../models/Order";
+import { User, Gender } from '../../models/User';
+import './UserCardList.scss';
+const users: User[] = [
+  {
+    Name: "חיים",
+    Phone: "050-1234567",
+    Email: "chaim@gmail.com",
+    Id: 1,
+    Address: "רחוב הדוגמה 5",
+    Gender: Gender.male
+  },
+  {
+    Name: "לאה",
+    Phone: "050-1234567",
+    Email: "lea@gmail.com",
+    Id: 2,
+    Address: "רחוב הדוגמה 5",
+    Gender: Gender.female
+  }
+];
 
-interface UserListProps {
-  users: User[];
-}
+const orders: Order[] = [
+  {
+    id: 1,
+    date: "2025-05-01",
+    movies: [
+      { Id: 101, MovieName: "סרט א" },
+      { Id: 102, MovieName: "סרט ב" },
+    ],
+    price: 75,
+    completed: true,
+  },
+  {
+    id: 2,
+    date: "2025-04-20",
+    movies: [
+      { Id: 103, MovieName: "סרט ג" },
+    ],
+    price: 30,
+    completed: false,
+  },
+];
 
-// const fetchOrdersForUser = async (userId: number): Promise<Order[]> => {
-//   // כאן אפשר להחליף לקריאת fetch אמיתית בעתיד
-//   // return [
-//   //   {
-//   //     id: 1,
-//   //     date: '2025-05-01',
-//   //     movies: ['סרט א', 'סרט ב'],
-//   //     price: 75,
-//   //     completed: true,
-//   //   },
-//   //   {
-//   //     id: 2,
-//   //     date: '2025-04-20',
-//   //     movies: ['סרט ג'],
-//   //     price: 30,
-//   //     completed: false,
-//   //   },
-//   // ];
-// };
-
-const UserCardList = ({ users }: UserListProps) => {
+export function UserCardList() {
   const [selectedOrders, setSelectedOrders] = useState<Order[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleShowOrders = async (userId: number) => {
-  //  const orders = await fetchOrdersForUser(userId);
-  //   setSelectedOrders(orders);
+  // פונקציה לדוגמה שמחזירה הזמנות - כאן אפשר להוסיף קריאה אמיתית בעתיד
+  const handleGetOrders = async (userId: number): Promise<Order[]> => {
+    // לדוגמה, כרגע מחזירים הזמנות מדומות
+    setSelectedOrders(orders);
     setIsModalOpen(true);
+    return orders;
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      {users.map((user) => (
-        <UserProfileCard
-          key={user.Id}
-          user={user}
-          onShowOrders={handleShowOrders}
-        />
-      ))}
-
-      <OrdersModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        orders={selectedOrders || []}
-      />
-    </div>
+    <>
+    <div className="listUsers">
+      <Box 
+        sx={{ 
+          display: "flex", 
+          flexDirection: "row", 
+          flexWrap: "wrap",     
+          justifyContent: "center",
+          gap: 3,               
+          padding: 2
+        }}
+      >
+        {users.map((user) => (
+          <UserCard key={user.Id} user={user} getOrders={handleGetOrders} />
+        ))}
+      </Box>
+      </div>
+    </>
   );
-};
-
-export default UserCardList;
+}

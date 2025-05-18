@@ -23,7 +23,6 @@ export function LogIn(props: LogInProps) {
         }
         else {
             props.onLogin();
-            // Simple logic for demo purposes
             if (email === 'leah23531@gmail.com' && password === '12345') {
                 navigate('/admin',{replace: true}); // נניח שזה דף למנהל
             } else  {

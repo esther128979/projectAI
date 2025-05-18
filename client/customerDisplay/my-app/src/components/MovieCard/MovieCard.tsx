@@ -114,7 +114,7 @@ interface MovieCardProps {
     <div className="movie-card">
       <h2 className="title">{props.movie.Id}</h2>
       <div className="info-grid">
-        <div><strong>📅</strong> {new Date(props.movie.FilmProductionDate).toLocaleDateString()}</div>
+        {/* <div><strong>📅</strong> {new Date(props.movie.FilmProductionDate).toLocaleDateString()}</div> */}
         <div><strong>🎞️</strong> {props.movie.CategoryGroup}</div>
         <div><strong>👤</strong> {props.movie.AgeGroup}</div>
         <div><strong>👩</strong> {props.movie.ThereIsWoman ? 'Yes' : 'No'}</div>

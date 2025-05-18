@@ -1,74 +1,46 @@
+
+//   .user-list {
+//   display: grid;
+//   flex-direction: column; // אחד מתחת לשני
+//   gap: 12px; // רווח קטן בין כרטיסים
+//   align-items: center; // למרכז כל כרטיס
+// }
+
 // .user-card {
-//     width: 300px;
-//     background-color: #ffffff;
-//     border-radius: 12px;
-//     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-//     transition: transform 0.2s ease-in-out;
-  
-//     &:hover {
-//       transform: translateY(-5px);
-//     }
-  
-//     .card-header {
-//       padding: 1rem;
-//       border-bottom: 1px solid #e5e7eb;
-//       background-color: #f9fafb;
-  
-//       h3 {
-//         margin: 0;
-//         font-size: 1.25rem;
-//         color: #111827;
-//       }
-//     }
-  
-//     .card-content {
-//       padding: 1rem;
-  
-//       p {
-//         margin: 0.5rem 0;
-//         font-size: 0.95rem;
-//         color: #374151;
-//       }
+//   width: 300px;
+//   background-color: #ffffff;
+//   border-radius: 12px;
+//   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); // צל רך ועדין יותר
+//   transition: box-shadow 0.2s ease-in-out;
+
+//   // ביטול התזוזה ב-hover, רק אפקט הצללה אם רוצים
+//   &:hover {
+//     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+//   }
+
+//   .card-header {
+//     padding: 1rem;
+//     border-bottom: 1px solid #e5e7eb;
+//     background-color: #f9fafb;
+
+//     h3 {
+//       margin: 0;
+//       font-size: 1.25rem;
+//       color: #111827;
 //     }
 //   }
-  .user-list {
-  display: grid;
-  flex-direction: column; // אחד מתחת לשני
-  gap: 12px; // רווח קטן בין כרטיסים
-  align-items: center; // למרכז כל כרטיס
-}
 
-.user-card {
-  width: 300px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); // צל רך ועדין יותר
-  transition: box-shadow 0.2s ease-in-out;
+//   .card-content {
+//     padding: 1rem;
 
-  // ביטול התזוזה ב-hover, רק אפקט הצללה אם רוצים
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .card-header {
-    padding: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    background-color: #f9fafb;
-
-    h3 {
-      margin: 0;
-      font-size: 1.25rem;
-      color: #111827;
-    }
-  }
-
-  .card-content {
-    padding: 1rem;
-
-    p {
-      margin: 0.4rem 0;
-      font-size: 0.95rem;
-      color: #374151;
-    }
-  }
+//     p {
+//       margin: 0.4rem 0;
+//       font-size: 0.95rem;
+//       color: #374151;
+//     }
+//   }
+// }
+.listUsers{
+  position: relative;
+  padding-top: 30px;
 }
