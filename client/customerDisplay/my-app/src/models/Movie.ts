@@ -29,12 +29,12 @@ export interface MovieObject {
     CategoryGroup:CategoryGroup;
     AgeGroup:AgeGroup;
     ThereIsWoman:boolean;
-    Length:number;
-    AmountOfUses:number;
+    Duration:number;
+    AmountOfViews:number;
     FilmProductionDate:Date;
-    MovieName:string;
-    MovieDescription:string;
-    MovieUrl:string;
-    MoviePrice:number;
-    MovieImage:string;
+    Name:string;
+    Description:string;
+    Url:string;
+    Price:number;
+    Image:string;
   }

@@ -1,116 +1,40 @@
-import React, { FC, useState } from 'react';
-import {
-  List, Button, Typography, Dialog, DialogTitle, DialogContent, IconButton, Box
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import './MovieList.scss';
-import { MovieObject } from '../../models/Movie';
-import Movie from '../Movie/Movie';
-import OrderDialog from '../OrderDialog/OrderDialog';
-import { submitOrder } from '../../services/ordersService';
-
-
+import { FC } from "react";
+import { MovieObject } from "src/models/Movie";
+import MovieCard from "../MovieCard/MovieCard";
+import { Box } from '@mui/material';
 
 interface MovieListProps {
   movies: MovieObject[];
 }
 
 const MovieList: FC<MovieListProps> = ({ movies }) => {
-  const [selectedMovie, setSelectedMovie] = useState<MovieObject | null>(null);
-  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
 
-  const handleSelectMovie = (movie: MovieObject) => {
-    setSelectedMovie(movie);
-  };
+  function handleOrderNow(movieId: number) {
+    alert('הזמנה של סרט עם id: ' + movieId);
+  }
 
-  const handleOrder = () => {
-    setOrderDialogOpen(true);
-  };
-
-  const handleOrderSubmit = async (email: string) => {
-    if (selectedMovie) {
-      const orderData = {
-        email,
-        movieName: selectedMovie.MovieName, // תוודא ששם הסרט נכון
-      };
-      
-      try {
-        await submitOrder(orderData); 
-        console.log("הזמנה נשלחה בהצלחה");
-      } catch (error) {
-        console.error("אירעה שגיאה בעת שליחת ההזמנה", error);
-      }
-    }
-  
-    setOrderDialogOpen(false);
-    setSelectedMovie(null);
-  };
-  
-
-  const handleOrderCancel = () => {
-    setOrderDialogOpen(false);
-  };
+  function handleAddToCart(movieId: number) {
+    alert('הוסף לעגלה סרט עם id: ' + movieId);
+  }
 
   return (
-    <div className="MovieList">
-      <List className="movie-container">
-        {movies.map((m) => (
-          <Movie key={m.Id} movie={m} handleSelectMovie={handleSelectMovie} />
+    <div className="MovieList" style={{ padding: '20px' }}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        gap={2}
+        justifyContent="center"
+      >
+        {movies.map(movie => (
+          <Box key={movie.Id} flexBasis="calc(25% - 16px)" minWidth="250px">
+            <MovieCard
+              movie={movie}
+              onOrderNow={handleOrderNow}
+              onAddToCart={handleAddToCart}
+            />
+          </Box>
         ))}
-      </List>
-
-      <Dialog open={!!selectedMovie} onClose={() => setSelectedMovie(null)} maxWidth="md" fullWidth>
-        {selectedMovie && (
-          <>
-            <DialogTitle>
-              <img
-                src={selectedMovie.MovieImage}
-                alt={selectedMovie.MovieName}
-                style={{ width: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '8px' }}
-              />
-              {selectedMovie.MovieName}
-              <IconButton onClick={() => setSelectedMovie(null)} style={{ position: 'absolute', right: 10, top: 10 }}>
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-              <Typography>Film production date: {selectedMovie.FilmProductionDate.toLocaleDateString()}</Typography>
-              <Typography>Category: {selectedMovie.CategoryGroup}</Typography>
-              <Typography>Age: {selectedMovie.AgeGroup}</Typography>
-              <Typography>There Is Woman: {selectedMovie.ThereIsWoman}</Typography>
-              <Typography>Length: {selectedMovie.Length}</Typography>
-              <Typography>Number of views: {selectedMovie.AmountOfUses}</Typography>
-              <Typography>Movie Description: {selectedMovie.MovieDescription}</Typography>
-              <Box sx={{
-                display: "inline-block",
-                padding: "8px 16px",
-                backgroundColor: "#ffeb3b",
-                borderRadius: "8px",
-                color: "#333",
-                fontWeight: "bold"
-              }}>
-                <Typography variant="h6">
-                  💰 {selectedMovie.MoviePrice} ₪
-                </Typography>
-              </Box>
-
-              <Button
-                variant="contained"
-                style={{ marginRight: '1rem', marginTop: '1rem' }}
-                onClick={handleOrder}
-              >
-                Order Now
-              </Button>
-            </DialogContent>
-          </>
-        )}
-      </Dialog>
-
-      <OrderDialog
-        open={orderDialogOpen}
-        onClose={handleOrderCancel}
-        onSubmit={handleOrderSubmit}
-      />
+      </Box>
     </div>
   );
 };
