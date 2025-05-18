@@ -5,7 +5,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import './OrderList.scss';
 import { MovieObject } from '../../models/Movie';
-import Movie from '../Movie/Movie';
+import Movie from '../MovieCard/MovieCard';
 import OrderDialog from '../OrderDialog/OrderDialog';
 import { submitOrder } from '../../services/ordersService';
 
