@@ -15,6 +15,8 @@ namespace Dal;
 
 public class DalManager : IDal
 {
+    private readonly ICategory category;
+
     public ICustomer Customer { get; }
     public IOrder Order { get; }
 
@@ -22,6 +24,7 @@ public class DalManager : IDal
  
     public IMovie Movie { get; }
 
+   
     //public IAgeGruop AgeGruop { get; }
 
     public DalManager()

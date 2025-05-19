@@ -4,12 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dal.Api;
+using Dal.Models;
 using DAL.Models;
 
 namespace Dal.Services
 {
     public class MovieService : IMovie
     {
+
+        mycontext db;
+
+        public MovieService(mycontext db)
+        {
+
+        this.db = db; 
+        }
+    
         public async Task<Movie> Create(Movie t)
         {
             try
