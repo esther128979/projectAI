@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { MovieObject } from "src/models/Movie";
+import { MovieObject } from "../../models/Movie";
 import MovieCard from "../MovieCard/MovieCard";
 import { Box } from '@mui/material';
 

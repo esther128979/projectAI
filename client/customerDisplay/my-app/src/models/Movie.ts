@@ -27,14 +27,15 @@ export enum CategoryGroup
 export interface MovieObject {
     Id:number;
     CategoryGroup:CategoryGroup;
-    AgeGroup:AgeGroup;
-    ThereIsWoman:boolean;
-    Duration:number;
-    AmountOfViews:number;
-    FilmProductionDate:Date;
+    AgeGroup?:AgeGroup;
+    ThereIsWoman?:boolean;
+    Duration?:number;
+    AmountOfViews?:number;
+    FilmProductionDate?:Date;
     Name:string;
-    Description:string;
-    Url:string;
-    Price:number;
-    Image:string;
+    Description?:string;
+    Url?:string;
+    Price?:number;
+    Image?:string;
+  
   }

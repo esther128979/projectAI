@@ -11,7 +11,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { FC } from "react";
-import { MovieObject } from "src/models/Movie";
+import { MovieObject } from "../../models/Movie";
 
 interface MovieCardProps {
   movie: MovieObject;
