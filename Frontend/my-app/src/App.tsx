@@ -1,4 +1,4 @@
-
+import './index.css';
 import './App.css';
 import AppContent from './components/AppContent/AppContent';
 import { useState } from 'react';
