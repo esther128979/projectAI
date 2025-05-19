@@ -1,12 +1,14 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BL.Models;
 
 namespace BL.Api
 {
-    internal class IBLOrderDetails
+    public interface IBLOrderDetails :IBLCrud<BLOrderDetail>
     {
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BL.Api;
+using BL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    internal class BLPaymentMethodService
+    public class BLPaymentMethodService : IBLPaymentMethods
     {
+        public Task<List<BLPaymentMethod>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

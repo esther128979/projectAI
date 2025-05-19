@@ -15,18 +15,19 @@ namespace BL.Services
 
         IDal dal;
         IMapper mapper;
-        public BLMovieService(IDal d)
+        public BLMovieService(IDal d, IMapper mapper)
         {
             dal = d;
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<MappingProfile>();
-            });
-
-             mapper = config.CreateMapper();
+            
+            this.mapper = mapper;
         }
 
-        public Task<List<BLMovie>> GetAll()
+       public  async Task AddMovie(BLMovie movie)
+        {
+           await dal.Movie.Create(mapper.Map<DAL.Models.Movie>(movie));
+        }
+
+        public async Task<List<BLMovie>> GetAll()
         {
             List<BLMovie> list = new List<BLMovie>();
 
