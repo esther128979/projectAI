@@ -1,6 +1,6 @@
 
-//using BL;
-//using BL.Api;
+using BL;
+using BL.Api;
 
 namespace Server
 {
@@ -9,7 +9,7 @@ namespace Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            //builder.Services.AddSingleton<IBL, BlManager>();
+            builder.Services.AddSingleton<IBL, BlManager>();
             // Add services to the container.
             builder.Services.AddHttpClient();
 
