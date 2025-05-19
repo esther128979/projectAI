@@ -26,7 +26,7 @@ export enum CategoryGroup
 
 export interface MovieObject {
     Id:number;
-    CategoryGroup:CategoryGroup;
+    CategoryGroup?:CategoryGroup;
     AgeGroup?:AgeGroup;
     ThereIsWoman?:boolean;
     Duration?:number;

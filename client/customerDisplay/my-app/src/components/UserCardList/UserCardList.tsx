@@ -29,8 +29,8 @@ const orders: Order[] = [
     id: 1,
     date: "2025-05-01",
     movies: [
-      { Id: 101, MovieName: "סרט א" },
-      { Id: 102, MovieName: "סרט ב" },
+      { Id: 101, Name: "סרט א" },
+      { Id: 102, Name: "סרט ב" },
     ],
     price: 75,
     completed: true,
@@ -39,7 +39,7 @@ const orders: Order[] = [
     id: 2,
     date: "2025-04-20",
     movies: [
-      { Id: 103, MovieName: "סרט ג" },
+      { Id: 103, Name: "סרט ג" },
     ],
     price: 30,
     completed: false,

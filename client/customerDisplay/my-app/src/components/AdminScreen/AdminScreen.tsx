@@ -4,7 +4,7 @@ import { User, Gender } from '../../models/User'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Order } from '@/models/Order';
-import { Movie } from '@/models/Movie';
+import { MovieObject } from '@/models/Movie';
 import { OrderCardList } from '../OrderCardList/OrderCardList';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -40,16 +40,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -59,16 +59,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -79,16 +79,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -99,16 +99,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -119,16 +119,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -138,16 +138,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -158,16 +158,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -178,16 +178,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -197,16 +197,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -217,16 +217,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -237,16 +237,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -256,16 +256,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -276,16 +276,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -296,16 +296,16 @@ export function AdminScreen() {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
   ]
