@@ -13,6 +13,7 @@ namespace Dal.Api
         public IOrder Order { get; }
         public ICategory Category { get; }
         public IMovie Movie { get; }
+       
         //public IAgeGruop AgeGruop { get; }
 
 

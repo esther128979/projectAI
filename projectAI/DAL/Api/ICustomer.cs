@@ -6,6 +6,6 @@ namespace DAL.Api
 {
     public interface ICustomer : ICrud<Customer>
     {
-        Task<List<Customer>> GetCastomerById();
+        Task<Customer> GetCustomerById( int id);
     }
 }

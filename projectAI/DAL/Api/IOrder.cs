@@ -9,6 +9,6 @@ namespace DAL.Api
         Task<List<Order>> GetOrdersToday();
         Task<List<Order>> GetOrdersByStatusFalse();
         Task<List<Order>> GetOrdersByDateRange(DateTime startDate, DateTime endDate);
-
+       
     }
 }

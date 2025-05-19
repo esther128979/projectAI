@@ -1,5 +1,6 @@
 ﻿using BL.Models;
 using Dal.Models;
+using DAL.Models;
 
 namespace BL.Models;
 
@@ -8,14 +9,17 @@ public partial class BLOrder
     public int IdOrder { get; set; }
 
     public int IdCustomer { get; set; }
-    public List<BLOrderDetail> OrderDetailList { get; set; } = new List<BLOrderDetail>();
-
+    public List<BLMovie> MoviesList { get; set; } = new List<BLMovie>();
+  
     public DateTime DateOrder { get; set; }
 
     public eStatus Status { get; set; }
 
     public decimal TotalAmount { get; set; }
 
-    public virtual BLCustomer IdOrderNavigation { get; set; } = null!;
+
+    //public OrderDetail OrderDetail { get; set; }
+
+    //public virtual BLCustomer IdOrderNavigation { get; set; } = null!;
 
 }

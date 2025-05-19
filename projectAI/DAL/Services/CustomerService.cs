@@ -73,7 +73,9 @@ namespace Dal.Services
         }
 
 
-        public async Task<List<Customer>> GetCastomerById()
+       
+
+        public async Task<Customer?> GetCustomerById(int id)
         {
             try
             {
@@ -85,6 +87,7 @@ namespace Dal.Services
                 throw new Exception("שגיאה בהחזרת לקוח לפי מזהה", ex);
             }
         }
+
 
 
 

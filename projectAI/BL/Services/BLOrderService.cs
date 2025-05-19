@@ -10,99 +10,108 @@ using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Colors;
 using DAL.Models;
+using AutoMapper;
 
 namespace BL.Services
 {
     public class BLOrderService : IBLOrders
     {
         IDal dal;
-        public BLOrderService(IDal d)
+        IMapper mapper;
+        public BLOrderService(IDal d, IMapper mapper)
         {
             dal = d;
+
+            this.mapper = mapper;
         }
 
         public async Task<List<BLOrder>> GetAll()
         {
             List<Order> list = await dal.Order.GetAll();
-            return list.Select(o => new BLOrder()
-            {
-                IdOrder = o.IdOrder,
-                IdCustomer = o.IdCustomer,
-                DateOrder = o.DateOrder,
-                //Status = o.Status,
-                TotalAmount = o.TotalAmount,
-            }).ToList();
+            return mapper.Map<List<BLOrder>>(list);
         }
 
         public async Task<List<BLOrder>> GetByIdCustomer(int idC)
         {
-            //בדיקה שקיים לקוח כזה 
-            List<Order> list = await dal.Order.GetAll();
-            var isExist = list.FirstOrDefault(o => o.IdCustomer == idC);
-            if (isExist == null)
-                throw new Exception("The Customer is not exists in the system");
-            else
-            {
-                List<Order> list1 = await dal.Order.GetOrdersByIdCustomer(idC);
-                return list1.Select(o => new BLOrder()
-                {
-                    IdOrder = o.IdOrder,
-                    DateOrder = o.DateOrder,
-                   // Status = o.Status,
-                    TotalAmount = o.TotalAmount,
-                }).ToList();
-            }
+            // בדיקה אם הלקוח קיים
+            var customer = await dal.Customer.GetCustomerById(idC);
+            if (customer == null)
+                throw new Exception("The customer does not exist in the system.");
+
+            // שליפת ההזמנות של הלקוח
+            var orders = await dal.Order.GetOrdersByIdCustomer(idC);
+
+            return mapper.Map<List<BLOrder>>(orders);
         }
 
+
+   
         public async Task<List<BLOrder>> GetOrdersByDateRange(DateTime startDate, DateTime endDate)
         {
-            //בדיקה שהתאריכים שהתקבלו הגיוניים
             if (startDate > DateTime.Today || endDate > DateTime.Today)
                 throw new Exception("Incorrect date range.");
-            else
-            {
-                List<Order> list2 = await dal.Order.GetOrdersByDateRange(startDate, endDate);
-                return list2.Select(o => new BLOrder()
-                {
-                    IdOrder = o.IdOrder,
-                    IdCustomer = o.IdCustomer,
-                    DateOrder = o.DateOrder,
-                  //  Status = o.Status,
-                    TotalAmount = o.TotalAmount,
-                }).ToList();
-            }
 
+            List<Order> list2 = await dal.Order.GetOrdersByDateRange(startDate, endDate);
+
+            return mapper.Map<List<BLOrder>>(list2);
         }
+
+
+        //public async Task<List<BLOrder>> GetOrdersToday()
+        //{
+        //    List<Order> list3 = await dal.Order.GetOrdersToday();
+        //    return list3.Select(o => new BLOrder()
+        //    {
+        //        IdOrder = o.IdOrder,
+        //        IdCustomer = o.IdCustomer,
+        //        DateOrder = o.DateOrder,
+        //       // Status = o.Status,
+        //        TotalAmount = o.TotalAmount,
+        //    }).ToList();
+        //}
+
+
+        //public async Task<List<BLOrder>> GetOrdersByStatusFalse()
+        //{
+        //    List<Order> list4 = await dal.Order.GetOrdersByStatusFalse();
+        //    return list4.Select(o => new BLOrder()
+        //    {
+        //        IdOrder = o.IdOrder,
+        //        IdCustomer = o.IdCustomer,
+        //        DateOrder = o.DateOrder,
+        //        //Status = o.Status,
+        //        TotalAmount = o.TotalAmount,
+        //    }).ToList();
+        //}
 
         public async Task<List<BLOrder>> GetOrdersToday()
         {
             List<Order> list3 = await dal.Order.GetOrdersToday();
-            return list3.Select(o => new BLOrder()
-            {
-                IdOrder = o.IdOrder,
-                IdCustomer = o.IdCustomer,
-                DateOrder = o.DateOrder,
-               // Status = o.Status,
-                TotalAmount = o.TotalAmount,
-            }).ToList();
+            return mapper.Map<List<BLOrder>>(list3);
         }
-
 
         public async Task<List<BLOrder>> GetOrdersByStatusFalse()
         {
             List<Order> list4 = await dal.Order.GetOrdersByStatusFalse();
-            return list4.Select(o => new BLOrder()
-            {
-                IdOrder = o.IdOrder,
-                IdCustomer = o.IdCustomer,
-                DateOrder = o.DateOrder,
-                //Status = o.Status,
-                TotalAmount = o.TotalAmount,
-            }).ToList();
+            return mapper.Map<List<BLOrder>>(list4);
         }
-        public Task AddOreder(BLOrder order)
+
+
+        public async Task AddOrder(BLOrder order)
         {
-            throw new NotImplementedException();
+            if (order == null)
+                throw new ArgumentNullException(nameof(order));
+
+            // ממפה את BLOrder ל-Order (מה-BL ל-DAL)
+            Order newOrder = mapper.Map<Order>(order);
+
+             // AmountOfUses++
+
+            List<Movie> movies = new List<Movie>();
+            movies=order.
+             // שמירת ההזמנה
+             await dal.Order.Create(newOrder);
+
         }
         public static async Task GenerateOrdersPdf(IEnumerable<BLOrder> orders)
         {
