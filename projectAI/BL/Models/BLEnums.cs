@@ -16,13 +16,13 @@ namespace BL.Models
     }
     public enum eStatus
     {
-        Oreder,
-        History
+        Completed,
+        InProgress
     }
     public enum eGender
     {
-        male,
-        female,
+        Male,
+        Female
     }
     public enum eCategoryGroup
     {
