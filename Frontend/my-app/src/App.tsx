@@ -1,7 +1,6 @@
 
 import './App.css';
 import AppContent from './components/AppContent/AppContent';
-
 import { useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 import AdminLayout from "../src/components/AdminLayout/AdminLayout";
@@ -19,6 +18,7 @@ export default function App() {
     console.log("סימנו כהושלם הזמנה מספר:", orderId);
     // כאן את יכולה לעדכן סטייט / לשלוח בקשה לשרת / להציג טוסטר
   }
+
 return (
   <div className="row">
     <Routes>

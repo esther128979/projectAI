@@ -3,12 +3,16 @@ import './LogIn.scss';
 import { useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/authSlice';
+
 
 interface LogInProps {
     onLogin: () => void;
 }
 export function LogIn(props: LogInProps) {
     const navigate = useNavigate();
+    const dispatch=useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,6 +27,10 @@ export function LogIn(props: LogInProps) {
         }
         else {
             props.onLogin();
+                       dispatch(loginUser({
+        role: 'admin',
+        username: 'd'
+    }))
             if (email === 'leah23531@gmail.com' && password === '12345') {
                 navigate('/admin',{replace: true}); // נניח שזה דף למנהל
             } else  {
@@ -40,12 +48,15 @@ export function LogIn(props: LogInProps) {
                 });
                 const userInfo = res.data;
                 props.onLogin();
+               
+     
                 // בדוק אם המשתמש הוא מנהל
                 if (userInfo.email === 'leah23531@gmail.com') {
                     navigate('/admin',{replace: true});
                 } else {
                     navigate('/home',{replace: true});
                 }
+
             } catch (err) {
                 console.error('Failed to fetch user info:', err);
             }
