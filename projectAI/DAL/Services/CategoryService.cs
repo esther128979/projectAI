@@ -10,29 +10,89 @@ namespace Dal.Services
 {
     public class CategoryService : ICategory
     {
-        public Task<Category> Create(Category t)
+
+        mycontext db;
+        public CategoryService(mycontext? m)
         {
-            throw new NotImplementedException();
+            db = m;
+        }
+        public async Task<Category> Create(Category t)
+        {
+            try
+            {
+                db.Categories.Add(t);
+                await db.SaveChangesAsync();
+                return t;
+            }
+            catch(Exception ex) {
+            {
+                throw new Exception("Error creating Category", ex);
+            }
         }
 
-        public Task<Category> Delete(Category t)
+        public async Task<Category> Delete(Category t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var category = await db.Categories.FindAsync(t.CategoryCode);
+                if (category == null)
+                    return null;
+
+                db.Categories.Remove(category);
+                await db.SaveChangesAsync();
+                return category;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Deleteing Category", ex);
+            }
         }
 
         public Task<List<Category>> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await db.Categories.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Categories", ex);
+            }
+          
         }
 
         public Task<List<Category>> GetCategoryByCategoryDescreption()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await db.Categories
+                .Where(c => !string.IsNullOrEmpty(c.CategoryDescription))
+                .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בהחזרת קטגוריה לפי תאור קטגוריה", ex);
+            }
+           
         }
-
+        
         public Task<Category> Update(Category t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existing = await db.Categories.FindAsync(t.CategoryCode);
+                if (existing == null)
+                    return null;
+
+                existing.CategoryDescription = t.CategoryDescription;
+
+                await db.SaveChangesAsync();
+                return existing;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בעדכון קטגוריה", ex);
+            }
         }
     }
 }

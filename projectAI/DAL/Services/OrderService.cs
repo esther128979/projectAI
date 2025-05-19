@@ -85,36 +85,24 @@ namespace Dal.Services
             throw new NotImplementedException();
         }
 
-        public Task<Order> Delete(Order t)
+        public async Task<Order> Delete(Order order)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingOrder = await db.Orders.FindAsync(order.Id);
+                if (existingOrder == null)
+                    return null;
+
+                db.Orders.Remove(existingOrder);
+                await db.SaveChangesAsync();
+                return existingOrder;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error deleting order", ex);
+            }
         }
 
-        Task<List<Order>> IOrder.GetOrdersByIdCustomer(int idC)
-        {
-            throw new NotImplementedException();
-        }
 
-        Task<List<Order>> IOrder.GetOrdersToday()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<Order>> IOrder.GetOrdersByStatusFalse()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<Order>> IOrder.GetOrdersByDateRange(DateTime startDate, DateTime endDate)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<Order>> ICrud<Order>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-      
     }
 }

@@ -20,7 +20,7 @@ namespace Dal.Services
         {
             try
             {
-                return  db.Customers.ToList();
+                return await db.Customers.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -72,21 +72,22 @@ namespace Dal.Services
             }
         }
 
-        // תיקון שם המתודה, וכנראה רצית לפי מזהה:
+
         public async Task<List<Customer>> GetCastomerById()
         {
-            throw new NotImplementedException("עדיין לא ברור מה הפונקציה אמורה לעשות בדיוק");
+            try
+            {
+                return await db.Customers
+                    .FirstOrDefaultAsync(c => c.CustomerId == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בהחזרת לקוח לפי מזהה", ex);
+            }
         }
 
-        Task<List<Customer>> ICustomer.GetCastomerById()
-        {
-            throw new NotImplementedException();
-        }
 
-        Task<List<Customer>> ICrud<Customer>.GetAll()
-        {
-            throw new NotImplementedException();
-        }
+
 
     }
 

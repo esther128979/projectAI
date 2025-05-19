@@ -10,19 +10,64 @@ namespace Dal.Services
 {
     public class MovieService : IMovie
     {
-        public Task<Movie> Create(Movie t)
+        public async Task<Movie> Create(Movie t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.Movies.Add(t);
+                await db.SaveChangesAsync();
+                return t;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error creating Movie", ex);
+            }
         }
 
-        public Task<Movie> Delete(Movie t)
+        public async Task<Movie> Delete(Movie t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var movie = await db.Movies.FindAsync(movie.Id);
+                if (movie == null)
+                {
+                    return null;
+                }
+
+                db.Movies.Remove(movie);
+                await db.SaveChangesAsync();
+                return movie;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error Deleteing Movie", ex);
+            }
         }
 
-        public Task<List<Movie>> GetAll()
+        public async Task<Movie> Update(Movie movie)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.Movies.Update(movie);
+                await db.SaveChangesAsync();
+                return movie;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error updating movie", ex);
+            }
+        }
+
+        public async Task<List<Movie>> GetAll()
+        {
+            try
+            {
+                return await db.Movies.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving movie data", ex);
+            }
         }
 
         public Task<List<Movie>> GetMovieByCodeCategory()
@@ -30,9 +75,6 @@ namespace Dal.Services
             throw new NotImplementedException();
         }
 
-        public Task<Movie> Update(Movie t)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
