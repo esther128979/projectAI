@@ -17,16 +17,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -36,16 +36,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -56,16 +56,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -76,16 +76,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -96,16 +96,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -115,16 +115,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -135,16 +135,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -155,16 +155,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -174,16 +174,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -194,16 +194,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -214,16 +214,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }, {
       id: 1,
@@ -233,16 +233,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -253,16 +253,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
     , {
@@ -273,16 +273,16 @@ export function OrderCardList({ onComplete }: OrderCardListProps) {
       movies: [
         {
           Id: 1,
-          MovieName: "הטורף",
-          MovieDescription: "סרט אקשן מותח על יצור חייזרי",
-          MovieUrl: "https://example.com/the-predator",
-          MoviePrice: 49.99
+          Name: "הטורף",
+          Description: "סרט אקשן מותח על יצור חייזרי",
+          Url: "https://example.com/the-predator",
+          Price: 49.99
         }, {
           Id: 2,
-          MovieName: "הארי פוטר ואבן החכמים",
-          MovieDescription: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
-          MovieUrl: "https://example.com/harry-potter",
-          MoviePrice: 59.90
+          Name: "הארי פוטר ואבן החכמים",
+          Description: "הסיפור הראשון בסדרת הסרטים המצליחה על הנער הקוסם",
+          Url: "https://example.com/harry-potter",
+          Price: 59.90
         }]
     }
   ]

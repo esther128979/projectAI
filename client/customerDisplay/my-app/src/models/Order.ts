@@ -1,9 +1,9 @@
-import { Movie } from "./Movie";
+import { MovieObject } from "./Movie";
 
 export interface Order {
   completed: boolean;
   id: number;
   date: string;
-  movies: Movie[];
+  movies: MovieObject[];
   price: number;
 }

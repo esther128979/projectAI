@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Order } from '../../models/Order';
 import { User, Eye, CalendarDays } from 'lucide-react';
-import { AiOutlineClose } from 'react-icons/ai';
+// import { AiOutlineClose } from 'react-icons/ai';
 import { X } from 'lucide-react';
 
 interface OrderCardProps {
@@ -76,8 +76,8 @@ export function OrderCard({ order, onComplete }: OrderCardProps) {
               <ul className="space-y-2">
                 {order.movies.map((movie, i) => (
                   <li key={i} className="p-3 bg-gray-100 rounded-lg flex flex-col items-center text-center">
-                    <div className="font-semibold mb-2">{movie.MovieName}</div>
-                    <a href={movie.MovieUrl} className="text-cyan-800 text-sm underline" target="_blank" rel="noreferrer">
+                    <div className="font-semibold mb-2">{movie.Name}</div>
+                    <a href={movie.Url} className="text-cyan-800 text-sm underline" target="_blank" rel="noreferrer">
                       קישור
                     </a>
                   </li>
