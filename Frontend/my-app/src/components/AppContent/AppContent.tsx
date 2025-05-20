@@ -9,6 +9,9 @@ import { useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
 import MovieList from "../MovieList/MovieList";
 import { MovieObject, CategoryGroup, AgeGroup } from "../../models/Movie";
+import Cart from "../Cart/Cart"
+import { Badge } from "@mui/material";
+import { useSelector } from "react-redux";
 
 interface AppContentProps { }
 
@@ -158,6 +161,7 @@ const moviesExemple: MovieObject[] = [
 const AppContent: FC<AppContentProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const cartCount = useSelector((state: any) => state.myCart.items.length);
 
     // הפונקציה מחזירה את האינדקס של הטאב לפי הנתיב, או -1 אם לא מתאים
     const getPageFromPath = (path: string) => {
@@ -176,7 +180,7 @@ const AppContent: FC<AppContentProps> = () => {
     const page = getPageFromPath(location.pathname);
   
     const ForYou = () => <div>במיוחד בשבילך</div>;
-    const Cart = () => <div>עגלת קניות</div>;
+    // const Cart = () => <div>עגלת קניות</div>;
     const Orders = () => <div>ההזמנות שלך</div>;
     const About = () =>
         <div
@@ -297,10 +301,13 @@ const AppContent: FC<AppContentProps> = () => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="עגלת קניות">
-                            <IconButton onClick={() => navigate('/cart')} sx={{ color: "#c1dbca" }}>
-                                <ShoppingCartIcon />
-                            </IconButton>
-                        </Tooltip>
+          <IconButton onClick={() => navigate('/cart')} sx={{ color: "#c1dbca" }}>
+          <Badge badgeContent={cartCount} color="error" max={99}>
+                   <ShoppingCartIcon />
+                      </Badge>
+                     </IconButton>
+                       </Tooltip>
+
                         <Tooltip title="התנתקות">
                             <IconButton onClick={handleLogout} sx={{ color: "#c1dbca" }}>
                                 <LogoutIcon />

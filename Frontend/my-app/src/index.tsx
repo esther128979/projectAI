@@ -10,10 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './redux/authSlice';
+import {cartSlice} from './redux/cartSlice';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 const myStore=configureStore({
-  reducer:combineSlices(authSlice)
+  reducer:combineSlices(authSlice,cartSlice)
 })
 root.render(
   <React.StrictMode>

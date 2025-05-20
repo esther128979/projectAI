@@ -8,6 +8,9 @@ import { AdminScreen } from "../src/components/AdminScreen/AdminScreen";
 import { OrderCardList } from "../src/components/OrderCardList/OrderCardList";
 import { LogIn } from './components/LogIn/LogIn';
 import { UserCardList } from './components/UserCardList/UserCardList';
+import MovieList from './components/MovieList/MovieList';
+import { Movie } from '@mui/icons-material';
+import Cart from './components/Cart/Cart';
 
 
 export default function App() {
@@ -21,6 +24,7 @@ export default function App() {
 
 return (
   <div className="row">
+    <AppContent></AppContent>
     <Routes>
       {isLoggedIn ? (
         isAdmin ? (
@@ -29,6 +33,10 @@ return (
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminScreen />} />
               <Route path="home" element={<AdminScreen />} />
+             
+              <Route path="cart" element={<Cart />} />
+
+             
               <Route path="customers" element={<UserCardList />} />
               <Route path="orders" element={<OrderCardList onComplete={handleComplete} />} />
             </Route>
