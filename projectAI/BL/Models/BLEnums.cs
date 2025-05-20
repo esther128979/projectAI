@@ -16,8 +16,8 @@ namespace BL.Models
     }
     public enum eStatus
     {
-        Completed,
-        InProgress
+        Completed=0,
+        InProgress=1
     }
     public enum eGender
     {

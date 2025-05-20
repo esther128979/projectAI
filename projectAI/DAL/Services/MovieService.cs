@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dal.Api;
+using DAL.Api;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Services
+namespace DAL.Services
 {
     public class MovieService : IMovie
     {
+        private readonly mycontext db;
+        public MovieService(mycontext m)
+        {
+            db = m;
+        }
+
         public async Task<Movie> Create(Movie t)
         {
             try
@@ -28,7 +35,7 @@ namespace Dal.Services
         {
             try
             {
-                var movie = await db.Movies.FindAsync(movie.Id);
+                var movie = await db.Movies.FindAsync(t.Id);
                 if (movie == null)
                 {
                     return null;
@@ -67,12 +74,23 @@ namespace Dal.Services
             catch (Exception ex)
             {
                 throw new Exception("Error retrieving movie data", ex);
-            }
+            } 
         }
 
-        public Task<List<Movie>> GetMovieByCodeCategory()
+        public async Task<List<Movie>> GetMovieByCodeCategory(Category c)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                return await db.Movies
+                    .Where(m => m.CodeCategory == c.CategoryCode)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בעת שליפת סרטים לפי קטגוריה", ex);
+            }
+            
         }
 
        

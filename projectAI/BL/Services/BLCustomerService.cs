@@ -1,16 +1,16 @@
 ﻿using BL.Api;
-using Dal.Api;
+using DAL.Api;
 using BL.Models;
-using Dal.Models;
 using DAL.Models;
+
 
 
 namespace BL.Services
 {
     public class BLCustomerService : IBLCustomer
     {
-        IDal dal;
-        public BLCustomerService(IDal d)
+        IDAL dal;
+        public BLCustomerService(IDAL d)
         {
             dal = d;
         }

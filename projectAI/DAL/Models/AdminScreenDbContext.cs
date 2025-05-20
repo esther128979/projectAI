@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-namespace Dal.Models;
+namespace DAL.Models;
 
 public partial class AdminScreenDbContext : DbContext
 {

@@ -1,19 +1,16 @@
-﻿using Dal.Api;
+﻿using DAL.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Dal.Models;
-using Microsoft.EntityFrameworkCore;
-using Dal.Services;
-using DAL.Api;
 using DAL.Models;
-//using DAL.Services;
-namespace Dal;
+using Microsoft.EntityFrameworkCore;
+using DAL.Services;
+namespace DAL;
 
-public class DalManager : IDal
+public class DALManager : IDAL
 {
     public ICustomer Customer { get; }
     public IOrder Order { get; }
@@ -24,7 +21,7 @@ public class DalManager : IDal
 
     //public IAgeGruop AgeGruop { get; }
 
-    public DalManager()
+    public DALManager()
     {
         ServiceCollection serCollection = new ServiceCollection();
         serCollection.AddDbContext<mycontext>(options =>
@@ -32,7 +29,7 @@ public class DalManager : IDal
 
         serCollection.AddSingleton<mycontext>();
 
-        serCollection.AddScoped<IDal, DalManager>();//צריך לבדוק!!!
+        serCollection.AddScoped<IDAL, DALManager>();//צריך לבדוק!!!
         serCollection.AddScoped<ICustomer, CustomerService>();
         serCollection.AddScoped<IOrder, OrderService>();
         serCollection.AddScoped<IMovie, MovieService>();

@@ -113,20 +113,19 @@ namespace BL.Services
 
             #region Order
 
+            // מיפוי מ-DAL ל-BL
             CreateMap<Order, BLOrder>()
-        .ForMember(dest => dest.Status,
-                   opt => opt.MapFrom(src => src.Status ? eStatus.Completed : eStatus.InProgress)) // לפי הערכים ב-enum
-        .ForMember(dest => dest.IdOrderNavigation,
-                   opt => opt.MapFrom(src => src.IdOrderNavigation))
-        .ForMember(dest => dest.OrderDetailList,
-                   opt => opt.Ignore()); // תממשי אם יש לך טבלת OrderDetails
+                .ForMember(dest => dest.Status,
+                           opt => opt.MapFrom(src => src.Status ? eStatus.Completed : eStatus.InProgress))
+                .ForMember(dest => dest.MoviesList, // אם אין Movies ב-Order, התעלמי מזה או הוסף ממקור אחר
+                           opt => opt.Ignore()); // ממלאים ממקום אחר או משאירים ריק
 
-
+            // מיפוי מ-BL ל-DAL
             CreateMap<BLOrder, Order>()
-    .ForMember(dest => dest.Status,
-               opt => opt.MapFrom(src => src.Status == eStatus.InProgress))
-    .ForMember(dest => dest.IdOrderNavigation,
-               opt => opt.MapFrom(src => src.IdOrder));
+                .ForMember(dest => dest.Status,
+                           opt => opt.MapFrom(src => src.Status == eStatus.Completed)) // אם Completed – true
+                .ForMember(dest => dest.IdOrderNavigation,
+                           opt => opt.Ignore()); // שדה ניווט – לא ממפים אותו מ-id
 
 
 

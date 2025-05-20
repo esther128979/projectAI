@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BL.Api;
 using BL.Models;
-using Dal.Api;
+using DAL.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ namespace BL.Services
     public class BLMovieService : IBLMovies
     {
 
-        IDal dal;
+        IDAL dal;
         IMapper mapper;
-        public BLMovieService(IDal d, IMapper mapper)
+        public BLMovieService(IDAL d, IMapper mapper)
         {
             dal = d;
             
@@ -38,8 +38,9 @@ namespace BL.Services
             return list;
         }
 
-        public Task<BLMovie> GetMovieByCategory()
+        public async Task<BLMovie> GetMovieByCategory()
         {
+
             throw new NotImplementedException();
         }
     }

@@ -1,7 +1,7 @@
-﻿using Dal.Api;
+﻿using DAL.Api;
 using BL.Api;
 using Microsoft.Extensions.DependencyInjection;
-using Dal;
+using DAL;
 using BL.Services;
 using BL.Models;
 using DAL;
@@ -38,7 +38,7 @@ namespace BL
 
 
             serCollection.AddAutoMapper(typeof (MappingProfile )); 
-            serCollection.AddSingleton<IDal, DalManager>();
+            serCollection.AddSingleton<IDAL, DALManager>();
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();
             serCollection.AddScoped<IBLCustomer, BLCustomerService>();

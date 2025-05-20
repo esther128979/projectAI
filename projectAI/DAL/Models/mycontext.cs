@@ -2,7 +2,7 @@
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Models;
+namespace DAL.Models;
 
 public partial class mycontext : DbContext
 {

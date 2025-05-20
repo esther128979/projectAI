@@ -10,5 +10,7 @@ namespace BL.Api
 {
     public interface IBLOrderDetails :IBLCrud<BLOrderDetail>
     {
+
+
     }
 }

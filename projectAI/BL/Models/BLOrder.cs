@@ -1,5 +1,5 @@
 ﻿using BL.Models;
-using Dal.Models;
+using DAL.Models;
 using DAL.Models;
 
 namespace BL.Models;

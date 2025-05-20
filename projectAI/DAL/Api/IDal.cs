@@ -1,13 +1,13 @@
 ﻿
 
-using Dal.Api;
-using Dal.Models;
+using DAL.Api;
+using DAL.Models;
 using DAL.Api;
 
-namespace Dal.Api
+namespace DAL.Api
 {
     // מה צריך להכיל שכבת הדל
-    public interface IDal
+    public interface IDAL
     {
         public ICustomer Customer { get; }
         public IOrder Order { get; }

@@ -1,11 +1,10 @@
-﻿using Dal.Api;
-using Dal.Models;
-using DAL.Api;
+﻿using DAL.Api;
 using DAL.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Dal.Services
+namespace DAL.Services
 {
     public class OrderService : IOrder
     {
@@ -75,21 +74,48 @@ namespace Dal.Services
             }
         }
 
-        public Task<Order> Create(Order t)
+        public async Task<Order> Create(Order t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await db.Orders.AddAsync(t);
+                await db.SaveChangesAsync();
+                return t;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה ביצירת הזמנה", ex);
+            }
         }
 
-        public Task<Order> Update(Order t)
+        public async Task<Order?> Update(Order t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existing = await db.Orders.FindAsync(t.IdOrder);
+                if (existing == null)
+                    return null;
+
+                // עדכון שדות (מותאם לשדות שבמודל שלך)
+                existing.IdCustomer = t.IdCustomer;
+                existing.DateOrder = t.DateOrder;
+                existing.TotalAmount = t.TotalAmount;
+                // וכו'
+
+                await db.SaveChangesAsync();
+                return existing;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בעדכון הזמנה", ex);
+            }
         }
 
         public async Task<Order> Delete(Order order)
         {
             try
             {
-                var existingOrder = await db.Orders.FindAsync(order.Id);
+                var existingOrder = await db.Orders.FindAsync(order.IdOrder);
                 if (existingOrder == null)
                     return null;
 

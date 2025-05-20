@@ -1,12 +1,10 @@
-﻿using Dal.Api;
-using Dal.Models;
-using DAL.Api;
+﻿using DAL.Api;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-//using DAL.Models;
 
 
-namespace Dal.Services
+
+namespace DAL.Services
 {
     public class CustomerService : ICustomer
     {

@@ -1,7 +1,7 @@
 ﻿using BL.Api;
-using Dal.Api;
+using DAL.Api;
 using BL.Models;
-using Dal.Models;
+using DAL.Models;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -9,16 +9,16 @@ using iText.Layout;
 using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Colors;
-using DAL.Models;
+
 using AutoMapper;
 
 namespace BL.Services
 {
     public class BLOrderService : IBLOrders
     {
-        IDal dal;
+        IDAL dal;
         IMapper mapper;
-        public BLOrderService(IDal d, IMapper mapper)
+        public BLOrderService(IDAL d, IMapper mapper)
         {
             dal = d;
 
@@ -107,8 +107,8 @@ namespace BL.Services
 
              // AmountOfUses++
 
-            List<Movie> movies = new List<Movie>();
-            movies=order.
+            //List<Movie> movies = new List<Movie>();
+            //movies=order.
              // שמירת ההזמנה
              await dal.Order.Create(newOrder);
 

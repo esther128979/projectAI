@@ -7,7 +7,7 @@ using BL.Models;
 
 namespace BL.Api
 {
-    public  interface IBLPaymentMethods : IBLCrud<BLPaymentMethod>
+    public interface IBLPaymentMethods : IBLCrud<BLPaymentMethod>
     {
 
 
