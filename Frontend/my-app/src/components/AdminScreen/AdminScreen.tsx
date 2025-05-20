@@ -324,9 +324,9 @@ export function AdminScreen() {
 
   return (
     <>
-      <div>
+      <div className='cardList'>
         {/* פונקציה זמנית */}
-        <SearchBar onSearch={(query) => console.log("חיפוש:", query)} />
+       {/* <SearchBar onSearch={(query) => console.log("חיפוש:", query)} /> */}
         {/* קריאה לכל ההזמנות שהסטטוס שלהן לא טופל */}
         <OrderCardList onComplete={handleComplete}></OrderCardList>
       </div>
