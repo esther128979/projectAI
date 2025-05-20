@@ -1,4 +1,3 @@
-// src/redux/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Role = 'admin' | 'user' | null;

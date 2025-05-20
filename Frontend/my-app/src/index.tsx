@@ -10,11 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './redux/authSlice';
+import { myStore } from './myStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
-const myStore=configureStore({
-  reducer:combineSlices(authSlice)
-})
+
 root.render(
   <React.StrictMode>
     <Provider store={myStore}>

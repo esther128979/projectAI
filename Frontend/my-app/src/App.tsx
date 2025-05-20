@@ -1,58 +1,33 @@
 
 import './App.css';
-import AppContent from './components/AppContent/AppContent';
-import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
-import AdminLayout from "../src/components/AdminLayout/AdminLayout";
-import { AdminScreen } from "../src/components/AdminScreen/AdminScreen";
-import { OrderCardList } from "../src/components/OrderCardList/OrderCardList";
-import { LogIn } from './components/LogIn/LogIn';
-import { UserCardList } from './components/UserCardList/UserCardList';
-import { Dashboard } from './components/A/A';
-
-
+import AppContent from './components/userComponents/AppContent/AppContent';
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { LogIn } from './components/commonComponents/LogIn/LogIn';
+import { Dashboard } from './components/adminComponents/Dashboard/Dashboard';
+import { useSelector } from 'react-redux';
+import { RootState } from './myStore';
+import { useEffect } from 'react';
+import AdminScreen from "./components/adminComponents/AdminScreen/AdminScreen"
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setAdmin] = useState(true);
+  const { isLoggedIn, role } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
-  function handleComplete(orderId: number) {
-    console.log("סימנו כהושלם הזמנה מספר:", orderId);
-    // כאן את יכולה לעדכן סטייט / לשלוח בקשה לשרת / להציג טוסטר
-  }
+  // useEffect(() => {
+  //   if (!isLoggedIn || !role) {
+  //     navigate("/login");
+  //   } else if (role === "admin") {
+  //     navigate("/admin");
+  //   } else if (role === "user"){
+  //     navigate("/user");
+  //   }
+  // }, [isLoggedIn, role]);
 
-return (
-  // <div className="row">
-  //   <Routes>
-  //     {isLoggedIn ? (
-  //       isAdmin ? (
-  //         <>
-  //           {/* מסכים למנהל */}
-  //           <Route path="/admin" element={<AdminLayout />}>
-  //             <Route index element={<AdminScreen />} />
-  //             <Route path="home" element={<AdminScreen />} />
-  //             <Route path="customers" element={<UserCardList />} />
-  //             <Route path="orders" element={<OrderCardList onComplete={handleComplete} />} />
-  //           </Route>
-  //         </>
-  //       ) : (
-  //         <>
-  //           {/* מסכים ללקוח רגיל */}
-  //           <Route path="/customer" element={<AdminLayout />}>
-  //             <Route index element={<AppContent />} />
-  //           </Route>
-  //         </>
-  //       )
-  //     ) : (
-  //       <>
-  //         {/* מסך התחברות */}
-  //         <Route path="/" element={<LogIn onLogin={() => setIsLoggedIn(true)} />} />
-  //       </>
-  //     )}
-  //   </Routes>
-  // </div>
-  <div>
-    <Dashboard></Dashboard>
-  </div>
-);
-
+  return (
+    // <Routes>
+    //   <Route path="/login" element={<LogIn />} />
+    //   <Route path="/admin" element={<AdminScreen />} />
+    //   <Route path="/user" element={<AppContent />} />
+    // </Routes>
+    <AdminScreen></AdminScreen>
+  );
 }
