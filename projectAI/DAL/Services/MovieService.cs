@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Api;
 using DAL.Models;
+using iText.Commons.Actions.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Services
@@ -89,14 +90,14 @@ namespace DAL.Services
             }
         }
 
-        public async Task<List<Movie>> GetMovieByCodeCategory(Category c)
+        public async Task<List<Movie>> GetMoviesByCodeCategory(int c)
         {
 
             try
             {
                 return await db.Movies
-                    .Where(m => m.CategoryCode == c.CategoryCode)
-                    .ToListAsync();
+                        .Where(m => m.CategoryCode == c)
+                        .ToListAsync();
             }
             catch (Exception ex)
             {
@@ -104,7 +105,22 @@ namespace DAL.Services
             }
 
         }
+        public async Task<List<Movie>> GetMoviesByAgeGroup(int ageGroupCode)
+        {
 
+            try
+            {
+                return await db.Movies
+                        .Where(m => m.AgeCode == ageGroupCode)
+                        .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בעת שליפת סרטים לפי קבוצת גיל", ex);
+            }
 
+        }
+
+       
     }
 }

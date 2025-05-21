@@ -14,7 +14,6 @@ public partial class EmailTracking
 
     [StringLength(100)]
     public string? Email { get; set; }
-
     public Guid? Token { get; set; }
 
     [Column(TypeName = "datetime")]

@@ -19,6 +19,7 @@ public partial class Order
     public bool Status { get; set; }
 
     [Column(TypeName = "decimal(18, 2)")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)] // מונע עדכון – רק קריאה
     public decimal? TotalAmount { get; set; }
 
     [ForeignKey("IdCustomer")]
@@ -27,4 +28,6 @@ public partial class Order
 
     [InverseProperty("Order")]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+    public string Token { get; set; }
 }

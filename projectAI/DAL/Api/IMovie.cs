@@ -9,7 +9,8 @@ namespace DAL.Api
 {
     public interface IMovie: ICrud<Movie>
     {
-        Task<List<Movie>> GetMovieByCodeCategory(Category c);
+        Task<List<Movie>> GetMoviesByCodeCategory(int categoryCode);
+        Task<List<Movie>> GetMoviesByAgeGroup(int ageGroupCode);
         Task<Movie?> GetMovieById(int id);
 
 

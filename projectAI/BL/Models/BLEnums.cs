@@ -8,27 +8,29 @@ namespace BL.Models
 {
     public enum eAgeGroup
     {
-        Babies,
-        Children,
-        Teens,
-        Adult,
-        GoldenAge
+        Babies =1,
+        Children=2,
+        Teens=3,
+        Adult=4,
+        GoldenAge=5
     }
     public enum eStatus
     {
-        Completed=0,
-        InProgress=1
+        InProgress = 0,
+        Completed = 1
     }
     public enum eGender
     {
-        Male,
-        Female
+        Male=0,
+        Female=1
     }
     public enum eCategoryGroup
     {
-        Children,
-        Recipes,
-        Nature,
-        Plot
+        Children=1,
+        Recipes=2,
+        Nature=3,
+        Plot=4
     }
+    public enum eRole { Admin = 1, Customer = 2 }
+
 }

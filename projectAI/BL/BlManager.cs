@@ -5,6 +5,8 @@ using DAL;
 using BL.Services;
 using BL.Models;
 using AutoMapper;
+using DAL.Services;
+using System.Net.Http;
 
 namespace BL
 {
@@ -13,9 +15,10 @@ namespace BL
 
         public IBLAgeGroup AgeGroup { get; }
         public IBLCategory Category { get; }
-        public IBLCustomer Customer { get; }
+        public IBLUser User { get; }
         public IBLMovies Movies { get; }
         public IBLOrders Order { get; }
+        public IEmailSender EmailSender { get; }
 
 
 
@@ -23,32 +26,37 @@ namespace BL
         {
 
 
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile<MappingProfile>();
-            //});
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
 
-            //IMapper mapper = config.CreateMapper();
+            IMapper mapper = config.CreateMapper();
 
             ServiceCollection serCollection = new ServiceCollection();
 
 
             serCollection.AddAutoMapper(typeof (MappingProfile )); 
+
             serCollection.AddSingleton<IDAL, DALManager>();
+
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();
-            serCollection.AddScoped<IBLCustomer, BLCustomerService>();
+            serCollection.AddScoped<IBLUser, BLUserService>();
             serCollection.AddScoped<IBLMovies, BLMovieService>();
             serCollection.AddScoped<IBLOrders, BLOrderService>();
+            
+            serCollection.AddHttpClient<IEmailSender, EmailSender>();
 
             //הגדרת ספק מחלקות שרות
             ServiceProvider p = serCollection.BuildServiceProvider();
 
             AgeGroup = p.GetRequiredService<IBLAgeGroup>();
             Category = p.GetRequiredService<IBLCategory>();
-            Customer = p.GetRequiredService<IBLCustomer>();
+            User = p.GetRequiredService<IBLUser>();
             Movies = p.GetRequiredService<IBLMovies>();
             Order = p.GetRequiredService<IBLOrders>();
+            EmailSender = p.GetRequiredService<IEmailSender>();
         }
     }
 }

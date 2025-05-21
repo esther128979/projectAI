@@ -7,9 +7,10 @@ namespace BL.Api
 
         public IBLAgeGroup AgeGroup { get; }
         public IBLCategory Category { get; }
-        public IBLCustomer Customer { get; }
+        public IBLUser User { get; }
         public IBLMovies Movies { get; }
         public IBLOrders Order { get; }
+        public IEmailSender EmailSender { get;  }
 
     }
 }

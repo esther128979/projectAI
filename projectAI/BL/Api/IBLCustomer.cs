@@ -2,7 +2,7 @@
 
 namespace BL.Api
 {
-    public interface IBLCustomer : IBLCrud<BLCustomer>
+    public interface IBLUser : IBLCrud<BLUser>
     {
 
     }

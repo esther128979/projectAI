@@ -9,7 +9,7 @@ using System.Text;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity.Data;
 
-namespace Server.Controllers
+namespace server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

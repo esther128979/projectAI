@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DAL.Models;
 
@@ -134,7 +135,10 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.IdOrder).HasName("PK__Orders__C38F300988E32713");
 
             entity.Property(e => e.DateOrder).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.TotalAmount).HasDefaultValue(0m);
+            entity.Property(e => e.TotalAmount)
+                  .HasColumnType("decimal(18, 2)")
+                  .ValueGeneratedOnAddOrUpdate()
+                  .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
             entity.HasOne(d => d.IdCustomerNavigation).WithMany(p => p.Orders)
                 .OnDelete(DeleteBehavior.ClientSetNull)

@@ -181,10 +181,10 @@ namespace BL.Services
                         //מילוי הנתונים בטבלה
                         foreach (var order in orders)
                         {
-                            table.AddCell(new Cell().Add(new Paragraph(order.IdOrder.ToString()).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
-                            table.AddCell(new Cell().Add(new Paragraph(order.DateOrder.ToString("dd/MM/yyyy")).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
+                            table.AddCell(new Cell().Add(new Paragraph(order.Id.ToString()).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
+                            table.AddCell(new Cell().Add(new Paragraph(order.OrderDate.ToString()).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
                             //   table.AddCell(new Cell().Add(new Paragraph(order.Status ? "Completed" : "Not completed").SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
-                            table.AddCell(new Cell().Add(new Paragraph(order.TotalAmount.ToString("N2")).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
+                            table.AddCell(new Cell().Add(new Paragraph(order.TotalAmount.ToString()).SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
                             // table.AddCell(new Cell().Add(new Paragraph(order.IsPaid ? "Paid" : "Unpaid").SetTextAlignment(TextAlignment.CENTER).SetFont(regularFont)));
                         }
                         document.Add(table);

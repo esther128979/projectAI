@@ -3,20 +3,15 @@ namespace BL.Models;
 
 public partial class BLOrder
 {
-    public int IdOrder { get; set; }
-
-    public int IdCustomer { get; set; }
-    public List<BLMovie> MoviesList { get; set; } = new List<BLMovie>();
-  
-    public DateTime DateOrder { get; set; }
-
-    public eStatus Status { get; set; }
-
-    public decimal TotalAmount { get; set; }
 
 
-    //public OrderDetail OrderDetail { get; set; }
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public eStatus Status { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public List<BLOrderItem> OrderItems { get; set; } = new();
+        public decimal? TotalAmount { get; set; }//הצגה בלבד- זה מחושב ע"י טריגר בדטהבייס
+        public string Token { get; set; }
 
-    //public virtual BLCustomer IdOrderNavigation { get; set; } = null!;
 
 }
