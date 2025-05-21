@@ -18,33 +18,37 @@ public class DALManager : IDAL
     public ICategory Category { get; }
  
     public IMovie Movie { get; }
+    public IEmailLink EmailLink { get;  }
+    public IUser User { get;  }
+
 
     //public IAgeGruop AgeGruop { get; }
 
     public DALManager()
     {
         ServiceCollection serCollection = new ServiceCollection();
-        serCollection.AddDbContext<mycontext>(options =>
-         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\214991887\\Desktop\\projectAI\\projectAI\\adminScreen_DB.mdf;Integrated Security=True;Connect Timeout=30"));
+        serCollection.AddDbContext<AppDbContext>(options =>
+         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\tzipi\\Desktop\\פרויקט גמר בסייעתא דשמייא\\סקפולד חדש\\projectAI\\projectAI\\adminScreen_DB.mdf\";Integrated Security=True;Connect Timeout=30"));
 
-        serCollection.AddSingleton<mycontext>();
+        serCollection.AddSingleton<AppDbContext>();
 
-        serCollection.AddScoped<IDAL, DALManager>();//צריך לבדוק!!!
         serCollection.AddScoped<ICustomer, CustomerService>();
         serCollection.AddScoped<IOrder, OrderService>();
         serCollection.AddScoped<IMovie, MovieService>();
         serCollection.AddScoped<ICategory, CategoryService>();
-        //serCollection.AddScoped<IAgeGruop, AgeGruopService>();
+        serCollection.AddScoped<IEmailLink, EmailLinkService>();
+        serCollection.AddScoped<IUser, UserService>();
 
         // הגדרת ספק מחלקות שרות
         ServiceProvider p = serCollection.BuildServiceProvider();
         Customer = p.GetRequiredService<ICustomer>();
         Order = p.GetRequiredService<IOrder>();
-        Movie= p.GetRequiredService<IMovie>();  
+        Movie = p.GetRequiredService<IMovie>();
         Category = p.GetRequiredService<ICategory>();
-        //AgeGruop=p.GetRequiredService<IAgeGruop>();
-     
-      
+        EmailLink = p.GetRequiredService<IEmailLink>();
+        User = p.GetRequiredService<IUser>();
+
+
 
     }
 }

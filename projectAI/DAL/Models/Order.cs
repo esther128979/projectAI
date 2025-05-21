@@ -19,9 +19,12 @@ public partial class Order
     public bool Status { get; set; }
 
     [Column(TypeName = "decimal(18, 2)")]
-    public decimal TotalAmount { get; set; }
+    public decimal? TotalAmount { get; set; }
 
-    [ForeignKey("IdOrder")]
+    [ForeignKey("IdCustomer")]
+    [InverseProperty("Orders")]
+    public virtual Customer IdCustomerNavigation { get; set; } = null!;
+
     [InverseProperty("Order")]
-    public virtual Customer IdOrderNavigation { get; set; } = null!;
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

@@ -9,9 +9,7 @@ namespace BL.Api
         public IBLCategory Category { get; }
         public IBLCustomer Customer { get; }
         public IBLMovies Movies { get; }
-        public IBLOrderDetails OrderDetails { get; }
         public IBLOrders Order { get; }
-        public IBLPaymentMethods PaymentMethods { get; }
 
     }
 }

@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Services
 {
-    public class MovieService : IMovie
+    public class MovieService: IMovie
     {
-        private readonly mycontext db;
-        public MovieService(mycontext m)
+        private readonly AppDbContext db;
+        public MovieService(AppDbContext m)
         {
             db = m;
         }
@@ -74,7 +74,19 @@ namespace DAL.Services
             catch (Exception ex)
             {
                 throw new Exception("Error retrieving movie data", ex);
-            } 
+            }
+        }
+        public async Task<Movie?> GetMovieById(int id)
+        {
+            try
+            {
+                return await db.Movies
+                    .FirstOrDefaultAsync(c => c.Id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בהחזרת סרט לפי מזהה", ex);
+            }
         }
 
         public async Task<List<Movie>> GetMovieByCodeCategory(Category c)
@@ -83,16 +95,16 @@ namespace DAL.Services
             try
             {
                 return await db.Movies
-                    .Where(m => m.CodeCategory == c.CategoryCode)
+                    .Where(m => m.CategoryCode == c.CategoryCode)
                     .ToListAsync();
             }
             catch (Exception ex)
             {
                 throw new Exception("שגיאה בעת שליפת סרטים לפי קטגוריה", ex);
             }
-            
+
         }
 
-       
+
     }
 }

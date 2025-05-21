@@ -1,7 +1,7 @@
 using System.Text;
 using BL;
 using BL.Api;
-using jwt.Models;
+//using jwt.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,9 +18,9 @@ namespace Server
             // ===== שירותים מותאמים אישית (BL) =====
             builder.Services.AddSingleton<IBL, BlManager>();
 
-            // ===== EF Core (SQL Server) =====
-            builder.Services.AddDbContext<EJwtJwtdataMdfContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            //// ===== EF Core (SQL Server) =====
+            //builder.Services.AddDbContext<EJwtJwtdataMdfContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // ===== JWT Authentication =====
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

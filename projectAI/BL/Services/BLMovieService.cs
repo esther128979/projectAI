@@ -24,16 +24,17 @@ namespace BL.Services
 
        public  async Task AddMovie(BLMovie movie)
         {
-           await dal.Movie.Create(mapper.Map<DAL.Models.Movie>(movie));
+            throw new NotImplementedException();
+           //await dal.Movie.Create(mapper.Map<DAL.Models.Movie>(movie));
         }
 
         public async Task<List<BLMovie>> GetAll()
         {
             List<BLMovie> list = new List<BLMovie>();
 
-            var dallist = dal.Movie.GetAll().Result;
+            //var dallist = dal.Movie.GetAll().Result;
 
-            dallist.ForEach(l=>list.Add( mapper.Map<BLMovie >(l)));
+            //dallist.ForEach(l=>list.Add( mapper.Map<BLMovie >(l)));
 
             return list;
         }

@@ -8,8 +8,8 @@ namespace DAL.Services
 {
     public class CustomerService : ICustomer
     {
-        mycontext db;
-        public CustomerService(mycontext? m)
+        AppDbContext db;
+        public CustomerService(AppDbContext? m)
         {
             db = m;
         }
@@ -71,14 +71,14 @@ namespace DAL.Services
         }
 
 
-       
+
 
         public async Task<Customer?> GetCustomerById(int id)
         {
             try
             {
                 return await db.Customers
-                    .FirstOrDefaultAsync(c => c.CustomerId == id);
+                    .FirstOrDefaultAsync(c => c.UserId == id);
             }
             catch (Exception ex)
             {

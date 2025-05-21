@@ -7,9 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DAL.Api
 {
-    public interface IMovie : ICrud<Movie>
+    public interface IMovie: ICrud<Movie>
     {
         Task<List<Movie>> GetMovieByCodeCategory(Category c);
-        
+        Task<Movie?> GetMovieById(int id);
+
+
+
     }
 }

@@ -20,7 +20,7 @@ namespace Server.Controllers
         [HttpPost("submit-order")]
         public async Task<IActionResult> SubmitOrder([FromBody] OrderData order)
         {
-            var googleScriptUrl = "https://script.google.com/macros/s/AKfycbxvS-BKpWK112xyiKWE0WxHfk8sJ50BiN6u1dQZcQlFHOEL9ewb-2_7aHfbJuIceAE/exec";
+            var googleScriptUrl = "https://script.google.com/macros/s/AKfycbx_gt_DpSyUKHThKe_bwT4dkfiENMRr7aQnNtvXKiO9KHAX7LmCzE05ZalGuRJOVbA7/exec";
             var formContent = new FormUrlEncodedContent(new[]
             {
         new KeyValuePair<string, string>("email", order.Email),
@@ -51,6 +51,7 @@ namespace Server.Controllers
         {
             public string Email { get; set; }
             public string MovieName { get; set; }
+
         }
     }
 

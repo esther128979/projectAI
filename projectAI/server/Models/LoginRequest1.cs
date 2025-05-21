@@ -1,4 +1,4 @@
-﻿namespace jwt.Models
+﻿namespace server.Models
 {
     public class LoginRequest1
     {

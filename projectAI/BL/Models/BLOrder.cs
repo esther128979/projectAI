@@ -1,7 +1,4 @@
-﻿using BL.Models;
-using DAL.Models;
-using DAL.Models;
-
+﻿
 namespace BL.Models;
 
 public partial class BLOrder
