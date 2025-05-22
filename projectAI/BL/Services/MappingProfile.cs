@@ -138,11 +138,11 @@ CreateMap<BLUser, Customer>()
 
             // BL ➡️ DAL (שולחים חזרה לדאטהבייס)
             CreateMap<BLOrder, Order>()
-                .ForMember(dest => dest.Status,
-                           opt => opt.MapFrom(src => src.Status == eStatus.Completed))
-                .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אם צריך
-                .ForMember(dest => dest.TotalAmount,
-                           opt => opt.Ignore()); // ✅ לא נשלח ערך – הדאטהבייס מחשב
+      .ForMember(dest => dest.Status,
+                 opt => opt.MapFrom(src => src.Status == eStatus.Completed))
+      .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems)) 
+      .ForMember(dest => dest.TotalAmount,
+                 opt => opt.Ignore()); // DB calculates this
 
             #endregion
 

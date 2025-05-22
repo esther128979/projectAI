@@ -1,19 +1,34 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using AutoMapper;
 using BL.Models;
+using iText.Svg.Renderers.Path.Impl;
+using Microsoft.OpenApi.Attributes;
 using server.Models;
 
 namespace server.Profiles
 {
     public class MovieProfile : Profile
     {
+        public static string? GetDisplayName(Enum? value)
+        {
+            if (value == null)
+                return null;
+
+            var type = value.GetType();
+            var member = type.GetMember(value.ToString()!);
+            var attr = member[0].GetCustomAttribute<DisplayAttribute>();
+
+            return attr?.Name ?? value.ToString();
+        }
         public MovieProfile()
         {
+
             // DTO ➡️ BL (יצירת סרט חדש)
             CreateMap<MovieCreateDTO, BLMovie>()
                 .ForMember(dest => dest.TotalViews, opt => opt.MapFrom(src => 0))
                 .ForMember(dest => dest.TotalViewers, opt => opt.MapFrom(src => 0))
-                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CodeCategory ?? eCategoryGroup.Recipes))
-                .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeGroup ?? eAgeGroup.Adult))
+                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CodeCategory))
+                .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeGroup))
                 .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.HasWoman ?? false))
                 .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.LengthMinutes))
                 .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
@@ -24,23 +39,60 @@ namespace server.Profiles
 
             // DTO ➡️ BL (עדכון סרט קיים)
             CreateMap<MovieUpdateDTO, BLMovie>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CodeCategory))
-                .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeGroup))
-                .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.HasWoman))
-                .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.LengthMinutes))
-                .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
-                .ForMember(dest => dest.PriceBase, opt => opt.MapFrom(src => src.PriceBase))
-                .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => src.PricePerExtraViewer))
-                .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => src.PricePerExtraView))
-                .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.MovieLink))
-                .ForMember(dest => dest.TotalViews, opt => opt.Ignore()) // לא מעדכנים צפיות בעת עריכה
-                .ForMember(dest => dest.TotalViewers, opt => opt.Ignore());
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id)) // חייב להתעדכן תמיד
+                 .ForMember(dest => dest.Name, opt => {
+                     opt.PreCondition(src => !string.IsNullOrEmpty(src.Name));
+                     opt.MapFrom(src => src.Name);
+                 })
+                 .ForMember(dest => dest.Description, opt => {
+                     opt.PreCondition(src => !string.IsNullOrEmpty(src.Description));
+                     opt.MapFrom(src => src.Description);
+                 })
+                 .ForMember(dest => dest.CodeCategory, opt => {
+                     opt.PreCondition(src => src.CodeCategory != null);
+                     opt.MapFrom(src => src.CodeCategory.Value);
+                 })
+                 .ForMember(dest => dest.AgeGroup, opt => {
+                     opt.PreCondition(src => src.AgeGroup != null);
+                     opt.MapFrom(src => src.AgeGroup.Value);
+                 })
+                 .ForMember(dest => dest.HasWoman, opt => {
+                     opt.PreCondition(src => src.HasWoman != null);
+                     opt.MapFrom(src => src.HasWoman.Value);
+                 })
+                 .ForMember(dest => dest.LengthMinutes, opt => {
+                     opt.PreCondition(src => src.LengthMinutes != null);
+                     opt.MapFrom(src => src.LengthMinutes.Value);
+                 })
+                 .ForMember(dest => dest.ProductionDate, opt => {
+                     opt.PreCondition(src => src.ProductionDate != null);
+                     opt.MapFrom(src => src.ProductionDate.Value);
+                 })
+                 .ForMember(dest => dest.PriceBase, opt => {
+                     opt.PreCondition(src => src.PriceBase != null);
+                     opt.MapFrom(src => src.PriceBase.Value);
+                 })
+                 .ForMember(dest => dest.PricePerExtraViewer, opt => {
+                     opt.PreCondition(src => src.PricePerExtraViewer != null);
+                     opt.MapFrom(src => src.PricePerExtraViewer.Value);
+                 })
+                 .ForMember(dest => dest.PricePerExtraView, opt => {
+                     opt.PreCondition(src => src.PricePerExtraView != null);
+                     opt.MapFrom(src => src.PricePerExtraView.Value);
+                 })
+                 .ForMember(dest => dest.MovieLink, opt => {
+                     opt.PreCondition(src => !string.IsNullOrEmpty(src.MovieLink));
+                     opt.MapFrom(src => src.MovieLink);
+                 })
+                 .ForMember(dest => dest.TotalViews, opt => opt.Ignore())
+                 .ForMember(dest => dest.TotalViewers, opt => opt.Ignore());
 
             // BL ➡️ DTO (הצגת סרט)
             CreateMap<BLMovie, MovieGetDTO>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CodeCategoryNavigation != null ? src.CodeCategoryNavigation.CategoryDescription : null))
-                .ForMember(dest => dest.AgeGroupName, opt => opt.MapFrom(src => src.AgeGroupNavigation != null ? src.AgeGroupNavigation.AgeDescription : null))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src =>
+                  GetDisplayName(src.CodeCategory)))
+                .ForMember(dest => dest.AgeGroupName, opt => opt.MapFrom(src =>
+                  GetDisplayName(src.AgeGroup)))
                 .ForMember(dest => dest.FinalPrice, opt => opt.MapFrom(src => src.FinalPrice))
                 .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.LengthMinutes ?? 0))
                 .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.HasWoman))

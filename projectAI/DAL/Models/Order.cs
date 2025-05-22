@@ -28,6 +28,6 @@ public partial class Order
 
     [InverseProperty("Order")]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
+    [NotMapped]
     public string Token { get; set; }
 }
