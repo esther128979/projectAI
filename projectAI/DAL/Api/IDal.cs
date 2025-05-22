@@ -15,6 +15,7 @@ namespace DAL.Api
         //public IAgeGruop AgeGruop { get; }
 
         public IEmailLink EmailLink { get; }
+        public IEmailLinkClick EmailLinkClick { get; }
 
 
 

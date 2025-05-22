@@ -19,6 +19,7 @@ namespace BL
         public IBLMovies Movies { get; }
         public IBLOrders Order { get; }
         public IEmailSender EmailSender { get; }
+        public IEmailLinkManager EmailLinkManager { get; }
 
 
 
@@ -45,6 +46,7 @@ namespace BL
             serCollection.AddScoped<IBLUser, BLUserService>();
             serCollection.AddScoped<IBLMovies, BLMovieService>();
             serCollection.AddScoped<IBLOrders, BLOrderService>();
+            serCollection.AddScoped<IEmailLinkManager, EmailLinkManager>();
             
             serCollection.AddHttpClient<IEmailSender, EmailSender>();
 
@@ -57,6 +59,7 @@ namespace BL
             Movies = p.GetRequiredService<IBLMovies>();
             Order = p.GetRequiredService<IBLOrders>();
             EmailSender = p.GetRequiredService<IEmailSender>();
+            EmailLinkManager = p.GetRequiredService<IEmailLinkManager>();
         }
     }
 }

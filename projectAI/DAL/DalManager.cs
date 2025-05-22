@@ -19,6 +19,7 @@ public class DALManager : IDAL
  
     public IMovie Movie { get; }
     public IEmailLink EmailLink { get;  }
+    public IEmailLinkClick EmailLinkClick { get;  }
     public IUser User { get;  }
 
 
@@ -37,6 +38,7 @@ public class DALManager : IDAL
         serCollection.AddScoped<IMovie, MovieService>();
         serCollection.AddScoped<ICategory, CategoryService>();
         serCollection.AddScoped<IEmailLink, EmailLinkService>();
+        serCollection.AddScoped<IEmailLinkClick, EmailLinkClickService>();
         serCollection.AddScoped<IUser, UserService>();
 
         // הגדרת ספק מחלקות שרות
@@ -46,6 +48,7 @@ public class DALManager : IDAL
         Movie = p.GetRequiredService<IMovie>();
         Category = p.GetRequiredService<ICategory>();
         EmailLink = p.GetRequiredService<IEmailLink>();
+        EmailLinkClick = p.GetRequiredService<IEmailLinkClick>();
         User = p.GetRequiredService<IUser>();
 
 

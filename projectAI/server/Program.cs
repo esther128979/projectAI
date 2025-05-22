@@ -109,6 +109,7 @@ namespace server
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(MovieProfile));
+            builder.Services.AddAutoMapper(typeof(OrderProfile));
 
             var app = builder.Build();
 

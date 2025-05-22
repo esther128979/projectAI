@@ -33,6 +33,13 @@ public partial class EmailLink
     [Column(TypeName = "datetime")]
     public DateTime? ExpirationDate { get; set; }
 
+    [Column("ViewLimit")]
+    public int? ViewLimit { get; set; }
+
+    [Column("ViewCount")]
+    public int? ViewCount { get; set; }
+
+
     [InverseProperty("Link")]
     public virtual ICollection<EmailLinkClick> EmailLinkClicks { get; set; } = new List<EmailLinkClick>();
 

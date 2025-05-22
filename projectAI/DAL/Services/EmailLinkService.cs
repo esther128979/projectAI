@@ -46,8 +46,7 @@ public class EmailLinkService : IEmailLink
             EmailType = emailType,
             DateCreated = DateTime.UtcNow,
             ExpirationDate = DateTime.UtcNow.AddDays(14),
-            //MaxViews = maxViews,
-            //CurrentViews = 0
+           
         };
 
         _context.EmailLinks.Add(emailLink);
@@ -61,14 +60,11 @@ public class EmailLinkService : IEmailLink
         var link = await _context.EmailLinks.FirstOrDefaultAsync(l => l.UniqueToken == token);
 
         if (link == null ||
-            (link.ExpirationDate.HasValue && link.ExpirationDate.Value < DateTime.UtcNow)
-          //  || link.CurrentViews >= link.MaxViews)
-          )
+            (link.ExpirationDate.HasValue && link.ExpirationDate.Value < DateTime.UtcNow))
         {
             return false;
         }
 
-        //link.CurrentViews++;
         await _context.SaveChangesAsync();
 
         return true;
@@ -98,4 +94,18 @@ public class EmailLinkService : IEmailLink
         _context.EmailLinks.RemoveRange(expired);
         await _context.SaveChangesAsync();
     }
+    public async Task<EmailLink> GetByTokenWithClicksAndMovieAsync(string token)
+    {
+        return await _context.EmailLinks
+            .Include(l => l.EmailLinkClicks)
+            .Include(l => l.Movie)
+            .FirstOrDefaultAsync(l => l.UniqueToken == token);
+    }
+
+    public async Task UpdateAsync(EmailLink link)
+    {
+        _context.EmailLinks.Update(link);
+        await _context.SaveChangesAsync();
+    }
+
 }

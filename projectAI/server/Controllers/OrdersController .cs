@@ -3,56 +3,64 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using BL.Api;
+using BL.Models;
+using server.Models;
+using AutoMapper;
 
 namespace server.Controllers
 {
     [Route("DosFlix/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        private readonly IBL _bl;
+        private readonly IMapper _mapper;
 
-        public OrderController(HttpClient httpClient)
+        public OrdersController(IBL bl, IMapper mapper)
         {
-            _httpClient = httpClient;
+            _bl = bl;
+            _mapper = mapper;
         }
 
-        [HttpPost("submit-order")]
-        public async Task<IActionResult> SubmitOrder([FromBody] OrderData order)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllOrders()
         {
-            var googleScriptUrl = "https://script.google.com/macros/s/AKfycbx_gt_DpSyUKHThKe_bwT4dkfiENMRr7aQnNtvXKiO9KHAX7LmCzE05ZalGuRJOVbA7/exec";
-            var formContent = new FormUrlEncodedContent(new[]
-            {
-        new KeyValuePair<string, string>("email", order.Email),
-        new KeyValuePair<string, string>("movieName", order.MovieName),
-    });
-
-            try
-            {
-                var response = await _httpClient.PostAsync(googleScriptUrl, formContent);
-                var result = await response.Content.ReadAsStringAsync();
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return Ok(new { success = true, message = result });
-                }
-                else
-                {
-                    return BadRequest(new { success = false, message = "שגיאה ב-Google Script", details = result });
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { success = false, message = "שגיאת מערכת", error = ex.Message });
-            }
+            var orders = await _bl.Order.GetAll();
+            return Ok(orders);
         }
 
-        public class OrderData
+        [HttpGet("customer/{id}")]
+        public async Task<IActionResult> GetByCustomerId(int id)
         {
-            public string Email { get; set; }
-            public string MovieName { get; set; }
+            var orders = await _bl.Order.GetByIdCustomer(id);
+            return Ok(orders);
+        }
 
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDTO order)
+        {
+            var dtoOrder = _mapper.Map<BLOrder>(order);
+
+            await _bl.Order.AddOrder(dtoOrder);
+            return Ok("Order created and email links sent.");
+        }
+
+        [HttpGet("today")]
+        public async Task<IActionResult> GetTodayOrders()
+        {
+            var orders = await _bl.Order.GetOrdersToday();
+            return Ok(orders);
+        }
+
+        [HttpGet("bydaterange")]
+        public async Task<IActionResult> GetByDateRange(DateTime start, DateTime end)
+        {
+            var orders = await _bl.Order.GetOrdersByDateRange(start, end);
+            return Ok(orders);
         }
     }
 
+       
 }
+

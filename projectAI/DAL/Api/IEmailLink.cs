@@ -18,5 +18,10 @@ namespace DAL.Api
 
         // חדש: ניקוי קישורים שפג תוקפם
         Task DeleteExpiredLinksAsync();
+        Task<EmailLink?> GetByTokenWithClicksAndMovieAsync(string token);
+
+
+        Task UpdateAsync(EmailLink link);
+
     }
 }

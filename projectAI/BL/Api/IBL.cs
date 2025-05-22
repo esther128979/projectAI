@@ -11,6 +11,7 @@ namespace BL.Api
         public IBLMovies Movies { get; }
         public IBLOrders Order { get; }
         public IEmailSender EmailSender { get;  }
+        public IEmailLinkManager EmailLinkManager { get; }
 
     }
 }
