@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './redux/authSlice';
 import { myStore } from './myStore';
-
+import 'index.css'
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(

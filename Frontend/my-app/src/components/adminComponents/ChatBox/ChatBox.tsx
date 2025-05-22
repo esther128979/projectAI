@@ -54,22 +54,46 @@ export default function ChatBox({ onClose }: { onClose: () => void }) {
 
   return (
     <Box width={300} >
-      <FormControl dir="rtl" fullWidth sx={{ mb: 2, marginTop:7}}>
-        { <InputLabel id="provider-select-label" >בחר ספק</InputLabel> }
-        <Select
-         dir="rtl"
-          labelId="provider-select-label"
-          value={selectedProvider}
+     
+
+<FormControl
+  fullWidth
+  variant="outlined"
+  sx={{
+    mt: 7,
+    direction: "rtl",
+    '& label': {
+      left: 'auto',
+      right: 29,
+      transformOrigin: 'right',
+    },
+    '& legend': {
+      textAlign: 'right',
+    },
+    '& .MuiSelect-icon': {
+      right: 'auto',
+      left: 7,
+    },
+    '& .MuiOutlinedInput-input': {
+      textAlign: 'right',
+    },
+  }}
+>
+  <InputLabel id="unit-select-label">בחר ספק</InputLabel>
+  <Select
+    labelId="unit-select-label"
+     value={selectedProvider}
           onChange={handleProviderChange}
-          label="בחר ספק"
-        >
-          {providers.map((provider) => (
-            <MenuItem key={provider} value={provider}>
-              {provider}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    label="בחר ספק"
+  >
+    {providers.map((unit) => (
+      <MenuItem key={unit} value={unit} dir="rtl">
+        {unit}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
+
 
       {selectedProvider ? (
         <>
@@ -80,8 +104,8 @@ export default function ChatBox({ onClose }: { onClose: () => void }) {
               p: 2,
               mb: 2,
               maxHeight: "100px",
-              direction:"rtl",
-             textAlign:'right'
+              direction: "rtl",
+              textAlign: 'left'
             }}
           >
             {messages.map((msg, idx) => {
@@ -91,10 +115,10 @@ export default function ChatBox({ onClose }: { onClose: () => void }) {
                   key={idx}
                   display="flex"
                   justifyContent={isManager ? "flex-end" : "flex-start"}
-                  mb={1} 
-                textAlign="right"
-                dir='rtl'
-                  >
+                  mb={1}
+                  textAlign="right"
+                  dir='rtl'
+                >
 
                   <Box
                     sx={{
@@ -141,7 +165,7 @@ export default function ChatBox({ onClose }: { onClose: () => void }) {
         </>
       ) : (
         <Typography variant="body1" color="text.secondary">
-         אנא בחר ספק כדי להתחיל שיחה.
+          אנא בחר ספק כדי להתחיל שיחה.
         </Typography>
       )}
     </Box>

@@ -7,12 +7,19 @@ import { Box, Container } from "@mui/system";
 import { FC, useState } from "react";
 import { useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
-import MovieList from "../../commonComponents/MovieList/MovieList";
+// import MovieList from "../../commonComponents/MovieList/MovieList";
 import { MovieObject, CategoryGroup, AgeGroup } from "../../../models/Movie";
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import { Paper, Collapse } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/authSlice';
+import MovieCardCustomer from '../MovieListUser/MovieListUser';
+import MovieListClient from '../MovieListClient/MovieListClient';
+import MovieListUser from '../MovieListUser/MovieListUser';
+
+
 interface AppContentProps { }
 
 
@@ -162,6 +169,8 @@ const moviesExemple: MovieObject[] = [
 const AppContent: FC<AppContentProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
+
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState("");
@@ -170,7 +179,7 @@ const AppContent: FC<AppContentProps> = () => {
         text: string;
         time: string;
     };
-   
+
     const handleSendMessage = () => {
         if (newMessage.trim() === "") return;
 
@@ -284,8 +293,8 @@ const AppContent: FC<AppContentProps> = () => {
     const Register = () => <div>הרשמה</div>;
 
     const handleLogout = () => {
-        // ניקוי נתונים אם צריך
-        navigate('/login');
+        dispatch(logout());
+        navigate('/');
     };
 
     const handleChange = (event: React.SyntheticEvent, newPage: number) => {
@@ -296,6 +305,13 @@ const AppContent: FC<AppContentProps> = () => {
             default: break;
         }
     };
+    function handleOrderNow(movieId: number) {
+        alert('הזמנה של סרט עם id: ' + movieId);
+    }
+
+    function handleAddToCart(movieId: number) {
+        alert('הוסף לעגלה סרט עם id: ' + movieId);
+    }
 
     return (
         <Box dir="rtl" sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -350,7 +366,8 @@ const AppContent: FC<AppContentProps> = () => {
             <Container sx={{ flexGrow: 1, marginTop: '2rem', paddingLeft: '2rem', position: 'relative' }} maxWidth={false} disableGutters>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/all-movies" element={<MovieList movies={moviesExemple} />} />
+                    <Route path="/all-movies" element={<MovieListUser movies={moviesExemple} />
+                    } />
                     <Route path="/for-you" element={<ForYou />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/orders" element={<Orders />} />

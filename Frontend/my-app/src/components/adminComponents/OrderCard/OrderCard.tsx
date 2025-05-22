@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Order } from '../../../models/Order';
-import { User, Eye, CalendarDays } from 'lucide-react';
-// import { AiOutlineClose } from 'react-icons/ai';
-import { X } from 'lucide-react';
+import { Order } from '../../../models/Order'
+import { User, Eye, CalendarDays, X } from 'lucide-react';
 
 interface OrderCardProps {
   order: Order;
@@ -12,21 +10,33 @@ interface OrderCardProps {
 export function OrderCard({ order, onComplete }: OrderCardProps) {
   const [showModal, setShowModal] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(order.completed); // local copy for instant UI feedback
+
+  const handleComplete = () => {
+    setIsCompleted(true); // מייד משנה את התצוגה
+    onComplete(order.id); // עדכון לוגיקה חיצונית
+    setShowModal(false);
+  };
+function formatDateHebrew(dateStr: string): string {
+  const [year, month, day] = dateStr.split('-');
+  return `${day}.${month}.${year}`;
+}
 
   return (
     <div className="relative">
-      <div className={`border rounded-2xl p-6 shadow-lg bg-white max-w-xl mx-auto mb-6 transition 
+      <div className={`relative border rounded-2xl p-6 shadow-lg bg-white max-w-md mx-auto mb-6 transition 
         ${showModal || showUserModal ? 'opacity-30 pointer-events-none' : ''}`}>
-        
+
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">הזמנה #{order.id}</h2>
-          <span className={`text-sm px-3 py-1 rounded-full ${order.completed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-            {order.completed ? 'הושלמה' : 'לא הושלמה'}
+          <span className={`text-sm px-3 py-1 rounded-full ${isCompleted ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {isCompleted ? 'הושלמה' : 'לא הושלמה'}
           </span>
         </div>
 
         <div className="text-gray-500 mb-4 text-sm flex items-center gap-2">
-          <CalendarDays className="w-4 h-4 text-cyan-800" /> {order.date}
+          <CalendarDays className="w-4 h-4 text-cyan-800" /> {formatDateHebrew(order.date)}
+
         </div>
 
         <div className="flex flex-col gap-2">
@@ -39,24 +49,20 @@ export function OrderCard({ order, onComplete }: OrderCardProps) {
           </button>
         </div>
 
-        {!order.completed && (
+        {!isCompleted && (
           <button
-            onClick={() => {
-              onComplete(order.id);
-              setShowModal(false);
-            }}
-            className="w-1/3 py-2 rounded-lg bg-cyan-800 text-white hover:bg-cyan-900 transition ease-in-out duration-300 absolute bottom-12 right-6"
+            onClick={handleComplete}
+            className="w-1/3 py-2 rounded-lg bg-cyan-800 text-white hover:bg-cyan-900 transition ease-in-out duration-300 absolute bottom-7 left-4"
           >
             השלם הזמנה
           </button>
         )}
       </div>
 
-      {/* מודל פרטי ההזמנה */}
+      {/* מודלים (כמו שהיו) */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex justify-center items-center">
           <div className="absolute inset-0 backdrop-blur-sm bg-white/40"></div>
-
           <div className="relative z-10 bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
             <button
               onClick={() => setShowModal(false)}
@@ -65,7 +71,6 @@ export function OrderCard({ order, onComplete }: OrderCardProps) {
             >
               <X className="w-5 h-5" />
             </button>
-
             <h2 className="text-2xl font-bold mb-4 text-center">הזמנה #{order.id}</h2>
 
             <div className="text-gray-600 mb-2 text-center flex justify-center items-center gap-2">
@@ -92,13 +97,11 @@ export function OrderCard({ order, onComplete }: OrderCardProps) {
         </div>
       )}
 
-      {/* מודל פרטי המשתמש */}
       {showUserModal && (
         <div className="fixed inset-0 z-50 flex justify-center items-center">
           <div className="absolute inset-0 backdrop-blur-sm bg-white/40"></div>
-
           <div className="relative z-10 bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
-          <button
+            <button
               onClick={() => setShowUserModal(false)}
               className="absolute top-3 left-3 text-gray-500 hover:text-black text-xl p-2 rounded-full hover:bg-gray-200 transition"
               aria-label="סגור"

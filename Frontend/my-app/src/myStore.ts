@@ -6,6 +6,8 @@ export const myStore = configureStore({
   reducer: {
     auth: authReducer,
   },
+    devTools: process.env.NODE_ENV !== 'production',
+
 });
 
 // טיפוסים בשביל TypeScript

@@ -7,10 +7,10 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PeopleIcon from '@mui/icons-material/People';
 
 const stats = [
-  { title: 'New Orders', value: 150, color: '#00c0ef', icon: <ShoppingCartIcon fontSize="large" /> },
-  { title: 'Bounce Rate', value: '53%', color: '#00a65a', icon: <BarChartIcon fontSize="large" /> },
-  { title: 'User Registrations', value: 44, color: '#f39c12', icon: <PersonAddIcon fontSize="large" /> },
-  { title: 'Unique Visitors', value: 65, color: '#dd4b39', icon: <PeopleIcon fontSize="large" /> },
+  { title: 'New Orders', value: 150, color: '#F59C8A', icon: <ShoppingCartIcon fontSize="large" /> },
+  { title: 'Bounce Rate', value: '53%', color: '#EE476F', icon: <BarChartIcon fontSize="large" /> },
+  { title: 'User Registrations', value: 44, color: '#118AB2', icon: <PersonAddIcon fontSize="large" /> },
+  { title: 'Unique Visitors', value: 65, color: '#2FD396', icon: <PeopleIcon fontSize="large" /> },
 ];
 
 const DashboardCard = () => {
