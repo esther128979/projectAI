@@ -1,16 +1,16 @@
-﻿using DAL.Models;
+﻿
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BL.Models;
-
-namespace BL.Api
+namespace DAL.Api
 {
-    public interface IBLOrderDetails :IBLCrud<BLOrderDetail>
+    public interface IUser
+        : ICrud<User>
     {
-
+        Task<User?> GetUserById(int id);
 
     }
 }

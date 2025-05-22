@@ -13,7 +13,7 @@ public partial class AgeGroup
     public int AgeCode { get; set; }
 
     [StringLength(50)]
-    public string? AgeDescrepition { get; set; }
+    public string? AgeDescription { get; set; }
 
     [InverseProperty("AgeGroupNavigation")]
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();

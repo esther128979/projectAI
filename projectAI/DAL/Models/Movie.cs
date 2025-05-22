@@ -11,7 +11,13 @@ public partial class Movie
     [Key]
     public int Id { get; set; }
 
-    public int? CodeCategory { get; set; }
+    [StringLength(255)]
+    public string? Name { get; set; }
+
+    [StringLength(255)]
+    public string? Description { get; set; }
+
+    public int? CategoryCode { get; set; }
 
     public int? AgeCode { get; set; }
 
@@ -19,20 +25,32 @@ public partial class Movie
 
     public int? Length { get; set; }
 
-    public int? AmountOfUses { get; set; }
+    public int? AmountOfViews { get; set; }
 
     public DateOnly? FilmProductionDate { get; set; }
 
-    public int? Price { get; set; }
+    [Column(TypeName = "decimal(10, 2)")]
+    public decimal? BasePrice { get; set; }
 
-    [Column(TypeName = "text")]
+    [Column(TypeName = "decimal(10, 2)")]
+    public decimal? ExtraViewerPrice { get; set; }
+
+    [Column(TypeName = "decimal(10, 2)")]
+    public decimal? ExtraViewPrice { get; set; }
+
     public string? Link { get; set; }
 
     [ForeignKey("AgeCode")]
     [InverseProperty("Movies")]
     public virtual AgeGroup? AgeCodeNavigation { get; set; }
 
-    [ForeignKey("CodeCategory")]
+    [ForeignKey("CategoryCode")]
     [InverseProperty("Movies")]
-    public virtual Category? CodeCategoryNavigation { get; set; }
+    public virtual Category? CategoryCodeNavigation { get; set; }
+
+    [InverseProperty("Movie")]
+    public virtual ICollection<EmailLink> EmailLinks { get; set; } = new List<EmailLink>();
+
+    [InverseProperty("Movie")]
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

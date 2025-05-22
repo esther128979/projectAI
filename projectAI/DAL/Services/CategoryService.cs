@@ -12,8 +12,8 @@ namespace DAL.Services
 {
     public class CategoryService : ICategory
     {
-        private readonly mycontext db;
-        public CategoryService(mycontext m)
+        private readonly AppDbContext db;
+        public CategoryService(AppDbContext m)
         {
             db = m;
         }
@@ -75,7 +75,7 @@ namespace DAL.Services
                 if (existing == null)
                     return null;
 
-                //existing.CategoryDescription = t.CategoryDescription;
+                existing.CategoryDescription = t.CategoryDescription;
 
                 await db.SaveChangesAsync();
                 return existing;
@@ -87,5 +87,6 @@ namespace DAL.Services
 
         }
 
+     
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 
-namespace Server.Controllers
+namespace server.Controllers
 {
     [ApiController]
     [Route("DosFlix/[controller]")]

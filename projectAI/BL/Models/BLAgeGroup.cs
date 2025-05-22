@@ -9,7 +9,7 @@ public partial class BLAgeGroup
 
     public string? AgeDescrepition { get; set; }
 
-    public virtual ICollection<BLCustomer> Customers { get; set; } = new List<BLCustomer>();
+    public virtual ICollection<BLUser> Users { get; set; } = new List<BLUser>();
 
     public virtual ICollection<BLMovie> Movies { get; set; } = new List<BLMovie>();
 }

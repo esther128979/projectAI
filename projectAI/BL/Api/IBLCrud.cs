@@ -5,4 +5,4 @@ namespace BL.Api
     {
         Task<List<T>> GetAll();
     }
-}
+}               
