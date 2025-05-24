@@ -261,7 +261,19 @@ const AdminScreen: FC<{}> = () => {
             onAddMovie={handleAddMovie} />} />
         </Routes>
       </Container>
-
+ <Box
+                sx={{
+                    flexShrink: 0,
+                    textAlign: 'center',
+                    padding: 2,
+                    background: '#f5f5f5',
+                    borderTop: '1px solid #ddd',
+                }}
+            >
+                <Typography variant="body2" color="textSecondary">
+                    All rights reserved &copy; 2025 | Movies for the Haredi Community | Developed by Programming Group 3 Seminar Beit Yaakov Bnot Elisheva
+                </Typography>
+            </Box>
     </Box>
 
   )
