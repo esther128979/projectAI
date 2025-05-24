@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import React,{ FC, useState, useEffect } from "react";
 interface TypingTextProps {
     text: string;
     speed?: number; // מהירות כתיבה במילישניות

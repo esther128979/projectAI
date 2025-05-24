@@ -1,62 +1,37 @@
-import './index.css';
+
 import './App.css';
-import AppContent from './components/AppContent/AppContent';
-import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
-import AdminLayout from "../src/components/AdminLayout/AdminLayout";
-import { AdminScreen } from "../src/components/AdminScreen/AdminScreen";
-import { OrderCardList } from "../src/components/OrderCardList/OrderCardList";
-import { LogIn } from './components/LogIn/LogIn';
-import { UserCardList } from './components/UserCardList/UserCardList';
-import MovieList from './components/MovieList/MovieList';
-import { Movie } from '@mui/icons-material';
+import React from 'react';
+import AppContent from './components/userComponents/AppContent/AppContent';
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { LogIn } from './components/commonComponents/LogIn/LogIn';
+import { Dashboard } from './components/adminComponents/Dashboard/Dashboard';
+import { useSelector } from 'react-redux';
+import { myStore, RootState } from './myStore';
+import AdminScreen from "./components/adminComponents/AdminScreen/AdminScreen"
+// import { UserCardList } from './components/Cart/';
 import Cart from './components/Cart/Cart';
 
+const App = () => {
 
-export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setAdmin] = useState(true);
+  const user = useSelector((state: RootState) => state.auth);
+   console.log("USER STATE:", user);
+  const isLoggedIn = user && user.role;
 
-  function handleComplete(orderId: number) {
-    console.log("סימנו כהושלם הזמנה מספר:", orderId);
-    // כאן את יכולה לעדכן סטייט / לשלוח בקשה לשרת / להציג טוסטר
-  }
-
-return (
-  <div className="row">
-    <AppContent></AppContent>
+  return (
     <Routes>
-      {isLoggedIn ? (
-        isAdmin ? (
-          <>
-            {/* מסכים למנהל */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminScreen />} />
-              <Route path="home" element={<AdminScreen />} />
-             
-              <Route path="cart" element={<Cart />} />
+      <Route path="/login" element={<LogIn />} />
+      <Route
+        path="/*"
+        element={
+          isLoggedIn ? (
+            user.role === 'admin' ? <AdminScreen /> : <AppContent />
+          ) : (
+            <LogIn />
+          )
+        }
+      />
 
-             
-              <Route path="customers" element={<UserCardList />} />
-              <Route path="orders" element={<OrderCardList onComplete={handleComplete} />} />
-            </Route>
-          </>
-        ) : (
-          <>
-            {/* מסכים ללקוח רגיל */}
-            <Route path="/customer" element={<AdminLayout />}>
-              <Route index element={<AppContent />} />
-            </Route>
-          </>
-        )
-      ) : (
-        <>
-          {/* מסך התחברות */}
-          <Route path="/" element={<LogIn onLogin={() => setIsLoggedIn(true)} />} />
-        </>
-      )}
     </Routes>
-  </div>
-);
-
-}
+  );
+};
+ export default App;

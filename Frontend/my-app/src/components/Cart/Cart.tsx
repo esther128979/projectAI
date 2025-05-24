@@ -10,14 +10,21 @@ import {
 } from '../../redux/cartSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // עיצוב ברירת מחדל
+import { useNavigate } from 'react-router-dom';
+import AppContent from '../userComponents/AppContent/AppContent';
+import { IconButton } from '@mui/material';
+import Delete from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
+
 // הרחבת MovieObject עם quantity
 interface CartItem extends MovieObject {
   quantity: number;
 }
 
-interface CartProps {}
+interface CartProps { }
 
-const Cart: FC<CartProps> = () => {
+export const Cart: FC<CartProps> = () => {
+  const navigate = useNavigate();
   const cart = useSelector(
     (state: { myCart: { items: CartItem[] } }) => state.myCart.items
   );
@@ -26,9 +33,9 @@ const Cart: FC<CartProps> = () => {
   const handleIncrease = (productId: number) => {
     dispatch(increaseQuantity(productId));
   };
-const handleCheckout = () => {
-  // כאן תוכלי לשים מה שתרצי שיקרה כשעוברים לתשלום
-  toast.success(`ביצאת הזמנת סרט`, {
+  const handleCheckout = () => {
+    // כאן תוכלי לשים מה שתרצי שיקרה כשעוברים לתשלום
+    toast.success(`ביצאת הזמנת סרט`, {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: true,
@@ -36,9 +43,9 @@ const handleCheckout = () => {
       pauseOnHover: false,
       draggable: false,
     });
-  // לדוגמה, ניווט לדף אחר:
-  // navigate('/checkout'); אם את משתמשת ב-react-router
-};
+    // לדוגמה, ניווט לדף אחר:
+    // navigate('/checkout'); אם את משתמשת ב-react-router
+  };
 
   const handleDecrease = (productId: number) => {
     dispatch(decreaseQuantity(productId));
@@ -67,7 +74,7 @@ const handleCheckout = () => {
                   <h4>{product.Name}</h4>
                   <p>{product.Description}</p>
                   <p className="cart-item-price">
-                    ₪ {(product.Price ?? 0 * product.quantity).toFixed(2)}
+                    {(product.Price ?? 0 * product.quantity).toFixed(2)} ₪ 
                   </p>
 
                   <div className="cart-item-quantity">
@@ -85,13 +92,21 @@ const handleCheckout = () => {
                       +
                     </button>
                   </div>
+                  <Box sx={{ position: 'relative', marginBottom: 2 }}>
+                    <IconButton
+                      onClick={() => handleRemove(product.Id)}
+                      color="error"
+                      sx={{
+                        position: 'absolute',
+                        left: 2,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                      }}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Box>
 
-                  <button
-                    className="remove-btn"
-                    onClick={() => handleRemove(product.Id)}
-                  >
-                    הסר
-                  </button>
                 </div>
               </div>
             ))}
@@ -105,13 +120,16 @@ const handleCheckout = () => {
                 return total + price * item.quantity;
               }, 0)
               .toFixed(2)}
-<button className="checkout-btn" onClick={handleCheckout}>
-  לצאת לתשלום
-</button>
-
+            <div className="button-row">
+              <button className="checkout-btn" onClick={handleCheckout}>
+                לצאת לתשלום
+              </button>
+              <button className="back-to-cart" onClick={() => navigate('/all-movies')}>
+                ← המשך לקנות
+              </button>
+            </div>
           </div>
-<ToastContainer />
-          
+
         </div>
       )}
     </div>

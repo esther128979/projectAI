@@ -94,7 +94,7 @@
   
   .checkout-btn {
     display: block;
-    width: 100%;
+    width: 40%;
     padding: 15px;
     background-color: #1d6b44;
     color: #fff;
@@ -107,4 +107,41 @@
   .checkout-btn:hover {
     background-color: #145b33;
   }
-  
+  .button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* כפתור התשלום */
+.checkout-btn {
+  background-color: #00b894; /* ירוק טורקיז */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background-color: #019874;
+}
+
+/* כפתור החזרה שנראה כמו לינק */
+.back-to-cart {
+  background: none;
+  border: none;
+  color: #019874;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 12px 0;
+  transition: color 0.3s ease;
+}
+
+.back-to-cart:hover {
+  color: #03765b;
+}
