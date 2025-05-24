@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using BL.Api;
 using BL.Models;
-using Dal.Api;
+using DAL.Api;
+using DAL.Models;
+using iText.Forms.Xfdf;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,34 +16,65 @@ namespace BL.Services
     public class BLMovieService : IBLMovies
     {
 
-        IDal dal;
-        IMapper mapper;
-        public BLMovieService(IDal d, IMapper mapper)
+        private readonly IDAL _dal;
+        private readonly IMapper _mapper;
+
+        public BLMovieService(IDAL dal, IMapper mapper)
         {
-            dal = d;
-            
-            this.mapper = mapper;
+            _dal = dal;
+            _mapper = mapper;
+        }
+        public async Task AddMovie(BLMovie movie)
+        {
+            var dalMovie = _mapper.Map<Movie>(movie);
+            await _dal.Movie.Create(dalMovie);
         }
 
-       public  async Task AddMovie(BLMovie movie)
+        public async Task UpdateMovie(BLMovie movie)
         {
-           await dal.Movie.Create(mapper.Map<DAL.Models.Movie>(movie));
+            var existingMovie = await _dal.Movie.GetMovieById(movie.Id);
+            if (existingMovie == null)
+                throw new Exception("Movie not found");
+
+            _mapper.Map(movie, existingMovie);
+            await _dal.Movie.Update(existingMovie);
+        }
+
+        public async Task DeleteMovie(int id)
+        {
+            var existingMovie = await _dal.Movie.GetMovieById(id);
+            if (existingMovie == null)
+                throw new Exception("Movie not found");
+
+            await _dal.Movie.Delete(existingMovie);
         }
 
         public async Task<List<BLMovie>> GetAll()
         {
-            List<BLMovie> list = new List<BLMovie>();
-
-            var dallist = dal.Movie.GetAll().Result;
-
-            dallist.ForEach(l=>list.Add( mapper.Map<BLMovie >(l)));
-
-            return list;
+            var movies = await _dal.Movie.GetAll();
+            return _mapper.Map<List<BLMovie>>(movies);
         }
 
-        public Task<BLMovie> GetMovieByCategory()
+        public async Task<List<BLMovie>> GetMoviesByAgeGroup(eAgeGroup age)
         {
-            throw new NotImplementedException();
+            int ageGroupCode = (int)age;
+
+            // קריאה ל-DAL
+            var moviesDal = await _dal.Movie.GetMoviesByAgeGroup(ageGroupCode);
+
+            // מיפוי חזרה ל-BLMovie
+            return _mapper.Map<List<BLMovie>>(moviesDal);
+        }
+
+        public async Task<List<BLMovie>> GetMoviesByCategory(eCategoryGroup category)
+        {
+            int categoryCode = (int)category;
+
+            // קריאה ל-DAL
+            var moviesDal = await _dal.Movie.GetMoviesByCodeCategory(categoryCode);
+
+            // מיפוי חזרה ל-BLMovie
+            return _mapper.Map<List<BLMovie>>(moviesDal);
         }
     }
 }

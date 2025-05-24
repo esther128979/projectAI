@@ -1,12 +1,12 @@
-﻿using Dal.Api;
+﻿using DAL.Api;
 using BL.Api;
 using Microsoft.Extensions.DependencyInjection;
-using Dal;
+using DAL;
 using BL.Services;
 using BL.Models;
-using DAL;
-using DAL.Models;
 using AutoMapper;
+using DAL.Services;
+using System.Net.Http;
 
 namespace BL
 {
@@ -15,11 +15,11 @@ namespace BL
 
         public IBLAgeGroup AgeGroup { get; }
         public IBLCategory Category { get; }
-        public IBLCustomer Customer { get; }
+        public IBLUser User { get; }
         public IBLMovies Movies { get; }
-        public IBLOrderDetails OrderDetails { get; }
         public IBLOrders Order { get; }
-        public IBLPaymentMethods PaymentMethods { get; }
+        public IEmailSender EmailSender { get; }
+        public IEmailLinkManager EmailLinkManager { get; }
 
 
 
@@ -27,36 +27,39 @@ namespace BL
         {
 
 
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile<MappingProfile>();
-            //});
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
 
-            //IMapper mapper = config.CreateMapper();
+            IMapper mapper = config.CreateMapper();
 
             ServiceCollection serCollection = new ServiceCollection();
 
 
             serCollection.AddAutoMapper(typeof (MappingProfile )); 
-            serCollection.AddSingleton<IDal, DalManager>();
+
+            serCollection.AddSingleton<IDAL, DALManager>();
+
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();
-            serCollection.AddScoped<IBLCustomer, BLCustomerService>();
+            serCollection.AddScoped<IBLUser, BLUserService>();
             serCollection.AddScoped<IBLMovies, BLMovieService>();
-            serCollection.AddScoped<IBLOrderDetails, BLOrderDetailService>();
             serCollection.AddScoped<IBLOrders, BLOrderService>();
-            serCollection.AddScoped<IBLPaymentMethods, BLPaymentMethodService>();
+            serCollection.AddScoped<IEmailLinkManager, EmailLinkManager>();
+            
+            serCollection.AddHttpClient<IEmailSender, EmailSender>();
 
             //הגדרת ספק מחלקות שרות
             ServiceProvider p = serCollection.BuildServiceProvider();
 
             AgeGroup = p.GetRequiredService<IBLAgeGroup>();
             Category = p.GetRequiredService<IBLCategory>();
-            Customer = p.GetRequiredService<IBLCustomer>();
+            User = p.GetRequiredService<IBLUser>();
             Movies = p.GetRequiredService<IBLMovies>();
-            OrderDetails = p.GetRequiredService<IBLOrderDetails>();
-             Order = p.GetRequiredService<IBLOrders>();
-            PaymentMethods = p.GetRequiredService<IBLPaymentMethods>();
+            Order = p.GetRequiredService<IBLOrders>();
+            EmailSender = p.GetRequiredService<IEmailSender>();
+            EmailLinkManager = p.GetRequiredService<IEmailLinkManager>();
         }
     }
 }

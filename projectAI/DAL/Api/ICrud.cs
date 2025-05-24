@@ -1,6 +1,6 @@
 ﻿
 
-namespace Dal.Api
+namespace DAL.Api
 {
     public interface ICrud<T>
     {

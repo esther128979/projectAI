@@ -1,146 +1,87 @@
+using AutoMapper;
 using BL.Api;
 using BL.Models;
-using BL.Services;
 using Microsoft.AspNetCore.Mvc;
+using server.Models;
 
-
-namespace Server.Controllers
+namespace server.Controllers
 {
     [Route("DosFlix/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        private readonly IBL _movieService;
+        private readonly IMapper _mapper;
 
-        /// <summary>
-        /// זה ממש לא גמור או משו סתם העתקתי כאן בסיסי ממשו אחר
-        /// יש צורך בעבודה רבה
-        /// </summary>
-        //private readonly IBL _bl;
+        public MoviesController(IBL movieService, IMapper mapper)
+        {
+            _movieService = movieService;
+            _mapper = mapper;
+        }
 
-        //public MoviesController(IBL bl)
-        //{
-        //    _bl = bl;
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<MovieGetDTO>>> GetAll()
+        {
+            var movies = await _movieService.Movies.GetAll();
+            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            return Ok(dtoList);
+        }
 
-        //[HttpPost("create")]
-        //public async Task<IActionResult> CreateMovie([FromBody] BLProduct product)
-        //{
-        //    if (product == null)
-        //    {
-        //        return BadRequest("Invalid product data.");
-        //    }
+        [HttpGet("by-age/{ageGroup}")]
+        public async Task<ActionResult<List<MovieGetDTO>>> GetByAgeGroup(eAgeGroup ageGroup)
+        {
+            var movies = await _movieService.Movies.GetMoviesByAgeGroup(ageGroup);
+            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            return Ok(dtoList);
+        }
 
-        //    try
-        //    {
-        //        await _bl.Products.CreateAsync(product);
-        //        return Ok("Product created successfully.");
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
+        [HttpGet("by-category/{category}")]
+        public async Task<ActionResult<List<MovieGetDTO>>> GetByCategory(eCategoryGroup category)
+        {
+            var movies = await _movieService.Movies.GetMoviesByCategory(category);
+            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            return Ok(dtoList);
+        }
 
-        //[HttpPut("update")]
-        //public async Task<IActionResult> UpdateProduct([FromBody] BLProduct product)
-        //{
-        //    if (product == null)
-        //    {
-        //        return BadRequest("Invalid product data.");
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> CreateMovie([FromBody] MovieCreateDTO movieDto)
+        {
+            var blMovie = _mapper.Map<BLMovie>(movieDto);
+            await _movieService.Movies.AddMovie(blMovie);
+            return Ok();
+        }
 
-        //    try
-        //    {
-        //        await _bl.Products.UpdateAsync(product);
-        //        return Ok("Product updated successfully.");
-        //    }
-        //    catch (ArgumentException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateMovie(int id, [FromBody] MovieUpdateDTO movieDto)
+        {
+            if (id != movieDto.Id)
+                return BadRequest("ID mismatch");
 
-        //[HttpDelete("delete/{productId}")]
-        //public async Task<IActionResult> DeleteProduct(int productId)
-        //{
-        //    try
-        //    {
-        //        var product = await _bl.Products.GetByIdAsync(productId);
-        //        if (product == null)
-        //        {
-        //            return NotFound("Product not found.");
-        //        }
+            var blMovie = _mapper.Map<BLMovie>(movieDto);
 
-        //        await _bl.Products.DeleteAsync(product);
-        //        return Ok("Product deleted successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
+            try
+            {
+                await _movieService.Movies.UpdateMovie(blMovie);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
-
-
-
-
-        //[HttpGet("get-product-by-supplier/{supplierId}")]
-        //public async Task<IActionResult> GetProductsBySupplierId(int supplierId)
-        //{
-        //    try
-        //    {
-        //        var products = await _bl.Products.GetProductsBySupplierIdAsync(supplierId);
-        //        return Ok(products);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
-
-        //[HttpGet("all-orders/{supplierId}")]
-        //public async Task<ActionResult<List<BLOrder>>> GetOrders(int supplierId)
-        //{
-        //    try
-        //    {
-        //        var orders = await _bl.Order.GetOrdersBySupplierIdAsync(supplierId);
-
-        ////        return Ok(orders);
-        ////    }
-        ////    catch (Exception ex)
-        ////    {
-        ////        return BadRequest($"Error: {ex.Message}");
-        ////    }
-
-        //        return Ok(orders);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Error: {ex.Message}");
-        //    }
-
-        //}
-        //[HttpPut("confirm-order/{orderId}")]
-        //public async Task<IActionResult> ConfirmOrder(int orderId)
-        //{
-        //    try
-        //    {
-        //        await _bl.Supplier.OrderConfirmation(orderId);
-        //        return Ok("Order confirmed successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Error: {ex.Message}");
-        //    }
-        //}
-
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteMovie(int id)
+        {
+            try
+            {
+                await _movieService.Movies.DeleteMovie(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

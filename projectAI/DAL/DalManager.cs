@@ -1,19 +1,16 @@
-﻿using Dal.Api;
+﻿using DAL.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Dal.Models;
-using Microsoft.EntityFrameworkCore;
-using Dal.Services;
-using DAL.Api;
 using DAL.Models;
-//using DAL.Services;
-namespace Dal;
+using Microsoft.EntityFrameworkCore;
+using DAL.Services;
+namespace DAL;
 
-public class DalManager : IDal
+public class DALManager : IDAL
 {
     public ICustomer Customer { get; }
     public IOrder Order { get; }
@@ -21,33 +18,40 @@ public class DalManager : IDal
     public ICategory Category { get; }
  
     public IMovie Movie { get; }
+    public IEmailLink EmailLink { get;  }
+    public IEmailLinkClick EmailLinkClick { get;  }
+    public IUser User { get;  }
+
 
     //public IAgeGruop AgeGruop { get; }
 
-    public DalManager()
+    public DALManager()
     {
         ServiceCollection serCollection = new ServiceCollection();
-        serCollection.AddDbContext<mycontext>(options =>
-         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\214991887\\Desktop\\projectAI\\projectAI\\adminScreen_DB.mdf;Integrated Security=True;Connect Timeout=30"));
+        serCollection.AddDbContext<AppDbContext>(options =>
+         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\tzipi\\Desktop\\פרויקט גמר בסייעתא דשמייא\\סקפולד חדש\\projectAI\\projectAI\\adminScreen_DB.mdf\";Integrated Security=True;Connect Timeout=30"));
 
-        serCollection.AddSingleton<mycontext>();
+        serCollection.AddSingleton<AppDbContext>();
 
-        serCollection.AddScoped<IDal, DalManager>();//צריך לבדוק!!!
         serCollection.AddScoped<ICustomer, CustomerService>();
         serCollection.AddScoped<IOrder, OrderService>();
         serCollection.AddScoped<IMovie, MovieService>();
         serCollection.AddScoped<ICategory, CategoryService>();
-        //serCollection.AddScoped<IAgeGruop, AgeGruopService>();
+        serCollection.AddScoped<IEmailLink, EmailLinkService>();
+        serCollection.AddScoped<IEmailLinkClick, EmailLinkClickService>();
+        serCollection.AddScoped<IUser, UserService>();
 
         // הגדרת ספק מחלקות שרות
         ServiceProvider p = serCollection.BuildServiceProvider();
         Customer = p.GetRequiredService<ICustomer>();
         Order = p.GetRequiredService<IOrder>();
-        Movie= p.GetRequiredService<IMovie>();  
+        Movie = p.GetRequiredService<IMovie>();
         Category = p.GetRequiredService<ICategory>();
-        //AgeGruop=p.GetRequiredService<IAgeGruop>();
-     
-      
+        EmailLink = p.GetRequiredService<IEmailLink>();
+        EmailLinkClick = p.GetRequiredService<IEmailLinkClick>();
+        User = p.GetRequiredService<IUser>();
+
+
 
     }
 }

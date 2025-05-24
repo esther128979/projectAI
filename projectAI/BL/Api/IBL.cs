@@ -7,11 +7,11 @@ namespace BL.Api
 
         public IBLAgeGroup AgeGroup { get; }
         public IBLCategory Category { get; }
-        public IBLCustomer Customer { get; }
+        public IBLUser User { get; }
         public IBLMovies Movies { get; }
-        public IBLOrderDetails OrderDetails { get; }
         public IBLOrders Order { get; }
-        public IBLPaymentMethods PaymentMethods { get; }
+        public IEmailSender EmailSender { get;  }
+        public IEmailLinkManager EmailLinkManager { get; }
 
     }
 }

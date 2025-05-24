@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dal.Api;
+using DAL.Api;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Services
+
+namespace DAL.Services
 {
     public class CategoryService : ICategory
     {
-
-        mycontext db;
-        public CategoryService(mycontext? m)
+        private readonly AppDbContext db;
+        public CategoryService(AppDbContext m)
         {
             db = m;
         }
@@ -24,11 +25,15 @@ namespace Dal.Services
                 await db.SaveChangesAsync();
                 return t;
             }
-            catch(Exception ex) {
+            catch (Exception ex)
             {
-                throw new Exception("Error creating Category", ex);
+                {
+                    throw new Exception("Error creating Category", ex);
+                }
             }
+
         }
+
 
         public async Task<Category> Delete(Category t)
         {
@@ -48,7 +53,7 @@ namespace Dal.Services
             }
         }
 
-        public Task<List<Category>> GetAll()
+        public async Task<List<Category>> GetAll()
         {
             try
             {
@@ -58,25 +63,11 @@ namespace Dal.Services
             {
                 throw new Exception("Error retrieving Categories", ex);
             }
-          
         }
 
-        public Task<List<Category>> GetCategoryByCategoryDescreption()
-        {
-            try
-            {
-                return await db.Categories
-                .Where(c => !string.IsNullOrEmpty(c.CategoryDescription))
-                .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("שגיאה בהחזרת קטגוריה לפי תאור קטגוריה", ex);
-            }
-           
-        }
-        
-        public Task<Category> Update(Category t)
+
+
+        public async Task<Category> Update(Category t)
         {
             try
             {
@@ -93,6 +84,9 @@ namespace Dal.Services
             {
                 throw new Exception("שגיאה בעדכון קטגוריה", ex);
             }
+
         }
+
+     
     }
 }

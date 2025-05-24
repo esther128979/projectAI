@@ -1,24 +1,23 @@
+import React, { FC, useState } from "react";
 import logo from 'logo.png';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import { AppBar, Toolbar, Button, Typography, Tab, Tabs, IconButton, Tooltip, TextField } from "@mui/material";
+import { AppBar, Toolbar, Button, Typography, Tab, Tabs, IconButton, Tooltip, TextField, Badge } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import { FC, useState } from "react";
 import { useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../HomePage/HomePage";
-// import MovieList from "../../commonComponents/MovieList/MovieList";
 import { MovieObject, CategoryGroup, AgeGroup } from "../../../models/Movie";
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 import { Paper, Collapse } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/authSlice';
-import MovieCardCustomer from '../MovieListUser/MovieListUser';
-import MovieListClient from '../MovieListClient/MovieListClient';
+import { loginUser } from '../../../redux/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUsername } from '../../../redux/authSlice';
 import MovieListUser from '../MovieListUser/MovieListUser';
-
+import Cart from "../../Cart/Cart"
 
 interface AppContentProps { }
 
@@ -170,6 +169,8 @@ const AppContent: FC<AppContentProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const cartCount = useSelector((state: any) => state.myCart.items.length);
+    const username = useSelector(selectUsername);
 
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -198,7 +199,7 @@ const AppContent: FC<AppContentProps> = () => {
     // הקלטה של הודעה חדשה
     const handleNewMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewMessage(event.target.value);
-    };
+    };//רגע הניתובים של המנהל כן עובדים?
     // הפונקציה מחזירה את האינדקס של הטאב לפי הנתיב, או -1 אם לא מתאים
     const getPageFromPath = (path: string) => {
         switch (path) {
@@ -216,7 +217,7 @@ const AppContent: FC<AppContentProps> = () => {
     const page = getPageFromPath(location.pathname);
 
     const ForYou = () => <div>במיוחד בשבילך</div>;
-    const Cart = () => <div>עגלת קניות</div>;
+    // const Cart = () => <div>עגלת קניות</div>;
     const Orders = () => <div>ההזמנות שלך</div>;
     const About = () =>
         <div
@@ -305,23 +306,27 @@ const AppContent: FC<AppContentProps> = () => {
             default: break;
         }
     };
-    function handleOrderNow(movieId: number) {
-        alert('הזמנה של סרט עם id: ' + movieId);
-    }
 
-    function handleAddToCart(movieId: number) {
-        alert('הוסף לעגלה סרט עם id: ' + movieId);
-    }
 
     return (
         <Box dir="rtl" sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow: 'none' }}>
+            <AppBar position="fixed" sx={{ backgroundColor: '#fff', boxShadow: 'none' }}>
                 <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px' }}>
-                    <Tooltip title="DosFlix">
-                        <IconButton onClick={() => navigate('/')} sx={{ color: "#c1dbca" }}>
-                            <img src={logo} alt="DosFlix Logo" style={{ height: 50, borderRadius: '50%' }} />
-                        </IconButton>
-                    </Tooltip>
+                  
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Tooltip title="DosFlix">
+                            <IconButton onClick={() => navigate('/')} sx={{ color: "#c1dbca" }}>
+                                <img src={logo} alt="DosFlix Logo" style={{ height: 50, borderRadius: '50%' }} />
+                            </IconButton>
+                        </Tooltip>
+
+                        {username && (
+                            <Typography variant="subtitle1" sx={{ color: '#7a7a7a', fontWeight: 'bold' }}>
+                                שלום, {username}
+                            </Typography>
+                        )}
+                    </Box>
+
                     <Tabs
                         value={page >= 0 && page <= 2 ? page : false}
                         onChange={handleChange}
@@ -343,17 +348,20 @@ const AppContent: FC<AppContentProps> = () => {
                                 <ReceiptIcon />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="עגלת קניות">
-                            <IconButton onClick={() => navigate('/cart')} sx={{ color: "#c1dbca" }}>
-                                <ShoppingCartIcon />
-                            </IconButton>
-                        </Tooltip>
 
                         <Tooltip title="צ'אט">
                             <IconButton onClick={toggleChat} sx={{ color: "#c1dbca" }}>
                                 <ChatIcon />
                             </IconButton>
                         </Tooltip>
+                        <Tooltip title="עגלת קניות">
+                            <IconButton onClick={() => navigate('/cart')} sx={{ color: "#c1dbca" }}>
+                                <Badge badgeContent={cartCount} color="error" max={99}>
+                                    <ShoppingCartIcon />
+                                </Badge>
+                            </IconButton>
+                        </Tooltip>
+
                         <Tooltip title="התנתקות">
                             <IconButton onClick={handleLogout} sx={{ color: "#c1dbca" }}>
                                 <LogoutIcon />
@@ -363,11 +371,14 @@ const AppContent: FC<AppContentProps> = () => {
                 </Toolbar>
             </AppBar>
 
-            <Container sx={{ flexGrow: 1, marginTop: '2rem', paddingLeft: '2rem', position: 'relative' }} maxWidth={false} disableGutters>
+            <Container
+                sx={{ flexGrow: 1, marginTop: '2rem', paddingLeft: '2rem', position: 'relative' }}
+                maxWidth={false}
+                disableGutters
+            >
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/all-movies" element={<MovieListUser movies={moviesExemple} />
-                    } />
+                    <Route path="/all-movies" element={<MovieListUser movies={moviesExemple} />} />
                     <Route path="/for-you" element={<ForYou />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/orders" element={<Orders />} />
@@ -376,36 +387,43 @@ const AppContent: FC<AppContentProps> = () => {
                     <Route path="/register" element={<Register />} />
                 </Routes>
 
-                <Collapse in={isChatOpen} sx={{
-                    position: 'fixed',
-                    bottom: 80,
-                    right: 20,
-                    width: 320,
-                    boxShadow: 3,
-                    borderRadius: 2,
-                    backgroundColor: '#fff',
-                    zIndex: 1300,
-                }}>
+                <Collapse
+                    in={isChatOpen}
+                    sx={{
+                        position: 'fixed',
+                        bottom: 80,
+                        right: 20,
+                        width: 320,
+                        boxShadow: 3,
+                        borderRadius: 2,
+                        backgroundColor: '#fff',
+                        zIndex: 1300,
+                    }}
+                >
                     <Paper elevation={3} sx={{ p: 2, height: 400, display: 'flex', flexDirection: 'column' }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                            <Typography variant="h6" component="div">צ'אט</Typography>
+                            <Typography variant="h6">צ'אט</Typography>
                             <IconButton size="small" onClick={toggleChat}>
                                 <CloseIcon />
                             </IconButton>
                         </Box>
+
                         <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
                             {chatMessages.length === 0 ? (
-                                <Typography variant="body2" color="text.secondary">ברוכים הבאים לצ'אט! איך אפשר לעזור?</Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    ברוכים הבאים לצ'אט! איך אפשר לעזור?
+                                </Typography>
                             ) : (
                                 chatMessages.map((msg, idx) => (
                                     <Box key={idx} sx={{ backgroundColor: 'rgba(193, 219, 202, 0.5)', borderRadius: 1, p: 1 }}>
                                         <Typography variant="body2">{msg.text}</Typography>
-                                        <Typography variant="caption" sx={{ textAlign: 'right', color: 'gray' }}>{msg.time}</Typography>
+                                        <Typography variant="caption" sx={{ textAlign: 'right', color: 'gray' }}>
+                                            {msg.time}
+                                        </Typography>
                                     </Box>
                                 ))
                             )}
                         </Box>
-
 
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <TextField
@@ -415,49 +433,64 @@ const AppContent: FC<AppContentProps> = () => {
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && newMessage.trim() !== "") {
+                                    if (e.key === 'Enter' && newMessage.trim() !== '') {
                                         handleSendMessage();
                                     }
                                 }}
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         '& fieldset': {
-                                            borderColor: '#c1dbca',  // צבע המסגרת במצב רגיל
+                                            borderColor: '#c1dbca',
                                         },
                                         '&:hover fieldset': {
-                                            borderColor: '#c1dbca',  // צבע המסגרת במצב ריחוף (אפשר לשנות לגוון אחר של טורקיז)
+                                            borderColor: '#c1dbca',
                                         },
                                         '&.Mui-focused fieldset': {
-                                            borderColor: '#75bba0',  // צבע המסגרת כשהשדה בפוקוס (אפשר לשנות לגוון אחר)
+                                            borderColor: '#75bba0',
                                         },
                                     },
                                 }}
                             />
                             <IconButton
                                 color="primary"
-                                disabled={newMessage.trim() === ""}
+                                disabled={newMessage.trim() === ''}
                                 onClick={handleSendMessage}
                                 sx={{
-                                    color: newMessage.trim() === "" ? 'gray' : '#c1dbca',
+                                    color: newMessage.trim() === '' ? 'gray' : '#c1dbca',
                                     '&:hover': {
-                                        backgroundColor: newMessage.trim() === "" ? 'transparent' : "rgba(193, 219, 202, 0.5)", // טורקיז שקוף בהגבהה
-                                    }
+                                        backgroundColor:
+                                            newMessage.trim() === '' ? 'transparent' : 'rgba(193, 219, 202, 0.5)',
+                                    },
                                 }}
                             >
-                                <SendIcon sx={{ transform: "rotate(180deg)", color: newMessage.trim() === "" ? 'gray' : '#c1dbca' }} />
+                                <SendIcon
+                                    sx={{
+                                        transform: 'rotate(180deg)',
+                                        color: newMessage.trim() === '' ? 'gray' : '#c1dbca',
+                                    }}
+                                />
                             </IconButton>
                         </Box>
                     </Paper>
                 </Collapse>
             </Container>
 
-            <Box sx={{ flexShrink: 0, textAlign: 'center', padding: 2, background: '#f5f5f5', borderTop: '1px solid #ddd' }}>
+            <Box
+                sx={{
+                    flexShrink: 0,
+                    textAlign: 'center',
+                    padding: 2,
+                    background: '#f5f5f5',
+                    borderTop: '1px solid #ddd',
+                }}
+            >
                 <Typography variant="body2" color="textSecondary">
                     All rights reserved &copy; 2025 | Movies for the Haredi Community | Developed by Programming Group 3 Seminar Beit Yaakov Bnot Elisheva
                 </Typography>
             </Box>
         </Box>
     );
+
 
 };
 

@@ -1,20 +1,22 @@
 ﻿
 
-using Dal.Api;
-using Dal.Models;
 using DAL.Api;
 
-namespace Dal.Api
+namespace DAL.Api
 {
-    // מה צריך להכיל שכבת הדל
-    public interface IDal
+    public interface IDAL
     {
         public ICustomer Customer { get; }
         public IOrder Order { get; }
         public ICategory Category { get; }
         public IMovie Movie { get; }
-       
+        public IUser User { get; }
+
         //public IAgeGruop AgeGruop { get; }
+
+        public IEmailLink EmailLink { get; }
+        public IEmailLinkClick EmailLinkClick { get; }
+
 
 
     }

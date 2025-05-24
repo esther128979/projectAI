@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import DashboardCard from '../DashboardCard/DashboardCard';
 import SalesChart from '../SalesChart/SalesChart';
@@ -12,7 +12,7 @@ export const Dashboard = () => {
   const [chatActive, setChatActive] = useState(false);
 
   return (
-    <Box sx={{ p: 3, mt: 8, position:'absolute', marginTop:0}}>
+<Box sx={{ p: 4, mt: '8vh', position: 'absolute' }}>
       <Grid container spacing={3}>
         {/* כרטיסי סטטיסטיקה (אם זה Grid item בפנים) */}
         <DashboardCard />

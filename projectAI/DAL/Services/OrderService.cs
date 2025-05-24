@@ -1,106 +1,77 @@
-﻿using Dal.Api;
-using Dal.Models;
-using DAL.Api;
+﻿using DAL.Api;
 using DAL.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Dal.Services
+namespace DAL.Services
 {
     public class OrderService : IOrder
     {
-        mycontext db;
-        public OrderService(mycontext? m)
+
+        private readonly AppDbContext _context;
+
+        public OrderService(AppDbContext context)
         {
-            db = m;
+            _context = context;
         }
+
         public async Task<List<Order>> GetAll()
         {
-            try
-            {
-                return  db.Orders.ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders", ex);
-
-            }
-        }
-       //החזרת הזמנות של לקוח ספציפי
-       //ביצוע בדיקה בביאל שקיים באמת לקוח כזה במאגר
-        public async Task<List<Order>> GetOrdersByIdCustomer(int idC)
-        {
-            try
-            {
-                return db.Orders.Where(o => o.IdCustomer == idC).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders", ex);
-
-            }
-        }
-        //החזרת רשימת ההזמנות שהתבצעה היום
-        public async Task<List<Order>> GetOrdersToday()
-        {
-            try
-            {
-                return db.Orders.Where(o => o.DateOrder==DateTime.Today).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders", ex);
-            }
-        }
-        public async Task<List<Order>> GetOrdersByStatusFalse()
-        {
-            try
-            {
-                return db.Orders.Where(o => o.Status == false).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders", ex);
-            }
-        }
-        public async Task<List<Order>> GetOrdersByDateRange(DateTime startDate, DateTime endDate)
-        {
-            try
-            {
-                return await db.Orders.Where(o => o.DateOrder >= startDate && o.DateOrder <= endDate).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving orders", ex);
-            }
+            return await _context.Orders
+                .Include(o => o.IdCustomerNavigation)
+                .Include(o => o.OrderItems)
+                .ToListAsync();
         }
 
-        public Task<Order> Create(Order t)
+        public async Task<Order> Create(Order order)
         {
-            throw new NotImplementedException();
+            if (order == null || order.OrderItems == null || !order.OrderItems.Any())
+                throw new ArgumentException("Invalid order");
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            return order;
         }
 
-        public Task<Order> Update(Order t)
+        public async Task<Order> Update(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            return order;
         }
 
         public async Task<Order> Delete(Order order)
         {
-            try
-            {
-                var existingOrder = await db.Orders.FindAsync(order.Id);
-                if (existingOrder == null)
-                    return null;
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            return order;
+        }
 
-                db.Orders.Remove(existingOrder);
-                await db.SaveChangesAsync();
-                return existingOrder;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error deleting order", ex);
-            }
+        public async Task<List<Order>> GetOrdersByIdCustomer(int idC)
+        {
+            return await _context.Orders
+                .Where(o => o.IdCustomer == idC)
+                .Include(o => o.OrderItems)
+                .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetOrdersToday()
+        {
+            DateTime today = DateTime.UtcNow.Date;
+            return await _context.Orders
+                .Where(o => o.DateOrder == today)
+                .Include(o => o.OrderItems)
+                .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetOrdersByDateRange(DateTime startDate, DateTime endDate)
+        {
+            return await _context.Orders
+                .Where(o => o.DateOrder >= startDate && o.DateOrder <= endDate)
+                .Include(o => o.OrderItems)
+                .ToListAsync();
         }
 
 

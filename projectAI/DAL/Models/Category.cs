@@ -13,8 +13,8 @@ public partial class Category
     public int CategoryCode { get; set; }
 
     [StringLength(50)]
-    public string? CategoryDescreption { get; set; }
+    public string? CategoryDescription { get; set; }
 
-    [InverseProperty("CodeCategoryNavigation")]
+    [InverseProperty("CategoryCodeNavigation")]
     public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
 }

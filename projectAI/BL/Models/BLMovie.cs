@@ -1,37 +1,42 @@
 ﻿using BL.Models;
-using Dal.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
+using DAL.Models;
 namespace BL.Models;
-
-public partial class BLMovie
+public class BLMovie
 {
     public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
 
     public eCategoryGroup CodeCategory { get; set; }
+    public eAgeGroup AgeGroup { get; set; }
 
-    public eAgeGroup ageGroup { get; set; } //?
+    public bool HasWoman { get; set; }
+    public int? LengthMinutes { get; set; }
 
-    public bool? ThereIsWoman { get; set; }
+    public int TotalViews { get; set; }
+    public int TotalViewers { get; set; }
 
-    public int? Length { get; set; }
+    public DateOnly? ProductionDate { get; set; }
 
-    public int? AmountOfUses { get; set; }
+    public decimal? PriceBase { get; set; }
+    public decimal? PricePerExtraViewer { get; set; }
+    public decimal? PricePerExtraView { get; set; }
 
-    public DateOnly? FilmProductionDate { get; set; }
+    public string? MovieLink { get; set; }
 
-    public virtual BLAgeGroup? AgeCodeNavigation { get; set; }
+    public Category? CodeCategoryNavigation { get; set; }
+    public AgeGroup? AgeGroupNavigation { get; set; }
 
-    public int? Price { get; set; }
+    // ✅ תכונה מחושבת
+    public decimal FinalPrice
+    {
+        get
+        {
+            var basePrice = PriceBase ?? 0;
+            var viewerPrice = PricePerExtraViewer ?? 0;
+            var viewPrice = PricePerExtraView ?? 0;
 
-    public string? Link { get; set; }
-
-    public virtual BLCategory? CodeCategoryNavigation { get; set; }
-    //public string MovieName { get; set; }
-    //public string MovieDescription { get; set; }
-    //public string MovieUrl { get; set; }
-    //public int MoviePrice { get; set; }
-
+            return basePrice + (TotalViewers * viewerPrice) + (TotalViews * viewPrice);
+        }
+    }
 }

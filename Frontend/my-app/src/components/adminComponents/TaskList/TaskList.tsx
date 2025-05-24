@@ -96,7 +96,6 @@ const TaskList = () => {
                             alignItems: 'center',
                         }}
                     >
-                        {/* אייקון הפח - בצד ימין */}
 
                         <Checkbox
                             checked={task.done}

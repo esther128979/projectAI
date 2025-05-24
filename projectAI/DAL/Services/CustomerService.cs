@@ -1,17 +1,15 @@
-﻿using Dal.Api;
-using Dal.Models;
-using DAL.Api;
+﻿using DAL.Api;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-//using DAL.Models;
 
 
-namespace Dal.Services
+
+namespace DAL.Services
 {
     public class CustomerService : ICustomer
     {
-        mycontext db;
-        public CustomerService(mycontext? m)
+        AppDbContext db;
+        public CustomerService(AppDbContext? m)
         {
             db = m;
         }
@@ -73,14 +71,14 @@ namespace Dal.Services
         }
 
 
-       
+
 
         public async Task<Customer?> GetCustomerById(int id)
         {
             try
             {
                 return await db.Customers
-                    .FirstOrDefaultAsync(c => c.CustomerId == id);
+                    .FirstOrDefaultAsync(c => c.UserId == id);
             }
             catch (Exception ex)
             {

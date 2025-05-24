@@ -35,7 +35,7 @@ export interface MovieObject {
     Name:string;
     Description?:string;
     Url?:string;
-    Price?:number;
+    Price:number;
     Image?:string;
   
   }

@@ -1,13 +1,15 @@
 
 import './App.css';
+import React from 'react';
 import AppContent from './components/userComponents/AppContent/AppContent';
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { LogIn } from './components/commonComponents/LogIn/LogIn';
 import { Dashboard } from './components/adminComponents/Dashboard/Dashboard';
 import { useSelector } from 'react-redux';
 import { myStore, RootState } from './myStore';
-import { useEffect } from 'react';
 import AdminScreen from "./components/adminComponents/AdminScreen/AdminScreen"
+// import { UserCardList } from './components/Cart/';
+import Cart from './components/Cart/Cart';
 
 const App = () => {
 
@@ -28,6 +30,7 @@ const App = () => {
           )
         }
       />
+
     </Routes>
   );
 };
