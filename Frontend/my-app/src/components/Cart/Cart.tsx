@@ -56,7 +56,7 @@ export const Cart: FC<CartProps> = () => {
   };
 
   return (
-    <div className="cart-container">
+    <div className="cart-container mt-[8vh] mb-10 mx-auto max-w-3xl p-8 bg-white rounded-2xl shadow-2xl">
       <h2>עגלת קניות</h2>
       {cart.length === 0 ? (
         <p>הסל שלך ריק</p>
@@ -74,7 +74,7 @@ export const Cart: FC<CartProps> = () => {
                   <h4>{product.Name}</h4>
                   <p>{product.Description}</p>
                   <p className="cart-item-price">
-                    {(product.Price ?? 0 * product.quantity).toFixed(2)} ₪ 
+                    {(product.Price ?? 0 * product.quantity).toFixed(2)} ₪
                   </p>
 
                   <div className="cart-item-quantity">

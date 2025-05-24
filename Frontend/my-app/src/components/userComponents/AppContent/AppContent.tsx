@@ -230,7 +230,7 @@ const AppContent: FC<AppContentProps> = () => {
                 backgroundColor: "#f8fafc",
                 borderRadius: 12,
                 maxWidth: 800,
-                margin: "2em auto",
+                margin: "8vh auto 2em", // שימי לב כאן - הוספנו margin-top יחסי
                 boxShadow: "0 0 10px rgba(0,0,0,0.1)",
                 color: "#3e3e3e",
             }}
@@ -312,7 +312,7 @@ const AppContent: FC<AppContentProps> = () => {
         <Box dir="rtl" sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <AppBar position="fixed" sx={{ backgroundColor: '#fff', boxShadow: 'none' }}>
                 <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center', padding: '8px 16px' }}>
-                  
+
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Tooltip title="DosFlix">
                             <IconButton onClick={() => navigate('/')} sx={{ color: "#c1dbca" }}>

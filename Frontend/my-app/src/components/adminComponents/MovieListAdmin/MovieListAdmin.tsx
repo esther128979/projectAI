@@ -41,7 +41,7 @@ const rtlSx = {
 export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) => {
   const user = useSelector((state: RootState) => state.auth);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [priceRange, setPriceRange] = useState<[number, number]>([50, 1000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [searchText, setSearchText] = useState("");
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
 
