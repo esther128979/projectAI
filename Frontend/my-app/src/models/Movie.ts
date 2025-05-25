@@ -39,3 +39,17 @@ export interface MovieObject {
     Image?:string;
   
   }
+  export interface MovieToAdd {
+    CategoryGroup:CategoryGroup;
+    AgeGroup:AgeGroup;
+    ThereIsWoman:boolean;
+    Duration:number;
+    AmountOfViews:number;
+    FilmProductionDate:Date;
+    Name:string;
+    Description:string;
+    Url:string;
+    Price:number;
+    Image:string;
+  
+  }
