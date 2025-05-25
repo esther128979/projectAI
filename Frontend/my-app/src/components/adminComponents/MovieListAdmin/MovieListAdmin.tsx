@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../myStore";
-import { CategoryGroup, MovieObject, AgeGroup } from "../../../models/Movie";
+import { CategoryGroup, MovieObject,MovieToAdd, AgeGroup } from "../../../models/Movie";
 import MovieCardAdmin from "../MovieCardAdmin/MovieCardAdmin";
 import {
   Box,
@@ -45,12 +45,20 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
   const [searchText, setSearchText] = useState("");
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
 
-  const [newMovie, setNewMovie] = useState<MovieObject>({
-    Id: 0, Name: '', Description: '', Url: '', Price: 0,
-    CategoryGroup: undefined, AgeGroup: undefined,
-    ThereIsWoman: false, Duration: undefined, AmountOfViews: undefined,
-    FilmProductionDate: undefined, Image: '',
-  });
+ const [newMovie, setNewMovie] = useState<MovieToAdd>({
+  CategoryGroup: {} as CategoryGroup, // אתחל בהתאם למה שמוגדר ב-CategoryGroup
+  AgeGroup: {} as AgeGroup, // אתחל בהתאם למה שמוגדר ב-AgeGroup
+  ThereIsWoman: false,
+  Duration: 0,
+  AmountOfViews: 0,
+  FilmProductionDate: new Date(),
+  Name: '',
+  Description: '',
+  Url: '',
+  Price: 0,
+  Image: '',
+});
+
 
   if (!user?.role || user.role !== 'admin') return null;
 
@@ -60,8 +68,8 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
     const { name, value, type, checked } = e.target as HTMLInputElement;
     let newValue: any = type === 'number' ? +value
       : type === 'checkbox' ? checked
-      : (name === 'CategoryGroup' || name === 'AgeGroup') ? Number(value)
-      : value;
+        : (name === 'CategoryGroup' || name === 'AgeGroup') ? Number(value)
+          : value;
 
     setNewMovie(prev => ({ ...prev, [name]: newValue }));
   };
@@ -70,16 +78,90 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
     setNewMovie(prev => ({ ...prev, FilmProductionDate: new Date(e.target.value) }));
   };
 
-  const handleSubmit = () => {
-    onAddMovie(newMovie);
-    setDialogOpen(false);
-    setNewMovie({
-      Id: 0, Name: '', Description: '', Url: '', Price: 0,
-      CategoryGroup: undefined, AgeGroup: undefined,
-      ThereIsWoman: false, Duration: undefined, AmountOfViews: undefined,
-      FilmProductionDate: undefined, Image: '',
+  // const handleSubmit = () => {
+  //   onAddMovie(newMovie);
+  //   setDialogOpen(false);
+  //   setNewMovie({
+  //     Id: 0, Name: '', Description: '', Url: '', Price: 0,
+  //     CategoryGroup: undefined, AgeGroup: undefined,
+  //     ThereIsWoman: false, Duration: undefined, AmountOfViews: undefined,
+  //     FilmProductionDate: undefined, Image: '',
+  //   });
+  // };
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5245/api/MoviesController/CreateMovie', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(newMovie),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('שגיאה בשליחת הסרט לשרת');
+  //     }
+
+  //     onAddMovie(newMovie); // אפשר להחליף בנתונים שהשרת מחזיר אם צריך
+  //     setDialogOpen(false);
+  //     setNewMovie({
+  //       Id: 0,
+  //       Name: '',
+  //       Description: '',
+  //       Url: '',
+  //       Price: 0,
+  //       CategoryGroup: undefined,
+  //       AgeGroup: undefined,
+  //       ThereIsWoman: false,
+  //       Duration: undefined,
+  //       AmountOfViews: undefined,
+  //       FilmProductionDate: undefined,
+  //       Image: '',
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('אירעה שגיאה בעת הוספת הסרט');
+  //   }
+  // };
+const handleSubmit = async () => {
+  try {
+    const response = await fetch('http://localhost:5245/api/MoviesController/CreateMovie', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newMovie),
     });
-  };
+
+    if (!response.ok) {
+      throw new Error('שגיאה בשליחת הסרט לשרת');
+    }
+
+    // אפשר לקבל את הנתונים מהשרת (אם הוא מחזיר) ולהשתמש בהם במקום newMovie
+    const createdMovie = await response.json();
+    onAddMovie(createdMovie);
+    
+    setDialogOpen(false);
+
+    // איפוס newMovie עם ערכי ברירת מחדל תקינים
+    setNewMovie({
+      CategoryGroup: {} as CategoryGroup,  // או ערך ברירת מחדל אמיתי
+      AgeGroup: {} as AgeGroup,            // או ערך ברירת מחדל אמיתי
+      ThereIsWoman: false,
+      Duration: 0,
+      AmountOfViews: 0,
+      FilmProductionDate: new Date(),
+      Name: '',
+      Description: '',
+      Url: '',
+      Price: 0,
+      Image: '',
+    });
+  } catch (error) {
+    console.error(error);
+    alert('אירעה שגיאה בעת הוספת הסרט');
+  }
+};
 
   const resetFilters = () => {
     setSearchText("");
@@ -125,7 +207,7 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
         </select>
 
         <div className="flex flex-col">
-          <label className="text-sm mb-1 text-gray-600"> 
+          <label className="text-sm mb-1 text-gray-600">
             טווח מחירים: ₪{priceRange[1]} - ₪{priceRange[0]}
           </label>
           <input
@@ -197,10 +279,10 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
         <DialogTitle dir="rtl">הוספת סרט חדש</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }} dir="rtl">
           {[{ name: "Name", label: "שם הסרט" }, { name: "Description", label: "תיאור" },
-            { name: "Price", label: "מחיר", type: "number" },
-            { name: "Url", label: "קישור וידאו" }, { name: "Image", label: "קישור לתמונה" },
-            { name: "Duration", label: "אורך (בדקות)", type: "number" },
-            { name: "AmountOfViews", label: "מספר צפיות", type: "number" },
+          { name: "Price", label: "מחיר", type: "number" },
+          { name: "Url", label: "קישור וידאו" }, { name: "Image", label: "קישור לתמונה" },
+          { name: "Duration", label: "אורך (בדקות)", type: "number" },
+          { name: "AmountOfViews", label: "מספר צפיות", type: "number" },
           ].map(({ name, label, type }) => (
             <TextField
               key={name}

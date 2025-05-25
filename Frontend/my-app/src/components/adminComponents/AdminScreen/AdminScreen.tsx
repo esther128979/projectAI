@@ -23,7 +23,7 @@ import { selectUsername } from '../../../redux/authSlice';
 interface AppContentProps { }
 const moviesExemple: MovieObject[] = [
   {
-    Id: 1,
+        Id:10,
     CategoryGroup: CategoryGroup.Children,
     AgeGroup: AgeGroup.Children,
     ThereIsWoman: true,
@@ -37,7 +37,7 @@ const moviesExemple: MovieObject[] = [
     Price: 12.99
   },
   {
-    Id: 2,
+        Id:10,
     CategoryGroup: CategoryGroup.Recipes,
     AgeGroup: AgeGroup.Adult,
     ThereIsWoman: false,
@@ -51,7 +51,7 @@ const moviesExemple: MovieObject[] = [
     Price: 9.99
   },
   {
-    Id: 3,
+        Id:11,
     CategoryGroup: CategoryGroup.Nature,
     AgeGroup: AgeGroup.Teens,
     ThereIsWoman: true,
@@ -65,7 +65,7 @@ const moviesExemple: MovieObject[] = [
     Price: 11.49
   },
   {
-    Id: 4,
+        Id:12,
     CategoryGroup: CategoryGroup.Plot,
     AgeGroup: AgeGroup.Adult,
     ThereIsWoman: true,
@@ -79,7 +79,7 @@ const moviesExemple: MovieObject[] = [
     Price: 14.99
   },
   {
-    Id: 5,
+        Id:13,
     CategoryGroup: CategoryGroup.Children,
     AgeGroup: AgeGroup.Babies,
     ThereIsWoman: false,
@@ -93,7 +93,7 @@ const moviesExemple: MovieObject[] = [
     Price: 7.99
   },
   {
-    Id: 6,
+        Id:19,
     CategoryGroup: CategoryGroup.Nature,
     AgeGroup: AgeGroup.GoldenAge,
     ThereIsWoman: true,
@@ -107,7 +107,7 @@ const moviesExemple: MovieObject[] = [
     Price: 10.99
   },
   {
-    Id: 7,
+        Id:15,
     CategoryGroup: CategoryGroup.Recipes,
     AgeGroup: AgeGroup.Adult,
     ThereIsWoman: true,
@@ -121,7 +121,7 @@ const moviesExemple: MovieObject[] = [
     Price: 13.49
   },
   {
-    Id: 8,
+        Id:18,
     CategoryGroup: CategoryGroup.Plot,
     AgeGroup: AgeGroup.Teens,
     ThereIsWoman: false,
@@ -135,7 +135,7 @@ const moviesExemple: MovieObject[] = [
     Price: 15.99
   },
   {
-    Id: 9,
+        Id:17,
     CategoryGroup: CategoryGroup.Children,
     AgeGroup: AgeGroup.Children,
     ThereIsWoman: true,
@@ -149,7 +149,7 @@ const moviesExemple: MovieObject[] = [
     Price: 14.49
   },
   {
-    Id: 10,
+    Id:14,
     CategoryGroup: CategoryGroup.Recipes,
     AgeGroup: AgeGroup.Adult,
     ThereIsWoman: false,
