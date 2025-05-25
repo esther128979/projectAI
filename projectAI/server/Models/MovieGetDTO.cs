@@ -1,6 +1,6 @@
 ﻿namespace server.Models
 {
-    public class MovieGetDTO
+    public class MovieDTO
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -17,6 +17,8 @@
         public decimal PricePerExtraView { get; set; }
         public decimal FinalPrice { get; set; }
         public string MovieLink { get; set; }
+        public string ImageUrl { get; set; }
+
     }
 
 }

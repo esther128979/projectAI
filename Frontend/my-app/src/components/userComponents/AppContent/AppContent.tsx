@@ -18,169 +18,171 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUsername } from '../../../redux/authSlice';
 import MovieListUser from '../MovieListUser/MovieListUser';
 import Cart from "../../Cart/Cart"
+import About from "../About/About.";
+import * as productService from "../../../services/productService"
 
 interface AppContentProps { }
 
 
-const moviesExemple: MovieObject[] = [
-    {
-        Id: 1,
-        CategoryGroup: CategoryGroup.Children,
-        AgeGroup: AgeGroup.Children,
-        ThereIsWoman: true,
-        Duration: 90,
-        AmountOfViews: 120,
-        FilmProductionDate: new Date("2020-06-15"),
-        Name: "The Magical Forest",
-        Description: "An adventure of a young girl discovering a hidden forest.",
-        Url: "https://example.com/magical-forest",
-        Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_05652-Edit-Edit-2-300x300.jpg",
-        Price: 12.99
-    },
-    {
-        Id: 2,
-        CategoryGroup: CategoryGroup.Recipes,
-        AgeGroup: AgeGroup.Adult,
-        ThereIsWoman: false,
-        Duration: 45,
-        AmountOfViews: 80,
-        FilmProductionDate: new Date("2018-09-20"),
-        Name: "Master Chef Secrets",
-        Description: "Top chefs reveal their kitchen secrets.",
-        Url: "https://example.com/master-chef",
-        Image: "https://mikispitzer.com/wp-content/uploads/2021/03/miki-spitzer-5-1-300x300.jpeg",
-        Price: 9.99
-    },
-    {
-        Id: 3,
-        CategoryGroup: CategoryGroup.Nature,
-        AgeGroup: AgeGroup.Teens,
-        ThereIsWoman: true,
-        Duration: 60,
-        AmountOfViews: 95,
-        FilmProductionDate: new Date("2019-03-12"),
-        Name: "Wildlife Wonders",
-        Description: "A documentary exploring the wonders of wildlife.",
-        Url: "https://example.com/wildlife-wonders",
-        Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_03034-Edit-3-300x300.jpg",
-        Price: 11.49
-    },
-    {
-        Id: 4,
-        CategoryGroup: CategoryGroup.Plot,
-        AgeGroup: AgeGroup.Adult,
-        ThereIsWoman: true,
-        Duration: 110,
-        AmountOfViews: 150,
-        FilmProductionDate: new Date("2022-01-10"),
-        Name: "The Hidden Truth",
-        Description: "A suspenseful thriller uncovering a deep conspiracy.",
-        Url: "https://example.com/hidden-truth",
-        Image: "https://mikispitzer.com/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-18-at-20.28.32-4-300x300.jpeg",
-        Price: 14.99
-    },
-    {
-        Id: 5,
-        CategoryGroup: CategoryGroup.Children,
-        AgeGroup: AgeGroup.Babies,
-        ThereIsWoman: false,
-        Duration: 30,
-        AmountOfViews: 50,
-        FilmProductionDate: new Date("2021-11-05"),
-        Name: "Baby's First Adventure",
-        Description: "A fun and educational animation for toddlers.",
-        Url: "https://example.com/baby-adventure",
-        Image: "https://mikispitzer.com/wp-content/uploads/2023/03/DJI_0599-300x300.jpg",
-        Price: 7.99
-    },
-    {
-        Id: 6,
-        CategoryGroup: CategoryGroup.Nature,
-        AgeGroup: AgeGroup.GoldenAge,
-        ThereIsWoman: true,
-        Duration: 85,
-        AmountOfViews: 70,
-        FilmProductionDate: new Date("2017-05-30"),
-        Name: "Serene Landscapes",
-        Description: "A calming journey through beautiful landscapes.",
-        Url: "https://example.com/serene-landscapes",
-        Image: "https://mikispitzer.com/wp-content/uploads/2022/12/DSC_5202-Edit-300x300.jpg",
-        Price: 10.99
-    },
-    {
-        Id: 7,
-        CategoryGroup: CategoryGroup.Recipes,
-        AgeGroup: AgeGroup.Adult,
-        ThereIsWoman: true,
-        Duration: 55,
-        AmountOfViews: 100,
-        FilmProductionDate: new Date("2023-02-18"),
-        Name: "Vegan Delights",
-        Description: "Learn to cook delicious vegan meals.",
-        Url: "https://example.com/vegan-delights",
-        Image: "https://mikispitzer.com/wp-content/uploads/2023/07/DSC2490-Edit-3-300x300.jpg",
-        Price: 13.49
-    },
-    {
-        Id: 8,
-        CategoryGroup: CategoryGroup.Plot,
-        AgeGroup: AgeGroup.Teens,
-        ThereIsWoman: false,
-        Duration: 130,
-        AmountOfViews: 200,
-        FilmProductionDate: new Date("2020-08-22"),
-        Name: "The Lost Treasure",
-        Description: "An action-packed adventure to find a legendary treasure.",
-        Url: "https://example.com/lost-treasure",
-        Image: "https://mikispitzer.com/wp-content/uploads/2021/06/DSC_2724-Edit-2-300x300.jpg",
-        Price: 15.99
-    },
-    {
-        Id: 9,
-        CategoryGroup: CategoryGroup.Children,
-        AgeGroup: AgeGroup.Children,
-        ThereIsWoman: true,
-        Duration: 75,
-        AmountOfViews: 110,
-        FilmProductionDate: new Date("2016-12-10"),
-        Name: "Fairy Tale Chronicles",
-        Description: "A magical journey through the world of fairy tales.",
-        Url: "https://example.com/fairy-tales",
-        Image: "https://mikispitzer.com/wp-content/uploads/2024/04/52-300x300.jpg",
-        Price: 14.49
-    },
-    {
-        Id: 10,
-        CategoryGroup: CategoryGroup.Recipes,
-        AgeGroup: AgeGroup.Adult,
-        ThereIsWoman: false,
-        Duration: 95,
-        AmountOfViews: 25,
-        FilmProductionDate: new Date("2015-04-10"),
-        Name: "Cooking with Grandma",
-        Description: "A heartwarming look at traditional home-cooked meals.",
-        Url: "https://example.com/cooking-with-grandma",
-        Image: "https://mikispitzer.com/wp-content/uploads/2023/12/DSC8892-Recovered-300x300.jpg",
-        Price: 9.99
-    }
-];
+// const moviesExemple: MovieObject[] = [
+//     {
+//         Id: 1,
+//         CategoryGroup: CategoryGroup.Children,
+//         AgeGroup: AgeGroup.Children,
+//         ThereIsWoman: true,
+//         Duration: 90,
+//         AmountOfViews: 120,
+//         FilmProductionDate: new Date("2020-06-15"),
+//         Name: "The Magical Forest",
+//         Description: "An adventure of a young girl discovering a hidden forest.",
+//         Url: "https://example.com/magical-forest",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_05652-Edit-Edit-2-300x300.jpg",
+//         Price: 12.99
+//     },
+//     {
+//         Id: 2,
+//         CategoryGroup: CategoryGroup.Recipes,
+//         AgeGroup: AgeGroup.Adult,
+//         ThereIsWoman: false,
+//         Duration: 45,
+//         AmountOfViews: 80,
+//         FilmProductionDate: new Date("2018-09-20"),
+//         Name: "Master Chef Secrets",
+//         Description: "Top chefs reveal their kitchen secrets.",
+//         Url: "https://example.com/master-chef",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2021/03/miki-spitzer-5-1-300x300.jpeg",
+//         Price: 9.99
+//     },
+//     {
+//         Id: 3,
+//         CategoryGroup: CategoryGroup.Nature,
+//         AgeGroup: AgeGroup.Teens,
+//         ThereIsWoman: true,
+//         Duration: 60,
+//         AmountOfViews: 95,
+//         FilmProductionDate: new Date("2019-03-12"),
+//         Name: "Wildlife Wonders",
+//         Description: "A documentary exploring the wonders of wildlife.",
+//         Url: "https://example.com/wildlife-wonders",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_03034-Edit-3-300x300.jpg",
+//         Price: 11.49
+//     },
+//     {
+//         Id: 4,
+//         CategoryGroup: CategoryGroup.Plot,
+//         AgeGroup: AgeGroup.Adult,
+//         ThereIsWoman: true,
+//         Duration: 110,
+//         AmountOfViews: 150,
+//         FilmProductionDate: new Date("2022-01-10"),
+//         Name: "The Hidden Truth",
+//         Description: "A suspenseful thriller uncovering a deep conspiracy.",
+//         Url: "https://example.com/hidden-truth",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-18-at-20.28.32-4-300x300.jpeg",
+//         Price: 14.99
+//     },
+//     {
+//         Id: 5,
+//         CategoryGroup: CategoryGroup.Children,
+//         AgeGroup: AgeGroup.Babies,
+//         ThereIsWoman: false,
+//         Duration: 30,
+//         AmountOfViews: 50,
+//         FilmProductionDate: new Date("2021-11-05"),
+//         Name: "Baby's First Adventure",
+//         Description: "A fun and educational animation for toddlers.",
+//         Url: "https://example.com/baby-adventure",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2023/03/DJI_0599-300x300.jpg",
+//         Price: 7.99
+//     },
+//     {
+//         Id: 6,
+//         CategoryGroup: CategoryGroup.Nature,
+//         AgeGroup: AgeGroup.GoldenAge,
+//         ThereIsWoman: true,
+//         Duration: 85,
+//         AmountOfViews: 70,
+//         FilmProductionDate: new Date("2017-05-30"),
+//         Name: "Serene Landscapes",
+//         Description: "A calming journey through beautiful landscapes.",
+//         Url: "https://example.com/serene-landscapes",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2022/12/DSC_5202-Edit-300x300.jpg",
+//         Price: 10.99
+//     },
+//     {
+//         Id: 7,
+//         CategoryGroup: CategoryGroup.Recipes,
+//         AgeGroup: AgeGroup.Adult,
+//         ThereIsWoman: true,
+//         Duration: 55,
+//         AmountOfViews: 100,
+//         FilmProductionDate: new Date("2023-02-18"),
+//         Name: "Vegan Delights",
+//         Description: "Learn to cook delicious vegan meals.",
+//         Url: "https://example.com/vegan-delights",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2023/07/DSC2490-Edit-3-300x300.jpg",
+//         Price: 13.49
+//     },
+//     {
+//         Id: 8,
+//         CategoryGroup: CategoryGroup.Plot,
+//         AgeGroup: AgeGroup.Teens,
+//         ThereIsWoman: false,
+//         Duration: 130,
+//         AmountOfViews: 200,
+//         FilmProductionDate: new Date("2020-08-22"),
+//         Name: "The Lost Treasure",
+//         Description: "An action-packed adventure to find a legendary treasure.",
+//         Url: "https://example.com/lost-treasure",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2021/06/DSC_2724-Edit-2-300x300.jpg",
+//         Price: 15.99
+//     },
+//     {
+//         Id: 9,
+//         CategoryGroup: CategoryGroup.Children,
+//         AgeGroup: AgeGroup.Children,
+//         ThereIsWoman: true,
+//         Duration: 75,
+//         AmountOfViews: 110,
+//         FilmProductionDate: new Date("2016-12-10"),
+//         Name: "Fairy Tale Chronicles",
+//         Description: "A magical journey through the world of fairy tales.",
+//         Url: "https://example.com/fairy-tales",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2024/04/52-300x300.jpg",
+//         Price: 14.49
+//     },
+//     {
+//         Id: 10,
+//         CategoryGroup: CategoryGroup.Recipes,
+//         AgeGroup: AgeGroup.Adult,
+//         ThereIsWoman: false,
+//         Duration: 95,
+//         AmountOfViews: 25,
+//         FilmProductionDate: new Date("2015-04-10"),
+//         Name: "Cooking with Grandma",
+//         Description: "A heartwarming look at traditional home-cooked meals.",
+//         Url: "https://example.com/cooking-with-grandma",
+//         Image: "https://mikispitzer.com/wp-content/uploads/2023/12/DSC8892-Recovered-300x300.jpg",
+//         Price: 9.99
+//     }
+// ];
 
 const AppContent: FC<AppContentProps> = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const cartCount = useSelector((state: any) => state.myCart.items.length);
-    const username = useSelector(selectUsername);
-
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState("");
+    const cartCount = useSelector((state: any) => state.myCart.items.length);
+    const username = useSelector(selectUsername);
+    const movies = productService.getMovies();
+ 
     const toggleChat = () => setIsChatOpen(!isChatOpen);
     type ChatMessage = {
         text: string;
         time: string;
     };
-
     const handleSendMessage = () => {
         if (newMessage.trim() === "") return;
 
@@ -195,12 +197,10 @@ const AppContent: FC<AppContentProps> = () => {
         setChatMessages(prev => [...prev, newChatMessage]);
         setNewMessage("");
     };
-
-    // הקלטה של הודעה חדשה
     const handleNewMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewMessage(event.target.value);
-    };//רגע הניתובים של המנהל כן עובדים?
-    // הפונקציה מחזירה את האינדקס של הטאב לפי הנתיב, או -1 אם לא מתאים
+    };
+
     const getPageFromPath = (path: string) => {
         switch (path) {
             case '/all-movies':
@@ -210,7 +210,7 @@ const AppContent: FC<AppContentProps> = () => {
             case '/about':
                 return 2;
             default:
-                return -1; // שום טאב לא מסומן
+                return -1;
         }
     };
 
@@ -219,77 +219,77 @@ const AppContent: FC<AppContentProps> = () => {
     const ForYou = () => <div>במיוחד בשבילך</div>;
     // const Cart = () => <div>עגלת קניות</div>;
     const Orders = () => <div>ההזמנות שלך</div>;
-    const About = () =>
-        <div
-            style={{
-                direction: "rtl",
-                textAlign: "right",
-                fontFamily: "'Noto Sans Hebrew', sans-serif",
-                lineHeight: 1.7,
-                padding: "1.5em 2em",
-                backgroundColor: "#f8fafc",
-                borderRadius: 12,
-                maxWidth: 800,
-                margin: "8vh auto 2em", // שימי לב כאן - הוספנו margin-top יחסי
-                boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-                color: "#3e3e3e",
-            }}
-        >
-            <h2 style={{ fontSize: "1.6em", marginBottom: "1em" }}>
-                אתר "DosFlix" – צפייה טהורה, חוויה מעוררת לב
-            </h2>
+    // const About = () =>
+    //     <div
+    //         style={{
+    //             direction: "rtl",
+    //             textAlign: "right",
+    //             fontFamily: "'Noto Sans Hebrew', sans-serif",
+    //             lineHeight: 1.7,
+    //             padding: "1.5em 2em",
+    //             backgroundColor: "#f8fafc",
+    //             borderRadius: 12,
+    //             maxWidth: 800,
+    //             margin: "8vh auto 2em", // שימי לב כאן - הוספנו margin-top יחסי
+    //             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    //             color: "#3e3e3e",
+    //         }}
+    //     >
+    //         <h2 style={{ fontSize: "1.6em", marginBottom: "1em" }}>
+    //             אתר "DosFlix" – צפייה טהורה, חוויה מעוררת לב
+    //         </h2>
 
-            <p>
-                אתר DosFlix נוסד מתוך תחושת שליחות עמוקה ונקייה: להנגיש לציבור יראי ה' –
-                בני תורה, משפחותיהם ובני נוער שוחרי אמת – תכנים מובחרים המחזקים את
-                הנפש, מאירים את הלב ומכוונים את האדם לדרך טובה ויציבה. זוהי במה עדינה
-                וערכית, שמטרתה להעניק מענה איכותי, רוחני ונקי לעולם התוכן הדיגיטלי –
-                מבלי להתפשר כהוא זה על עקרונות של צניעות, קדושה, והשפעה רוחנית חיובית.
-            </p>
+    //         <p>
+    //             אתר DosFlix נוסד מתוך תחושת שליחות עמוקה ונקייה: להנגיש לציבור יראי ה' –
+    //             בני תורה, משפחותיהם ובני נוער שוחרי אמת – תכנים מובחרים המחזקים את
+    //             הנפש, מאירים את הלב ומכוונים את האדם לדרך טובה ויציבה. זוהי במה עדינה
+    //             וערכית, שמטרתה להעניק מענה איכותי, רוחני ונקי לעולם התוכן הדיגיטלי –
+    //             מבלי להתפשר כהוא זה על עקרונות של צניעות, קדושה, והשפעה רוחנית חיובית.
+    //         </p>
 
-            <p>
-                את האתר מנהלים במסירות רבה, באחריות וביראת שמיים, הזוג רפאל ונעמי קליפשטיין
-                מירושלים – תלמידי חכמים, אנשי חינוך ונפשות פועלות, אשר מקדישים את
-                חייהם לחיזוק דור העתיד, בהכוונה רוחנית ובליווי אישי. האתר פועל בשיתוף
-                פעולה מתמיד עם רבנים מוסמכים, מחנכים ואנשי דעת תורה, וכל תוכן שבו מוגש
-                לאחר בחינה רוחנית וחינוכית קפדנית.
-            </p>
+    //         <p>
+    //             את האתר מנהלים במסירות רבה, באחריות וביראת שמיים, הזוג רפאל ונעמי קליפשטיין
+    //             מירושלים – תלמידי חכמים, אנשי חינוך ונפשות פועלות, אשר מקדישים את
+    //             חייהם לחיזוק דור העתיד, בהכוונה רוחנית ובליווי אישי. האתר פועל בשיתוף
+    //             פעולה מתמיד עם רבנים מוסמכים, מחנכים ואנשי דעת תורה, וכל תוכן שבו מוגש
+    //             לאחר בחינה רוחנית וחינוכית קפדנית.
+    //         </p>
 
-            <h3 style={{ marginTop: "1.5em", marginBottom: "0.7em" }}>
-                עקרונות היסוד של DosFlix:
-            </h3>
-            <ul style={{ paddingRight: "1.2em" }}>
-                <li>
-                    <strong>תיאום עם דעת תורה:</strong> כל סרטון, שיעור, סדרה או קליפ נבחן
-                    באמות מידה של הלכה, מוסר והשפעה חינוכית. אין קיצורי דרך.
-                </li>
-                <li>
-                    <strong>חיזוק בלבד:</strong> אין אצלנו "סתם" בידור. כל צפייה נועדה
-                    לחזק – אמונה, דרך ארץ, מוסר, שמחת חיים ותודעת שליחות.
-                </li>
-                <li>
-                    <strong>צניעות מוחלטת:</strong> ההקפדה על תוכן נקי, צנוע ומכובד – היא
-                    תנאי ראשון לכל פרסום באתר.
-                </li>
-                <li>
-                    <strong>סביבה רגועה ומכבדת:</strong> הממשק הדיגיטלי של DosFlix מעוצב כך
-                    שיסייע לריכוז, מנוחה פנימית וצפייה ללא רעשי רקע. זהו מרחב של נשימה
-                    רוחנית.
-                </li>
-                <li>
-                    <strong>ללא פרסומות, ללא הסחות דעת:</strong> כדי שהלב יוכל באמת להיפתח,
-                    המרחב הווירטואלי חייב להיות מוגן, מתון ומכיל.
-                </li>
-            </ul>
+    //         <h3 style={{ marginTop: "1.5em", marginBottom: "0.7em" }}>
+    //             עקרונות היסוד של DosFlix:
+    //         </h3>
+    //         <ul style={{ paddingRight: "1.2em" }}>
+    //             <li>
+    //                 <strong>תיאום עם דעת תורה:</strong> כל סרטון, שיעור, סדרה או קליפ נבחן
+    //                 באמות מידה של הלכה, מוסר והשפעה חינוכית. אין קיצורי דרך.
+    //             </li>
+    //             <li>
+    //                 <strong>חיזוק בלבד:</strong> אין אצלנו "סתם" בידור. כל צפייה נועדה
+    //                 לחזק – אמונה, דרך ארץ, מוסר, שמחת חיים ותודעת שליחות.
+    //             </li>
+    //             <li>
+    //                 <strong>צניעות מוחלטת:</strong> ההקפדה על תוכן נקי, צנוע ומכובד – היא
+    //                 תנאי ראשון לכל פרסום באתר.
+    //             </li>
+    //             <li>
+    //                 <strong>סביבה רגועה ומכבדת:</strong> הממשק הדיגיטלי של DosFlix מעוצב כך
+    //                 שיסייע לריכוז, מנוחה פנימית וצפייה ללא רעשי רקע. זהו מרחב של נשימה
+    //                 רוחנית.
+    //             </li>
+    //             <li>
+    //                 <strong>ללא פרסומות, ללא הסחות דעת:</strong> כדי שהלב יוכל באמת להיפתח,
+    //                 המרחב הווירטואלי חייב להיות מוגן, מתון ומכיל.
+    //             </li>
+    //         </ul>
 
-            <h3 style={{ marginTop: "1.5em", marginBottom: "0.7em" }}>למי מיועד האתר?</h3>
-            <p>
-                לכל מי שמחפש תוכן מחזק – משפחות יראי שמיים, בני נוער מבקשי אמת,
-                מחנכים, מדריכים, ואפילו יחידים שעומדים בפני אתגרים רוחניים – ורוצים
-                להכניס קצת אור, עידוד וחום אל תוך השגרה.
-            </p>
+    //         <h3 style={{ marginTop: "1.5em", marginBottom: "0.7em" }}>למי מיועד האתר?</h3>
+    //         <p>
+    //             לכל מי שמחפש תוכן מחזק – משפחות יראי שמיים, בני נוער מבקשי אמת,
+    //             מחנכים, מדריכים, ואפילו יחידים שעומדים בפני אתגרים רוחניים – ורוצים
+    //             להכניס קצת אור, עידוד וחום אל תוך השגרה.
+    //         </p>
 
-        </div>;
+    //     </div>;
     const Login = () => <div>התחברות</div>;
     const Register = () => <div>הרשמה</div>;
 
@@ -378,7 +378,7 @@ const AppContent: FC<AppContentProps> = () => {
             >
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/all-movies" element={<MovieListUser movies={moviesExemple} />} />
+                    <Route path="/all-movies" element={<MovieListUser movies={movies} />} />
                     <Route path="/for-you" element={<ForYou />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/orders" element={<Orders />} />

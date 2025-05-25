@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import logo from 'logo.png';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -19,156 +19,165 @@ import { logout } from '../../../redux/authSlice';
 import { OrderCardList } from "../OrderCardList/OrderCardList";
 import { MovieListAdmin } from "../MovieListAdmin/MovieListAdmin";
 import { selectUsername } from '../../../redux/authSlice';
+import * as productService from "../../../services/productService"
 
 interface AppContentProps { }
-const moviesExemple: MovieObject[] = [
-  {
-    Id: 1,
-    CategoryGroup: CategoryGroup.Children,
-    AgeGroup: AgeGroup.Children,
-    ThereIsWoman: true,
-    Duration: 90,
-    AmountOfViews: 120,
-    FilmProductionDate: new Date("2020-06-15"),
-    Name: "The Magical Forest",
-    Description: "An adventure of a young girl discovering a hidden forest.",
-    Url: "https://example.com/magical-forest",
-    Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_05652-Edit-Edit-2-300x300.jpg",
-    Price: 12.99
-  },
-  {
-    Id: 2,
-    CategoryGroup: CategoryGroup.Recipes,
-    AgeGroup: AgeGroup.Adult,
-    ThereIsWoman: false,
-    Duration: 45,
-    AmountOfViews: 80,
-    FilmProductionDate: new Date("2018-09-20"),
-    Name: "Master Chef Secrets",
-    Description: "Top chefs reveal their kitchen secrets.",
-    Url: "https://example.com/master-chef",
-    Image: "https://mikispitzer.com/wp-content/uploads/2021/03/miki-spitzer-5-1-300x300.jpeg",
-    Price: 9.99
-  },
-  {
-    Id: 3,
-    CategoryGroup: CategoryGroup.Nature,
-    AgeGroup: AgeGroup.Teens,
-    ThereIsWoman: true,
-    Duration: 60,
-    AmountOfViews: 95,
-    FilmProductionDate: new Date("2019-03-12"),
-    Name: "Wildlife Wonders",
-    Description: "A documentary exploring the wonders of wildlife.",
-    Url: "https://example.com/wildlife-wonders",
-    Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_03034-Edit-3-300x300.jpg",
-    Price: 11.49
-  },
-  {
-    Id: 4,
-    CategoryGroup: CategoryGroup.Plot,
-    AgeGroup: AgeGroup.Adult,
-    ThereIsWoman: true,
-    Duration: 110,
-    AmountOfViews: 150,
-    FilmProductionDate: new Date("2022-01-10"),
-    Name: "The Hidden Truth",
-    Description: "A suspenseful thriller uncovering a deep conspiracy.",
-    Url: "https://example.com/hidden-truth",
-    Image: "https://mikispitzer.com/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-18-at-20.28.32-4-300x300.jpeg",
-    Price: 14.99
-  },
-  {
-    Id: 5,
-    CategoryGroup: CategoryGroup.Children,
-    AgeGroup: AgeGroup.Babies,
-    ThereIsWoman: false,
-    Duration: 30,
-    AmountOfViews: 50,
-    FilmProductionDate: new Date("2021-11-05"),
-    Name: "Baby's First Adventure",
-    Description: "A fun and educational animation for toddlers.",
-    Url: "https://example.com/baby-adventure",
-    Image: "https://mikispitzer.com/wp-content/uploads/2023/03/DJI_0599-300x300.jpg",
-    Price: 7.99
-  },
-  {
-    Id: 6,
-    CategoryGroup: CategoryGroup.Nature,
-    AgeGroup: AgeGroup.GoldenAge,
-    ThereIsWoman: true,
-    Duration: 85,
-    AmountOfViews: 70,
-    FilmProductionDate: new Date("2017-05-30"),
-    Name: "Serene Landscapes",
-    Description: "A calming journey through beautiful landscapes.",
-    Url: "https://example.com/serene-landscapes",
-    Image: "https://mikispitzer.com/wp-content/uploads/2022/12/DSC_5202-Edit-300x300.jpg",
-    Price: 10.99
-  },
-  {
-    Id: 7,
-    CategoryGroup: CategoryGroup.Recipes,
-    AgeGroup: AgeGroup.Adult,
-    ThereIsWoman: true,
-    Duration: 55,
-    AmountOfViews: 100,
-    FilmProductionDate: new Date("2023-02-18"),
-    Name: "Vegan Delights",
-    Description: "Learn to cook delicious vegan meals.",
-    Url: "https://example.com/vegan-delights",
-    Image: "https://mikispitzer.com/wp-content/uploads/2023/07/DSC2490-Edit-3-300x300.jpg",
-    Price: 13.49
-  },
-  {
-    Id: 8,
-    CategoryGroup: CategoryGroup.Plot,
-    AgeGroup: AgeGroup.Teens,
-    ThereIsWoman: false,
-    Duration: 130,
-    AmountOfViews: 200,
-    FilmProductionDate: new Date("2020-08-22"),
-    Name: "The Lost Treasure",
-    Description: "An action-packed adventure to find a legendary treasure.",
-    Url: "https://example.com/lost-treasure",
-    Image: "https://mikispitzer.com/wp-content/uploads/2021/06/DSC_2724-Edit-2-300x300.jpg",
-    Price: 15.99
-  },
-  {
-    Id: 9,
-    CategoryGroup: CategoryGroup.Children,
-    AgeGroup: AgeGroup.Children,
-    ThereIsWoman: true,
-    Duration: 75,
-    AmountOfViews: 110,
-    FilmProductionDate: new Date("2016-12-10"),
-    Name: "Fairy Tale Chronicles",
-    Description: "A magical journey through the world of fairy tales.",
-    Url: "https://example.com/fairy-tales",
-    Image: "https://mikispitzer.com/wp-content/uploads/2024/04/52-300x300.jpg",
-    Price: 14.49
-  },
-  {
-    Id: 10,
-    CategoryGroup: CategoryGroup.Recipes,
-    AgeGroup: AgeGroup.Adult,
-    ThereIsWoman: false,
-    Duration: 95,
-    AmountOfViews: 25,
-    FilmProductionDate: new Date("2015-04-10"),
-    Name: "Cooking with Grandma",
-    Description: "A heartwarming look at traditional home-cooked meals.",
-    Url: "https://example.com/cooking-with-grandma",
-    Image: "https://mikispitzer.com/wp-content/uploads/2023/12/DSC8892-Recovered-300x300.jpg",
-    Price: 9.99
-  }
-];
+// const moviesExemple: MovieObject[] = [
+//   {
+//     Id: 1,
+//     CategoryGroup: CategoryGroup.Children,
+//     AgeGroup: AgeGroup.Children,
+//     ThereIsWoman: true,
+//     Duration: 90,
+//     AmountOfViews: 120,
+//     FilmProductionDate: new Date("2020-06-15"),
+//     Name: "The Magical Forest",
+//     Description: "An adventure of a young girl discovering a hidden forest.",
+//     Url: "https://example.com/magical-forest",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_05652-Edit-Edit-2-300x300.jpg",
+//     Price: 12.99
+//   },
+//   {
+//     Id: 2,
+//     CategoryGroup: CategoryGroup.Recipes,
+//     AgeGroup: AgeGroup.Adult,
+//     ThereIsWoman: false,
+//     Duration: 45,
+//     AmountOfViews: 80,
+//     FilmProductionDate: new Date("2018-09-20"),
+//     Name: "Master Chef Secrets",
+//     Description: "Top chefs reveal their kitchen secrets.",
+//     Url: "https://example.com/master-chef",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2021/03/miki-spitzer-5-1-300x300.jpeg",
+//     Price: 9.99
+//   },
+//   {
+//     Id: 3,
+//     CategoryGroup: CategoryGroup.Nature,
+//     AgeGroup: AgeGroup.Teens,
+//     ThereIsWoman: true,
+//     Duration: 60,
+//     AmountOfViews: 95,
+//     FilmProductionDate: new Date("2019-03-12"),
+//     Name: "Wildlife Wonders",
+//     Description: "A documentary exploring the wonders of wildlife.",
+//     Url: "https://example.com/wildlife-wonders",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2021/03/DSC_03034-Edit-3-300x300.jpg",
+//     Price: 11.49
+//   },
+//   {
+//     Id: 4,
+//     CategoryGroup: CategoryGroup.Plot,
+//     AgeGroup: AgeGroup.Adult,
+//     ThereIsWoman: true,
+//     Duration: 110,
+//     AmountOfViews: 150,
+//     FilmProductionDate: new Date("2022-01-10"),
+//     Name: "The Hidden Truth",
+//     Description: "A suspenseful thriller uncovering a deep conspiracy.",
+//     Url: "https://example.com/hidden-truth",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-18-at-20.28.32-4-300x300.jpeg",
+//     Price: 14.99
+//   },
+//   {
+//     Id: 5,
+//     CategoryGroup: CategoryGroup.Children,
+//     AgeGroup: AgeGroup.Babies,
+//     ThereIsWoman: false,
+//     Duration: 30,
+//     AmountOfViews: 50,
+//     FilmProductionDate: new Date("2021-11-05"),
+//     Name: "Baby's First Adventure",
+//     Description: "A fun and educational animation for toddlers.",
+//     Url: "https://example.com/baby-adventure",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2023/03/DJI_0599-300x300.jpg",
+//     Price: 7.99
+//   },
+//   {
+//     Id: 6,
+//     CategoryGroup: CategoryGroup.Nature,
+//     AgeGroup: AgeGroup.GoldenAge,
+//     ThereIsWoman: true,
+//     Duration: 85,
+//     AmountOfViews: 70,
+//     FilmProductionDate: new Date("2017-05-30"),
+//     Name: "Serene Landscapes",
+//     Description: "A calming journey through beautiful landscapes.",
+//     Url: "https://example.com/serene-landscapes",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2022/12/DSC_5202-Edit-300x300.jpg",
+//     Price: 10.99
+//   },
+//   {
+//     Id: 7,
+//     CategoryGroup: CategoryGroup.Recipes,
+//     AgeGroup: AgeGroup.Adult,
+//     ThereIsWoman: true,
+//     Duration: 55,
+//     AmountOfViews: 100,
+//     FilmProductionDate: new Date("2023-02-18"),
+//     Name: "Vegan Delights",
+//     Description: "Learn to cook delicious vegan meals.",
+//     Url: "https://example.com/vegan-delights",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2023/07/DSC2490-Edit-3-300x300.jpg",
+//     Price: 13.49
+//   },
+//   {
+//     Id: 8,
+//     CategoryGroup: CategoryGroup.Plot,
+//     AgeGroup: AgeGroup.Teens,
+//     ThereIsWoman: false,
+//     Duration: 130,
+//     AmountOfViews: 200,
+//     FilmProductionDate: new Date("2020-08-22"),
+//     Name: "The Lost Treasure",
+//     Description: "An action-packed adventure to find a legendary treasure.",
+//     Url: "https://example.com/lost-treasure",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2021/06/DSC_2724-Edit-2-300x300.jpg",
+//     Price: 15.99
+//   },
+//   {
+//     Id: 9,
+//     CategoryGroup: CategoryGroup.Children,
+//     AgeGroup: AgeGroup.Children,
+//     ThereIsWoman: true,
+//     Duration: 75,
+//     AmountOfViews: 110,
+//     FilmProductionDate: new Date("2016-12-10"),
+//     Name: "Fairy Tale Chronicles",
+//     Description: "A magical journey through the world of fairy tales.",
+//     Url: "https://example.com/fairy-tales",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2024/04/52-300x300.jpg",
+//     Price: 14.49
+//   },
+//   {
+//     Id: 10,
+//     CategoryGroup: CategoryGroup.Recipes,
+//     AgeGroup: AgeGroup.Adult,
+//     ThereIsWoman: false,
+//     Duration: 95,
+//     AmountOfViews: 25,
+//     FilmProductionDate: new Date("2015-04-10"),
+//     Name: "Cooking with Grandma",
+//     Description: "A heartwarming look at traditional home-cooked meals.",
+//     Url: "https://example.com/cooking-with-grandma",
+//     Image: "https://mikispitzer.com/wp-content/uploads/2023/12/DSC8892-Recovered-300x300.jpg",
+//     Price: 9.99
+//   }
+// ];
 const AdminScreen: FC<{}> = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const username = useSelector(selectUsername);
+ const [movies, setMovies] = useState<MovieObject>([]);
 
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const data = await productService.getMovies();
+      setMovies(data);
+    };
+    fetchMovies();
+  }, []);
   function handleEditMovie(movie: MovieObject) {
     // פותח דיאלוג עריכה למשל
   }
@@ -195,9 +204,7 @@ const AdminScreen: FC<{}> = () => {
     }
   };
   const page = getPageFromPath(location.pathname);
-  const func = () => {
-    console.log('good!!!')
-  }
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
@@ -257,7 +264,7 @@ const AdminScreen: FC<{}> = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<UserCardList />} />
           <Route path="/orders" element={<OrderCardList />} />
-          <Route path="/products" element={<MovieListAdmin movies={moviesExemple}
+          <Route path="/products" element={<MovieListAdmin movies={movies}
             onAddMovie={handleAddMovie} />} />
         </Routes>
       </Container>

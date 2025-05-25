@@ -39,3 +39,18 @@ export interface MovieObject {
     Image?:string;
   
   }
+// export interface MovieObject {
+//     id?: number; 
+//   name?: string;
+//   description?: string;
+//   codeCategory?: CategoryGroup;    
+//   ageGroup?: AgeGroup;              
+//   hasWoman?: boolean;
+//   lengthMinutes?: number;
+//   productionDate?: Date;
+//   priceBase?: number;             
+//   pricePerExtraViewer?: number;
+//   pricePerExtraView?: number;
+//   movieLink?: string;
+//   imageUrl?: string;
+// }

@@ -20,7 +20,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     loginUser:(state, action: PayloadAction<{ role: Role; username: string }>) =>{
-      debugger
       state.isLoggedIn = true;
       state.role = action.payload.role;
       state.username = action.payload.username;

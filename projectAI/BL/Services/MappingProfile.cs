@@ -27,6 +27,7 @@ namespace BL.Services
                 .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => src.ExtraViewerPrice))
                 .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => src.ExtraViewPrice))
                 .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.Link))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dest => dest.CodeCategoryNavigation, opt => opt.MapFrom(src => src.CategoryCodeNavigation))
                 .ForMember(dest => dest.AgeGroupNavigation, opt => opt.MapFrom(src => src.AgeCodeNavigation))
                 .ForMember(dest => dest.TotalViewers,
@@ -44,7 +45,8 @@ namespace BL.Services
                 .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.PriceBase))
                 .ForMember(dest => dest.ExtraViewerPrice, opt => opt.MapFrom(src => src.PricePerExtraViewer))
                 .ForMember(dest => dest.ExtraViewPrice, opt => opt.MapFrom(src => src.PricePerExtraView))
-                .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.MovieLink));
+                .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.MovieLink))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
 
 
 

@@ -23,6 +23,7 @@ public class BLMovie
     public decimal? PricePerExtraView { get; set; }
 
     public string? MovieLink { get; set; }
+    public string ImageUrl { get; set; }
 
     public Category? CodeCategoryNavigation { get; set; }
     public AgeGroup? AgeGroupNavigation { get; set; }

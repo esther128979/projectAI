@@ -20,26 +20,26 @@ namespace server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MovieGetDTO>>> GetAll()
+        public async Task<ActionResult<List<MovieDTO>>> GetAll()
         {
             var movies = await _movieService.Movies.GetAll();
-            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            var dtoList = _mapper.Map<List<MovieDTO>>(movies);
             return Ok(dtoList);
         }
 
         [HttpGet("by-age/{ageGroup}")]
-        public async Task<ActionResult<List<MovieGetDTO>>> GetByAgeGroup(eAgeGroup ageGroup)
+        public async Task<ActionResult<List<MovieDTO>>> GetByAgeGroup(eAgeGroup ageGroup)
         {
             var movies = await _movieService.Movies.GetMoviesByAgeGroup(ageGroup);
-            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            var dtoList = _mapper.Map<List<MovieDTO>>(movies);
             return Ok(dtoList);
         }
 
         [HttpGet("by-category/{category}")]
-        public async Task<ActionResult<List<MovieGetDTO>>> GetByCategory(eCategoryGroup category)
+        public async Task<ActionResult<List<MovieDTO>>> GetByCategory(eCategoryGroup category)
         {
             var movies = await _movieService.Movies.GetMoviesByCategory(category);
-            var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
+            var dtoList = _mapper.Map<List<MovieDTO>>(movies);
             return Ok(dtoList);
         }
 
@@ -52,7 +52,7 @@ namespace server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateMovie(int id, [FromBody] MovieUpdateDTO movieDto)
+        public async Task<ActionResult> UpdateMovie(int id, [FromBody] MovieDTO movieDto)
         {
             if (id != movieDto.Id)
                 return BadRequest("ID mismatch");

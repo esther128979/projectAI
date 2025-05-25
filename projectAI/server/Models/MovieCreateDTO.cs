@@ -15,6 +15,7 @@ namespace server.Models
         public decimal? PricePerExtraViewer { get; set; } = 0;
         public decimal? PricePerExtraView { get; set; } = 0;
         public string? MovieLink { get; set; }
+        public string ImageUrl { get; set; }
     }
 
 }
