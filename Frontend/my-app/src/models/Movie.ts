@@ -25,31 +25,37 @@ export enum CategoryGroup
 }
 
 export interface MovieObject {
-    Id:number;
-    CategoryGroup?:CategoryGroup;
-    AgeGroup?:AgeGroup;
-    ThereIsWoman?:boolean;
-    Duration?:number;
-    AmountOfViews?:number;
-    FilmProductionDate?:Date;
-    Name:string;
-    Description?:string;
-    Url?:string;
-    Price:number;
-    Image?:string;
-  
+    
+    Id : number;
+    Name?: string;
+    Description? : string; 
+    CategoryName? : string;
+    AgeGroupName? : string; 
+    HasWoman? : boolean;
+    LengthMinutes? : number; 
+    TotalViews? : number;
+    TotalViewers? : number;
+    ProductionDate? : Date; 
+    PriceBase? :  number;
+    PricePerExtraViewer? : number;
+    PricePerExtraView? :number; 
+    FinalPrice? : number;
+    MovieLink? : string; 
+    Image? :string;
   }
   export interface MovieToAdd {
-    CategoryGroup:CategoryGroup;
-    AgeGroup:AgeGroup;
-    ThereIsWoman:boolean;
-    Duration:number;
-    AmountOfViews:number;
-    FilmProductionDate:Date;
-    Name:string;
-    Description:string;
-    Url:string;
-    Price:number;
-    Image:string;
+   
+    Name? : string;
+    Description? : string; 
+    eCategoryGroup? : CategoryGroup ;
+    eAgeGroup? : AgeGroup ;
+    HasWoman ? : boolean;
+    LengthMinutes? : number; 
+    ProductionDate? : Date;  
+    PriceBase? :number;
+    PricePerExtraViewer? : number;
+    PricePerExtraView? : number;
+    MovieLink? : string;
+    Image? :string;
   
   }

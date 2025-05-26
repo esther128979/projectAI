@@ -113,7 +113,7 @@ const MovieCardAdmin: FC<MovieCardProps> = ({
           <Box display="flex" alignItems="center" gap={0.5}>
             <VisibilityIcon sx={{ fontSize: 18, color: '#3e3e3e' }} />
             <Typography variant="body2" sx={{ fontSize: 13, color: '#3e3e3e' }}>
-              {movie.AmountOfViews}
+              {movie.TotalViewers}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" gap={0.5}>
@@ -122,13 +122,13 @@ const MovieCardAdmin: FC<MovieCardProps> = ({
               <TextField
                 variant="outlined"
                 size="small"
-                value={editedMovie.Duration}
-                onChange={(e) => setEditedMovie({ ...editedMovie, Duration: +e.target.value })}
+                value={editedMovie.LengthMinutes}
+                onChange={(e) => setEditedMovie({ ...editedMovie, LengthMinutes: +e.target.value })}
                 sx={{ width: 60 }}
               />
             ) : (
               <Typography variant="body2" sx={{ fontSize: 13, color: '#3e3e3e' }}>
-                {movie.Duration} דקות
+                {movie.LengthMinutes} דקות
               </Typography>
             )}
           </Box>
@@ -139,8 +139,8 @@ const MovieCardAdmin: FC<MovieCardProps> = ({
             <TextField
               variant="outlined"
               size="small"
-              value={editedMovie.Price}
-              onChange={(e) => setEditedMovie({ ...editedMovie, Price: +e.target.value })}
+              value={editedMovie.PriceBase}
+              onChange={(e) => setEditedMovie({ ...editedMovie, PriceBase: +e.target.value })}
               sx={{ backgroundColor: '#b8399a41', borderRadius: 1 }}
             />
           ) : (
@@ -157,7 +157,8 @@ const MovieCardAdmin: FC<MovieCardProps> = ({
                 color: '#3e3e3e'
               }}
             >
-              ₪{movie.Price}
+              ₪{movie.PriceBase}
+              המחיר משתנה בהתאם לכמות הצפיות
             </Typography>
           )}
         </Box>

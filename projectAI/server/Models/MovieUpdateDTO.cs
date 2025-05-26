@@ -5,7 +5,6 @@ namespace server.Models
     public class MovieUpdateDTO
     {
         public int Id { get; set; } // מזהה הסרט לעדכון
-
         public string? Name { get; set; }
         public string? Description { get; set; }
         public eCategoryGroup? CodeCategory { get; set; }
