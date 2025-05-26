@@ -7,9 +7,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../redux/authSlice';
 
 
-// interface LogInProps {
-//     onLogin: () => void;
-// }
+
 export function LogIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();

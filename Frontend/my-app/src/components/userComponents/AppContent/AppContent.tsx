@@ -290,7 +290,7 @@ const AppContent: FC<AppContentProps> = () => {
             </p>
 
         </div>;
-    const Login = () => <div>התחברות</div>;
+    // const Login = () => <div>התחברות</div>;
     const Register = () => <div>הרשמה</div>;
 
     const handleLogout = () => {
@@ -383,7 +383,7 @@ const AppContent: FC<AppContentProps> = () => {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/login" element={<Login />} />
+                    {/* <Route path="/login" element={<Login />} /> */}
                     <Route path="/register" element={<Register />} />
                 </Routes>
 

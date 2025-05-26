@@ -58,4 +58,5 @@ export interface MovieObject {
     MovieLink? : string;
     Image? :string;
   
+
   }

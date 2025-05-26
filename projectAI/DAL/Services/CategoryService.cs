@@ -86,7 +86,22 @@ namespace DAL.Services
             }
 
         }
+        public async Task<Category?> GetCategoryById(int id)
+        {
+            try
+            {
+                return await db.Categories
+                    .FirstOrDefaultAsync(c => c.CategoryCode == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("שגיאה בהחזרת קטגוריה לפי מזהה", ex);
+            }
+        }
 
-     
+
+
+
+
     }
 }

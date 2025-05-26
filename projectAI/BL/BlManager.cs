@@ -7,6 +7,7 @@ using BL.Models;
 using AutoMapper;
 using DAL.Services;
 using System.Net.Http;
+using BL.Profiles;
 
 namespace BL
 {
@@ -30,6 +31,8 @@ namespace BL
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
+                cfg.AddProfile<MovieProfile>();
+                cfg.AddProfile<OrderProfile>();
             });
 
             IMapper mapper = config.CreateMapper();
