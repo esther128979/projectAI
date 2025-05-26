@@ -7,72 +7,104 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../redux/authSlice';
 
 
-// interface LogInProps {
-//     onLogin: () => void;
-// }
 export function LogIn() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Basic validation
+        setError('');
+
         if (!email || !password) {
             setError('Both fields are required');
             return;
         }
-        else {
-        
-            if (email === 'leah23531@gmail.com' && password === '12345') {
-                dispatch(loginUser({
-                    role: 'admin',
-                    username: 'רפאל'//
-                }))
-                // navigate('admin')
-            } else {
-                dispatch(loginUser({
-                    role: 'user',
-                    username: 'משתמש אנונימי'
-                }))
-                //  navigate('user')
 
-            }
+        try {
+            const response = await axios.post('http://localhost:5245/Controllers/UsersController/Login', {
+                email,
+                password,
+            });
+
+            const { email: userEmail, username, role } = response.data;
+
+            dispatch(loginUser({
+                role,
+                username,
+            }));
+
+            // כאן אפשר לנווט לפי התפקיד אם רוצים
+            if (role === 'admin') navigate('/admin')
+            else navigate('/user')
+
+        } catch (error) {
+            setError('Invalid email or password');
+            console.error(error);
         }
     };
+
+    // const login = useGoogleLogin({
+    //     onSuccess: async (tokenResponse) => {
+    //         try {
+    //             const res = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+    //                 headers: {
+    //                     Authorization: `Bearer ${tokenResponse.access_token}`,
+    //                 },
+    //             });
+    //             const userInfo = res.data;
+    //             // בדוק אם המשתמש הוא מנהל
+    //             if (userInfo.email === 'leah23531@gmail.com') {
+    //                 dispatch(loginUser({
+    //                     role: 'admin',
+    //                     username: 'd'
+    //                 }))
+    //                 // navigate('admin')
+    //             } else {
+    //                 dispatch(loginUser({
+    //      
+    //                role: 'user',
+    //                     username: 'd'
+    //                 }))
+    //                 // navigate('user')
+    //             }
+
+    //         } catch (err) {
+    //             console.error('Failed to fetch user info:', err);
+    //         }
+    //     },
+    //     onError: () => {
+    //         console.error('Login Failed');
+    //     },
+    // });
     const login = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
-                const res = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
-                    headers: {
-                        Authorization: `Bearer ${tokenResponse.access_token}`,
-                    },
+                const response = await axios.post('https://yourserver.com/api/auth/google-login', {
+                    accessToken: tokenResponse.access_token,
                 });
-                const userInfo = res.data;
-                // בדוק אם המשתמש הוא מנהל
-                if (userInfo.email === 'leah23531@gmail.com') {
-                    dispatch(loginUser({
-                        role: 'admin',
-                        username: 'd'
-                    }))
-                    // navigate('admin')
-                } else {
-                    dispatch(loginUser({
-                        role: 'user',
-                        username: 'd'
-                    }))
-                    // navigate('user')
-                }
+
+                // { email: string, username: string, role: string }
+                const { email, username, role } = response.data;
+
+                dispatch(loginUser({
+                    role,
+                    username,
+                }));
+
+                if (role === 'admin') navigate('/admin')
+                else navigate('/user')
 
             } catch (err) {
-                console.error('Failed to fetch user info:', err);
+                console.error('Failed to login with Google:', err);
+                setError('Google login failed');
             }
+
         },
         onError: () => {
-            console.error('Login Failed');
+            setError('Google login failed');
         },
     });
 
@@ -134,4 +166,3 @@ export function LogIn() {
         </div>
     );
 };
-

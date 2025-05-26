@@ -69,7 +69,7 @@ namespace DAL.Services
         {
             try
             {
-                return await db.Users.ToListAsync();
+                return await db.Users.Include(u => u.Role).ToListAsync();
             }
             catch (Exception ex)
             {
