@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using server.Profiles;
 
 namespace server
 {
@@ -109,8 +108,7 @@ namespace server
             // ===== HTTP + Controllers =====
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
-            builder.Services.AddAutoMapper(typeof(MovieProfile));
-            builder.Services.AddAutoMapper(typeof(OrderProfile));
+         
 
             var app = builder.Build();
 
