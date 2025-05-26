@@ -23,7 +23,7 @@ namespace BL
 
 
 
-        public BlManager()
+        public BlManager(string connectionString)
         {
 
 
@@ -39,7 +39,7 @@ namespace BL
 
             serCollection.AddAutoMapper(typeof (MappingProfile )); 
 
-            serCollection.AddSingleton<IDAL, DALManager>();
+            serCollection.AddSingleton<IDAL, DALManager>(d=> new DALManager(connectionString));
 
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();

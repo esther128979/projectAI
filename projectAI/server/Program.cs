@@ -4,6 +4,7 @@ using BL.Api;
 //using jwt.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Profiles;
@@ -17,7 +18,7 @@ namespace server
             var builder = WebApplication.CreateBuilder(args);
 
             // ===== שירותים מותאמים אישית (BL) =====
-            builder.Services.AddSingleton<IBL, BlManager>();
+            builder.Services.AddSingleton<IBL, BlManager>(c=>new BlManager(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             //// ===== EF Core (SQL Server) =====
             //builder.Services.AddDbContext<EJwtJwtdataMdfContext>(options =>

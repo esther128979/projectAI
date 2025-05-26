@@ -25,11 +25,11 @@ public class DALManager : IDAL
 
     //public IAgeGruop AgeGruop { get; }
 
-    public DALManager()
+    public DALManager(string connectionString)
     {
         ServiceCollection serCollection = new ServiceCollection();
         serCollection.AddDbContext<AppDbContext>(options =>
-         options.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\tzipi\\Desktop\\פרויקט גמר בסייעתא דשמייא\\סקפולד חדש\\projectAI\\projectAI\\adminScreen_DB.mdf\";Integrated Security=True;Connect Timeout=30"));
+         options.UseSqlServer(connectionString));
 
         serCollection.AddSingleton<AppDbContext>();
 
