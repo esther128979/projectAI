@@ -10,6 +10,6 @@ namespace DAL.Api
 {
     public interface ICategory : ICrud<Category>
     {
-        Task<AgeGroup> GetAgeGroupById(int id);
+        //Task<AgeGroup> GetAgeGroupById(int id);
     }
 }

@@ -9,14 +9,14 @@ namespace BL.Models
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public eRole Role { get; set; }
+        public int Role { get; set; }
         public DateTime? DateCreated { get; set; }
         public bool? IsActive { get; set; }
 
         public string? FullName { get; set; }
         public string? Phone { get; set; }
-        public eGender Gender { get; set; }
-        public eAgeGroup? AgeGroup { get; set; }
+        public bool Gender { get; set; }
+        public int? AgeGroup { get; set; }
         public byte[]? ProfilePicture { get; set; }
 
         public List<BLEmailLink> EmailLinks { get; set; } = new();

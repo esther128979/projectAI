@@ -82,7 +82,7 @@ function formatDateHebrew(dateStr: string): string {
                 {order.movies.map((movie, i) => (
                   <li key={i} className="p-3 bg-gray-100 rounded-lg flex flex-col items-center text-center">
                     <div className="font-semibold mb-2">{movie.Name}</div>
-                    <a href={movie.Url} className="text-cyan-800 text-sm underline" target="_blank" rel="noreferrer">
+                    <a href={movie.MovieLink} className="text-cyan-800 text-sm underline" target="_blank" rel="noreferrer">
                       קישור
                     </a>
                   </li>

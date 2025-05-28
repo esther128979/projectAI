@@ -46,8 +46,8 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
 
  const [newMovie, setNewMovie] = useState<MovieToAdd>({
-  eCategoryGroup: {} as CategoryGroup, // אתחל בהתאם למה שמוגדר ב-CategoryGroup
-  eAgeGroup: {} as AgeGroup, // אתחל בהתאם למה שמוגדר ב-AgeGroup
+  // eCategoryGroup: {} as CategoryGroup, // אתחל בהתאם למה שמוגדר ב-CategoryGroup
+  // eAgeGroup: {} as AgeGroup, // אתחל בהתאם למה שמוגדר ב-AgeGroup
   HasWoman: false,
   LengthMinutes: 0,
   ProductionDate: new Date(),
@@ -146,8 +146,8 @@ const handleSubmit = async () => {
 
     // איפוס newMovie עם ערכי ברירת מחדל תקינים
     setNewMovie({
-      eCategoryGroup: {} as CategoryGroup,  // או ערך ברירת מחדל אמיתי
-      eAgeGroup: {} as AgeGroup,            // או ערך ברירת מחדל אמיתי
+      // eCategoryGroup: {} as CategoryGroup,  // או ערך ברירת מחדל אמיתי
+      // eAgeGroup: {} as AgeGroup,            // או ערך ברירת מחדל אמיתי
       HasWoman: false,
       LengthMinutes: 0,
       ProductionDate: new Date(),
@@ -310,7 +310,7 @@ const handleSubmit = async () => {
 
           <TextField
             select label="קבוצת גיל" name="AgeGroup"
-            value={newMovie.eAgeGroup ?? ''} onChange={handleChange}
+            value={newMovie.AgeGroupName?? ''} onChange={handleChange}
             SelectProps={{ native: true }} inputProps={{ dir: "rtl" }} sx={rtlSx}
           >
             <option value=""></option>
@@ -323,7 +323,7 @@ const handleSubmit = async () => {
 
           <TextField
             select label="קטגוריה" name="CategoryGroup"
-            value={newMovie.eCategoryGroup ?? ''} onChange={handleChange}
+            value={newMovie.CategoryName ?? ''} onChange={handleChange}
             SelectProps={{ native: true }} inputProps={{ dir: "rtl" }} sx={rtlSx}
           >
             <option value=""></option>

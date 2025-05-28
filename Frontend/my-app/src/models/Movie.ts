@@ -1,28 +1,46 @@
-export enum AgeGroup
-{
-    Babies,
-    Children,
-    Teens,
-    Adult,
-    GoldenAge
-}
-export enum Status
-{
-    Oreder,
-    History
-}
-export enum Gender
-{
-    male,
-    female,
-}
-export enum CategoryGroup
-{
-    Children,
-    Recipes,
-    Nature,
-    Plot
-}
+// export enum AgeGroup
+// {
+//     Babies,
+//     Children,
+//     Teens,
+//     Adult,
+//     GoldenAge
+// }
+// export enum Status
+// {
+//     Oreder,
+//     History
+// }
+// export enum Gender
+// {
+//     male,
+//     female,
+// }
+// export enum CategoryGroup
+// {
+//     Children,
+//     Recipes,
+//     Nature,
+//     Plot
+// }
+// models/CategoryGroup.ts
+export const CategoryGroup = {
+  Children: 'Children',
+  Recipes: 'Recipes',
+  Nature: 'Nature',
+  Plot: 'Plot',
+} as const;
+
+export type CategoryGroupType = (typeof CategoryGroup)[keyof typeof CategoryGroup];
+export const AgeGroup = {
+  Babies: 'Babies',
+  Children: 'Children',
+  Teens: 'Teens',
+  Adult: 'Adult',
+  GoldenAge: 'GoldenAge',
+} as const;
+
+export type AgeGroupType = (typeof AgeGroup)[keyof typeof AgeGroup];
 
 export interface MovieObject {
     
@@ -47,8 +65,8 @@ export interface MovieObject {
    
     Name? : string;
     Description? : string; 
-    eCategoryGroup? : CategoryGroup ;
-    eAgeGroup? : AgeGroup ;
+   CategoryName? : string;
+    AgeGroupName? : string; 
     HasWoman ? : boolean;
     LengthMinutes? : number; 
     ProductionDate? : Date;  
