@@ -55,7 +55,7 @@ namespace BL.Services
             return _mapper.Map<List<BLMovie>>(movies);
         }
 
-        public async Task<List<BLMovie>> GetMoviesByAgeGroup(eAgeGroup age)
+        public async Task<List<BLMovie>> GetMoviesByAgeGroup(int age)
         {
             int ageGroupCode = (int)age;
 
@@ -66,7 +66,7 @@ namespace BL.Services
             return _mapper.Map<List<BLMovie>>(moviesDal);
         }
 
-        public async Task<List<BLMovie>> GetMoviesByCategory(eCategoryGroup category)
+        public async Task<List<BLMovie>> GetMoviesByCategory(int category)
         {
             int categoryCode = (int)category;
 

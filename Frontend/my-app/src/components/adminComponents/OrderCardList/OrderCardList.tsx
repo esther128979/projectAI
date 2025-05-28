@@ -25,7 +25,7 @@ export function OrderCardList() {
       id: 101,
       date: getTodayString(),
       movies: [
-        { Id: 1, Name: 'סרט ילדים', Price: 10 }
+        { Id: 1, Name: 'סרט ילדים', PriceBase: 10 }
       ],
       price: 10,
     },
@@ -34,7 +34,7 @@ export function OrderCardList() {
       id: 102,
       date: getTodayString(),
       movies: [
-        { Id: 2, Name: 'סיפור חיים', Price: 30 }
+        { Id: 2, Name: 'סיפור חיים', PriceBase: 30 }
       ],
       price: 30,
     },
@@ -43,7 +43,7 @@ export function OrderCardList() {
       id: 103,
       date: getTodayString(),
       movies: [
-        { Id: 3, Name: 'הרפתקה', Price: 20 }
+        { Id: 3, Name: 'הרפתקה', PriceBase: 20 }
       ],
       price: 20,
     },
@@ -52,7 +52,7 @@ export function OrderCardList() {
       id: 104,
       date: getTodayString(),
       movies: [
-        { Id: 4, Name: 'קומדיה', Price: 25 }
+        { Id: 4, Name: 'קומדיה', PriceBase: 25 }
       ],
       price: 25,
     },

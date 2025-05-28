@@ -108,7 +108,8 @@ namespace server
             // ===== HTTP + Controllers =====
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
-         
+            builder.Services.AddAutoMapper(typeof(Program));
+
 
             var app = builder.Build();
 

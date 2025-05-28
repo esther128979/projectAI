@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BL.Models;
+using DAL.Api;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,11 @@ namespace BL.Profiles
 
             #region MovieMapping
             CreateMap<Movie, BLMovie>()
-                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => (eCategoryGroup)(src.CategoryCode ?? 0)))
-                .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => (eAgeGroup)(src.AgeCode ?? 0)))
+                //.ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => (eCategoryGroup)(src.CategoryCode ?? 0)))
+                //.ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => (eAgeGroup)(src.AgeCode ?? 0)))
+                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CategoryCode ?? 0))
+                      .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeCode ?? 0))
+
                 .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.ThereIsWoman ?? false))
                 .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.Length))
                 .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.FilmProductionDate))
@@ -30,10 +34,15 @@ namespace BL.Profiles
                 .ForMember(dest => dest.CodeCategoryNavigation, opt => opt.MapFrom(src => src.CategoryCodeNavigation))
                 .ForMember(dest => dest.AgeGroupNavigation, opt => opt.MapFrom(src => src.AgeCodeNavigation))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
+                //.ForMember(dest => dest.TotalViewers,
+                //    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewerCount)))
+                //.ForMember(dest => dest.TotalViews,
+                //    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewCount)));
                 .ForMember(dest => dest.TotalViewers,
-                    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewerCount)))
-                .ForMember(dest => dest.TotalViews,
-                    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewCount)));
+        opt => opt.MapFrom(src => src.OrderItems != null ? src.OrderItems.Sum(oi => oi.ViewerCount) : 0))
+          .ForMember(dest => dest.TotalViews,
+         opt => opt.MapFrom(src => src.OrderItems != null ? src.OrderItems.Sum(oi => oi.ViewCount) : 0));
+
 
             CreateMap<BLMovie, Movie>()
                 .ForMember(dest => dest.CategoryCode, opt => opt.MapFrom(src => (int?)src.CodeCategory))
@@ -85,7 +94,7 @@ namespace BL.Profiles
             #region User+Customer to BLUser
 
             CreateMap<User, BLUser>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (eRole)src.RoleId))
+.ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.RoleId))
                 .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.DateCreated))
                 .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
@@ -93,11 +102,15 @@ namespace BL.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.FullName : null))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.Phone : null))
-                .ForMember(dest => dest.Gender, opt => opt.MapFrom(src =>
-                    src.Customer != null && src.Customer.Gender == "Male" ? eGender.Male :
-                    src.Customer != null && src.Customer.Gender == "Female" ? eGender.Female : eGender.Male))
-                .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src =>
-                    src.Customer != null ? (eAgeGroup?)src.Customer.AgeGroup : null))
+               .ForMember(dest => dest.Gender, opt => opt.MapFrom(src =>
+    src.Customer != null && src.Customer.Gender == "Female" ? false : true))
+
+      //.ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src =>
+      //    src.Customer != null ? (eAgeGroup?)src.Customer.AgeGroup : null))
+      .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src =>
+    src.Customer != null ? src.Customer.AgeGroup : null))
+
+
                 .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.ProfilePicture : null))
                 .ForMember(dest => dest.EmailLinks, opt => opt.Ignore()) // אפשר להשלים לפי הצורך
                 .ForMember(dest => dest.Orders, opt => opt.Ignore());
@@ -115,8 +128,11 @@ namespace BL.Profiles
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone))
+                //.ForMember(dest => dest.Gender, opt => opt.MapFrom(src =>
+                //    src.Gender == eGender.Male ? "Male" : "Female"))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src =>
-                    src.Gender == eGender.Male ? "Male" : "Female"))
+              src.Gender ? "Male" : "Female"))
+
                 .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => (int?)src.AgeGroup))
                 .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.ProfilePicture))
                 .ForMember(dest => dest.User, opt => opt.Ignore())
@@ -131,20 +147,38 @@ namespace BL.Profiles
             #region Order
 
             // DAL ➡️ BL
+            //CreateMap<Order, BLOrder>()
+            //    .ForMember(dest => dest.Status,
+            //               opt => opt.MapFrom(src => src.Status ? eStatus.Completed : eStatus.InProgress))
+            //    .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אם צריך
+            //    .ForMember(dest => dest.TotalAmount,
+            //               opt => opt.MapFrom(src => src.TotalAmount)); // ✅ מיפוי חד-כיווני
             CreateMap<Order, BLOrder>()
-                .ForMember(dest => dest.Status,
-                           opt => opt.MapFrom(src => src.Status ? eStatus.Completed : eStatus.InProgress))
-                .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אם צריך
-                .ForMember(dest => dest.TotalAmount,
-                           opt => opt.MapFrom(src => src.TotalAmount)); // ✅ מיפוי חד-כיווני
+    .ForMember(dest => dest.Status,
+               opt => opt.MapFrom(src => src.Status)) // בלי enum
+    .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אם צריך
+    .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.IdCustomer))
+    .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.DateOrder))
+    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IdOrder))
+    .ForMember(dest => dest.TotalAmount,
+               opt => opt.MapFrom(src => src.TotalAmount));
 
             // BL ➡️ DAL (שולחים חזרה לדאטהבייס)
+            //      CreateMap<BLOrder, Order>()
+            //.ForMember(dest => dest.Status,
+            //           opt => opt.MapFrom(src => src.Status == eStatus.Completed))
+            //.ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
+            //.ForMember(dest => dest.TotalAmount,
+            //           opt => opt.Ignore()); // DB calculates this
             CreateMap<BLOrder, Order>()
-      .ForMember(dest => dest.Status,
-                 opt => opt.MapFrom(src => src.Status == eStatus.Completed))
-      .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
-      .ForMember(dest => dest.TotalAmount,
-                 opt => opt.Ignore()); // DB calculates this
+          .ForMember(dest => dest.Status,
+                     opt => opt.MapFrom(src => src.Status)) // bool פשוט
+          .ForMember(dest => dest.IdCustomer, opt => opt.MapFrom(src => src.CustomerId))
+          .ForMember(dest => dest.DateOrder, opt => opt.MapFrom(src => src.OrderDate))
+          .ForMember(dest => dest.IdOrder, opt => opt.MapFrom(src => src.Id))
+          .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אלא אם כן את ממפה אותם
+          .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()); // מחושב בדאטהבייס
+
 
             #endregion
 
