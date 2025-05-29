@@ -1,12 +1,15 @@
 using System.Text;
+using AutoMapper;
 using BL;
 using BL.Api;
+using BL.Profiles;
+
 //using jwt.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using server.Profiles;
 
 namespace server
 {
@@ -15,10 +18,14 @@ namespace server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddAutoMapper(typeof(MovieProfile));
             // ===== שירותים מותאמים אישית (BL) =====
-            builder.Services.AddSingleton<IBL, BlManager>();
-
+            builder.Services.AddSingleton<IBL, BlManager>(sp =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                var mapper = sp.GetRequiredService<IMapper>();
+                return new BlManager(connectionString, mapper, sp);
+            });
             //// ===== EF Core (SQL Server) =====
             //builder.Services.AddDbContext<EJwtJwtdataMdfContext>(options =>
             //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -108,8 +115,7 @@ namespace server
             // ===== HTTP + Controllers =====
             builder.Services.AddHttpClient();
             builder.Services.AddControllers();
-            builder.Services.AddAutoMapper(typeof(MovieProfile));
-            builder.Services.AddAutoMapper(typeof(OrderProfile));
+
 
             var app = builder.Build();
 

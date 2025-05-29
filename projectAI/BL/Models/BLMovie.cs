@@ -7,8 +7,8 @@ public class BLMovie
     public string? Name { get; set; }
     public string? Description { get; set; }
 
-    public eCategoryGroup CodeCategory { get; set; }
-    public eAgeGroup AgeGroup { get; set; }
+    public int CodeCategory { get; set; }
+    public int AgeGroup { get; set; }
 
     public bool HasWoman { get; set; }
     public int? LengthMinutes { get; set; }
@@ -23,6 +23,7 @@ public class BLMovie
     public decimal? PricePerExtraView { get; set; }
 
     public string? MovieLink { get; set; }
+    public string? Image { get; set; }
 
     public Category? CodeCategoryNavigation { get; set; }
     public AgeGroup? AgeGroupNavigation { get; set; }

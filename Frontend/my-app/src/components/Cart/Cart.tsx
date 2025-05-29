@@ -74,7 +74,7 @@ export const Cart: FC<CartProps> = () => {
                   <h4>{product.Name}</h4>
                   <p>{product.Description}</p>
                   <p className="cart-item-price">
-                    {(product.Price ?? 0 * product.quantity).toFixed(2)} ₪
+                    {(product.PriceBase?? 0 * product.quantity).toFixed(2)} ₪
                   </p>
 
                   <div className="cart-item-quantity">
@@ -116,7 +116,7 @@ export const Cart: FC<CartProps> = () => {
             <strong>סך הכל:</strong> ₪{' '}
             {cart
               .reduce((total: number, item: CartItem) => {
-                const price = item.Price ?? 0;
+                const price = item.PriceBase ?? 0;
                 return total + price * item.quantity;
               }, 0)
               .toFixed(2)}

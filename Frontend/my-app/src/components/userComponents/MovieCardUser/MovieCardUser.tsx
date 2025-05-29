@@ -84,13 +84,13 @@ const MovieCardUser: FC<MovieCardProps> = ({ movie,
           <Box display="flex" alignItems="center" gap={0.5}>
             <VisibilityIcon sx={{ fontSize: 18, color: '#3e3e3e' }} />
             <Typography variant="body2" sx={{ fontSize: 13, color: '#3e3e3e' }}>
-              {movie.AmountOfViews}
+              {movie.TotalViews}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" gap={0.5}>
             <AccessTimeIcon sx={{ fontSize: 18, color: '#3e3e3e' }} />
             <Typography variant="body2" sx={{ fontSize: 13, color: '#3e3e3e' }}>
-              {movie.Duration} דקות
+              {movie.LengthMinutes} דקות
             </Typography>
           </Box>
         </Box>
@@ -109,7 +109,8 @@ const MovieCardUser: FC<MovieCardProps> = ({ movie,
               fontSize: '0.875rem',
             }}
           >
-            ₪{movie.Price}
+            ₪{movie.PriceBase}
+            לצפייה נוספת 
           </Typography>
           </Box>
       </CardContent>

@@ -69,17 +69,18 @@ const MovieListUser: FC<MovieListProps> = ({ movies }) => {
         ))}
       </Box>
 
-      {showMiniCart && (
-        <div className="mini-cart-popup">
-          <h4>🛒 סל הקניות שלך</h4>
-          {cart.map((item: any) => (
-            <div key={item.Id} className="mini-cart-item">
-              <img src={item.Image} alt={item.Name} className="cart-item-image" />
-              {item.Name} x {item.quantity}
-            </div>
-          ))}
-        </div>
-      )}
+{showMiniCart && (
+  <div className="mini-cart-popup">
+    <h4>🛒 סל הקניות שלך</h4>
+    {cart.map((item: any) => (
+      <div key={item.Id} className="mini-cart-item">
+        <img src={item.Image} alt={item.Name} className="cart-item-image" />
+        <span>{item.Name} x {item.quantity}</span>
+      </div>
+    ))}
+  </div>
+)}
+
     </div>
 
   );

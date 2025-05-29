@@ -13,8 +13,8 @@ namespace BL.Api
         Task AddMovie(BLMovie movie);
         Task UpdateMovie(BLMovie movie);
         Task DeleteMovie(int id);
-        Task<List<BLMovie>> GetMoviesByAgeGroup(eAgeGroup age);
-        Task<List<BLMovie>> GetMoviesByCategory(eCategoryGroup blCategory);
+        Task<List<BLMovie>> GetMoviesByAgeGroup(int age);
+        Task<List<BLMovie>> GetMoviesByCategory(int blCategory);
 
 
     }

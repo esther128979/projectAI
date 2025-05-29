@@ -7,12 +7,12 @@ using BL.Models;
 using AutoMapper;
 using DAL.Services;
 using System.Net.Http;
+using BL.Profiles;
 
 namespace BL
 {
     public class BlManager : IBL
     {
-
         public IBLAgeGroup AgeGroup { get; }
         public IBLCategory Category { get; }
         public IBLUser User { get; }
@@ -21,25 +21,15 @@ namespace BL
         public IEmailSender EmailSender { get; }
         public IEmailLinkManager EmailLinkManager { get; }
 
-
-
-        public BlManager()
+        public BlManager(
+            string connectionString,
+            IMapper mapper,
+            IServiceProvider serviceProvider
+        )
         {
+            var serCollection = new ServiceCollection();
 
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<MappingProfile>();
-            });
-
-            IMapper mapper = config.CreateMapper();
-
-            ServiceCollection serCollection = new ServiceCollection();
-
-
-            serCollection.AddAutoMapper(typeof (MappingProfile )); 
-
-            serCollection.AddSingleton<IDAL, DALManager>();
+            serCollection.AddSingleton<IDAL, DALManager>(_ => new DALManager(connectionString));
 
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();
@@ -47,19 +37,20 @@ namespace BL
             serCollection.AddScoped<IBLMovies, BLMovieService>();
             serCollection.AddScoped<IBLOrders, BLOrderService>();
             serCollection.AddScoped<IEmailLinkManager, EmailLinkManager>();
-            
+            serCollection.AddSingleton(mapper); // מעביר את ה־Mapper שהוזרק
+
             serCollection.AddHttpClient<IEmailSender, EmailSender>();
 
-            //הגדרת ספק מחלקות שרות
-            ServiceProvider p = serCollection.BuildServiceProvider();
+            var provider = serCollection.BuildServiceProvider();
 
-            AgeGroup = p.GetRequiredService<IBLAgeGroup>();
-            Category = p.GetRequiredService<IBLCategory>();
-            User = p.GetRequiredService<IBLUser>();
-            Movies = p.GetRequiredService<IBLMovies>();
-            Order = p.GetRequiredService<IBLOrders>();
-            EmailSender = p.GetRequiredService<IEmailSender>();
-            EmailLinkManager = p.GetRequiredService<IEmailLinkManager>();
+            AgeGroup = provider.GetRequiredService<IBLAgeGroup>();
+            Category = provider.GetRequiredService<IBLCategory>();
+            User = provider.GetRequiredService<IBLUser>();
+            Movies = provider.GetRequiredService<IBLMovies>();
+            Order = provider.GetRequiredService<IBLOrders>();
+            EmailSender = provider.GetRequiredService<IEmailSender>();
+            EmailLinkManager = provider.GetRequiredService<IEmailLinkManager>();
         }
     }
+
 }

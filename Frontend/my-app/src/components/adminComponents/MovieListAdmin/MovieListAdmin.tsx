@@ -46,16 +46,17 @@ export const MovieListAdmin: FC<MovieListAdminProps> = ({ movies, onAddMovie }) 
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
 
  const [newMovie, setNewMovie] = useState<MovieToAdd>({
-  CategoryGroup: {} as CategoryGroup, // אתחל בהתאם למה שמוגדר ב-CategoryGroup
-  AgeGroup: {} as AgeGroup, // אתחל בהתאם למה שמוגדר ב-AgeGroup
-  ThereIsWoman: false,
-  Duration: 0,
-  AmountOfViews: 0,
-  FilmProductionDate: new Date(),
+  // eCategoryGroup: {} as CategoryGroup, // אתחל בהתאם למה שמוגדר ב-CategoryGroup
+  // eAgeGroup: {} as AgeGroup, // אתחל בהתאם למה שמוגדר ב-AgeGroup
+  HasWoman: false,
+  LengthMinutes: 0,
+  ProductionDate: new Date(),
   Name: '',
   Description: '',
-  Url: '',
-  Price: 0,
+  MovieLink: '',
+  PriceBase: 0,
+  PricePerExtraView: 0,
+  PricePerExtraViewer: 0,
   Image: '',
 });
 
@@ -145,16 +146,15 @@ const handleSubmit = async () => {
 
     // איפוס newMovie עם ערכי ברירת מחדל תקינים
     setNewMovie({
-      CategoryGroup: {} as CategoryGroup,  // או ערך ברירת מחדל אמיתי
-      AgeGroup: {} as AgeGroup,            // או ערך ברירת מחדל אמיתי
-      ThereIsWoman: false,
-      Duration: 0,
-      AmountOfViews: 0,
-      FilmProductionDate: new Date(),
+      // eCategoryGroup: {} as CategoryGroup,  // או ערך ברירת מחדל אמיתי
+      // eAgeGroup: {} as AgeGroup,            // או ערך ברירת מחדל אמיתי
+      HasWoman: false,
+      LengthMinutes: 0,
+      ProductionDate: new Date(),
       Name: '',
       Description: '',
-      Url: '',
-      Price: 0,
+      MovieLink: '',
+      PriceBase: 0,
       Image: '',
     });
   } catch (error) {
@@ -173,12 +173,13 @@ const handleSubmit = async () => {
     const matchesSearch =
       movie.Name?.includes(searchText) || movie.Description?.includes(searchText);
 
-    const matchesAgeGroup =
-      selectedAgeGroup === "all" || movie.AgeGroup === Number(selectedAgeGroup);
-
-    const matchesPrice =
-      movie.Price >= priceRange[0] && movie.Price <= priceRange[1];
-
+      const matchesAgeGroup =
+      selectedAgeGroup === "all" || movie.AgeGroupName === selectedAgeGroup;
+    
+      const matchesPrice =
+      (movie.PriceBase ?? 0) + (movie.PricePerExtraView ?? 0) + (movie.PricePerExtraViewer ?? 0) >= priceRange[0] &&
+      (movie.PriceBase ?? 0) + (movie.PricePerExtraView ?? 0) + (movie.PricePerExtraViewer ?? 0) <= priceRange[1];
+    
     return matchesSearch && matchesAgeGroup && matchesPrice;
   });
 
@@ -300,7 +301,7 @@ const handleSubmit = async () => {
             name="FilmProductionDate"
             label="תאריך הפקה"
             type="date"
-            value={newMovie.FilmProductionDate ? newMovie.FilmProductionDate.toISOString().split('T')[0] : ''}
+            value={newMovie.ProductionDate ? newMovie.ProductionDate.toISOString().split('T')[0] : ''}
             onChange={handleDateChange}
             InputLabelProps={{ shrink: true }}
             inputProps={{ dir: "rtl" }}
@@ -309,7 +310,7 @@ const handleSubmit = async () => {
 
           <TextField
             select label="קבוצת גיל" name="AgeGroup"
-            value={newMovie.AgeGroup ?? ''} onChange={handleChange}
+            value={newMovie.AgeGroupName?? ''} onChange={handleChange}
             SelectProps={{ native: true }} inputProps={{ dir: "rtl" }} sx={rtlSx}
           >
             <option value=""></option>
@@ -322,7 +323,7 @@ const handleSubmit = async () => {
 
           <TextField
             select label="קטגוריה" name="CategoryGroup"
-            value={newMovie.CategoryGroup ?? ''} onChange={handleChange}
+            value={newMovie.CategoryName ?? ''} onChange={handleChange}
             SelectProps={{ native: true }} inputProps={{ dir: "rtl" }} sx={rtlSx}
           >
             <option value=""></option>
@@ -336,7 +337,7 @@ const handleSubmit = async () => {
             <input
               type="checkbox"
               name="ThereIsWoman"
-              checked={newMovie.ThereIsWoman ?? false}
+              checked={newMovie.HasWoman ?? false}
               onChange={handleChange}
               style={{ marginRight: "4px" }}
             />

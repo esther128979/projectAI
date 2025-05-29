@@ -29,7 +29,7 @@ namespace server.Controllers
         }
 
         [HttpGet("by-age/{ageGroup}")]
-        public async Task<ActionResult<List<MovieGetDTO>>> GetByAgeGroup(eAgeGroup ageGroup)
+        public async Task<ActionResult<List<MovieGetDTO>>> GetByAgeGroup(int ageGroup)
         {
             var movies = await _movieService.Movies.GetMoviesByAgeGroup(ageGroup);
             var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);
@@ -37,7 +37,7 @@ namespace server.Controllers
         }
 
         [HttpGet("by-category/{category}")]
-        public async Task<ActionResult<List<MovieGetDTO>>> GetByCategory(eCategoryGroup category)
+        public async Task<ActionResult<List<MovieGetDTO>>> GetByCategory(int category)
         {
             var movies = await _movieService.Movies.GetMoviesByCategory(category);
             var dtoList = _mapper.Map<List<MovieGetDTO>>(movies);

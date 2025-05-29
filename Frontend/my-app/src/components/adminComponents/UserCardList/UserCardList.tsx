@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { UserCard } from "../UserCard/UserCard";
-import { User, Gender, AgeGroup } from "../../../models/User";
+import { User, Gender, AgeGroup,GenderType } from "../../../models/User";
 import "./UserCardList.scss";
 import { Order } from "@/models/Order";
 
@@ -49,8 +49,8 @@ const orders: Order[] = [
     id: 1,
     date: "2025-05-01",
     movies: [
-      { Id: 101, Name: "סרט א",Price:95 },
-      { Id: 102, Name: "סרט ב",Price:77 },
+      { Id: 101, Name: "סרט א",PriceBase:95 },
+      { Id: 102, Name: "סרט ב",PriceBase:77 },
     ],
     price: 75,
     completed: true,
@@ -58,14 +58,14 @@ const orders: Order[] = [
   {
     id: 2,
     date: "2025-04-20",
-    movies: [{ Id: 103, Name: "סרט ג",Price:54 }],
+    movies: [{ Id: 103, Name: "סרט ג",PriceBase:54 }],
     price: 30,
     completed: false,
   },
 ];
 
 export function UserCardList() {
-  const [selectedGender, setSelectedGender] = useState<"all" | Gender>("all");
+  const [selectedGender, setSelectedGender] = useState<"all" | GenderType>("all");
   const [searchText, setSearchText] = useState("");
 
   const resetFilters = () => {
