@@ -11,6 +11,7 @@ namespace DAL.Api
         : ICrud<User>
     {
         Task<User?> GetUserById(int id);
+        
 
     }
 }

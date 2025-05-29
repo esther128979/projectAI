@@ -1,6 +1,7 @@
 using AutoMapper;
 using BL.Api;
 using BL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.Models;
 
@@ -44,6 +45,7 @@ namespace server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateMovie([FromBody] MovieCreateDTO movieDto)
         {
             var blMovie = _mapper.Map<BLMovie>(movieDto);
@@ -52,6 +54,7 @@ namespace server.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> UpdateMovie(int id, [FromBody] MovieUpdateDTO movieDto)
         {
             if (id != movieDto.Id)
@@ -71,6 +74,7 @@ namespace server.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> DeleteMovie(int id)
         {
             try
