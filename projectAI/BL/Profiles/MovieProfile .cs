@@ -91,20 +91,22 @@ namespace BL.Profiles
     .ForMember(dest => dest.TotalViewers, opt => opt.MapFrom(src => src.TotalViewers))
     .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image));
 
-            // BL ➡️ DTO (הצגת סרט)
-            //CreateMap<BLMovie, MovieGetDTO>()
-            //    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src =>
-            //      GetDisplayName(src.CodeCategory)))
-            //    .ForMember(dest => dest.AgeGroupName, opt => opt.MapFrom(src =>
-            //      GetDisplayName(src.AgeGroup)))
-            //    .ForMember(dest => dest.FinalPrice, opt => opt.MapFrom(src => src.FinalPrice))
-            //    .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.LengthMinutes ?? 0))
-            //    .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.HasWoman))
-            //    .ForMember(dest => dest.PriceBase, opt => opt.MapFrom(src => src.PriceBase ?? 0))
-            //    .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => src.PricePerExtraViewer ?? 0))
-            //    .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => src.PricePerExtraView ?? 0))
-            //    .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.ProductionDate ?? default))
-            //    .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.MovieLink ?? ""));
+            //BL ➡️ DTO(הצגת סרט)
+            CreateMap<MovieGetDTO, BLMovie>()
+    .ForMember(dest => dest.CodeCategoryNavigation, opt => opt.Ignore()) // ישירות לא ממפים נוויגציה מורכבת
+    .ForMember(dest => dest.AgeGroupNavigation, opt => opt.Ignore())      // ישירות לא ממפים נוויגציה מורכבת
+    .ForMember(dest => dest.FinalPrice, opt => opt.MapFrom(src => src.FinalPrice))
+    .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => (int?)src.LengthMinutes)) // ממיר ל־nullable אם צריך
+    .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.HasWoman))
+    .ForMember(dest => dest.PriceBase, opt => opt.MapFrom(src => (decimal?)src.PriceBase))
+    .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => (decimal?)src.PricePerExtraViewer))
+    .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => (decimal?)src.PricePerExtraView))
+    .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
+    .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.MovieLink))
+    .ForMember(dest => dest.TotalViews, opt => opt.MapFrom(src => src.TotalViews))
+    .ForMember(dest => dest.TotalViewers, opt => opt.MapFrom(src => src.TotalViewers))
+    .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image));
+
         }
     }
 }
