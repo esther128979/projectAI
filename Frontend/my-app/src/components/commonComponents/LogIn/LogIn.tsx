@@ -46,7 +46,7 @@ export function LogIn() {
             try {
                 const res = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
                     headers: {
-                        Authorization: `Bearer ${tokenResponse.access_token}`,
+                    Authorization: `Bearer ${tokenResponse.access_token}`,
                     },
                 });
                 const userInfo = res.data;

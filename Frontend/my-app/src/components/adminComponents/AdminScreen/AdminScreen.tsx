@@ -17,7 +17,7 @@ import { UserCardList } from "../UserCardList/UserCardList";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../redux/authSlice';
 import { OrderCardList } from "../OrderCardList/OrderCardList";
-import { MovieListAdmin } from "../MovieListAdmin/MovieListAdmin";
+import {MovieListAdmin}  from "../MovieListAdmin/MovieListAdmin";
 import { selectUsername } from '../../../redux/authSlice';
 
 interface AppContentProps { }
@@ -258,8 +258,8 @@ const AdminScreen: FC<{}> = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<UserCardList />} />
           <Route path="/orders" element={<OrderCardList />} />
-          <Route path="/products" element={<MovieListAdmin movies={moviesExemple}
-            onAddMovie={handleAddMovie} />} />
+          <Route path="/products" element={<MovieListAdmin 
+         />} />
         </Routes>
       </Container>
       <Box
