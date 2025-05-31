@@ -215,8 +215,17 @@ export function LogIn() {
     const login = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
+
+                const res = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: {
+                    Authorization: `Bearer ${tokenResponse.access_token}`,
+                    },
+
                 const response = await axios.post('http://localhost:5245/api/auth/google-login', {
                     accessToken: tokenResponse.access_token,
+
+                  
+               
                 });
 
                 const { token, username, role } = response.data;
