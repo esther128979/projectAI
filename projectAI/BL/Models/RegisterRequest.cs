@@ -8,7 +8,8 @@
         public string Phone { get; set; }
         public bool Gender { get; set; } // true = Male, false = Female
         public int? AgeGroup { get; set; }
-        public byte[]? ProfilePicture { get; set; }
+        public byte[]? ProfilePicture { get; set; } = null;
+
     }
 
 }

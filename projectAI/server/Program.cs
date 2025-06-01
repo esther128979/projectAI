@@ -151,7 +151,6 @@ using BL;
 using BL.Api;
 using BL.Profiles;
 
-//using jwt.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

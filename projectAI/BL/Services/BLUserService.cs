@@ -13,10 +13,10 @@ namespace BL.Services
 {
     public class BLUserService : IBLUser
     {
-        private readonly IUser _dal;
+        private readonly IDAL _dal;
         private readonly IMapper _mapper;
 
-        public BLUserService(IUser dal, IMapper mapper)
+        public BLUserService(IDAL dal, IMapper mapper)
         {
             _dal = dal;
             _mapper = mapper;
@@ -34,32 +34,39 @@ namespace BL.Services
 
         public async Task<BLUser> Register(RegisterRequest request)
         {
-            var allUsers = await _dal.GetAll();
-
-            if (allUsers.Any(u => u.Email == request.Email))
-                throw new Exception("Email already exists");
-
-            var newUser = new User
+            try
             {
-                Email = request.Email,
-                Password = HashPassword(request.Password),
-                RoleId = 2, 
-                DateCreated = DateTime.Now,
-                IsActive = true,
-                Customer = new Customer
+                var allUsers = await _dal.User.GetAll();
+
+                if (allUsers.Any(u => u.Email == request.Email))
+                    throw new Exception("Email already exists");
+
+                var newUser = new User
                 {
-                    FullName = request.Username,
-                    Phone = request.Phone,
-                    Gender = request.Gender ? "Male" : "Female",
-                    AgeGroup = (int?)request.AgeGroup,
-                    ProfilePicture = request.ProfilePicture
-                }
-            };
+                    Email = request.Email,
+                    Password = HashPassword(request.Password),
+                    RoleId = 2,
+                    DateCreated = DateTime.Now,
+                    IsActive = true,
+                    Customer = new Customer
+                    {
+                        FullName = request.Username,
+                        Phone = request.Phone,
+                        Gender = request.Gender ? "M" : "F",
+                        AgeGroup = (int?)request.AgeGroup,
+                        ProfilePicture = request.ProfilePicture
+                    }
+                };
 
-            var createdUser = await _dal.Create(newUser);
+                var createdUser = await _dal.User.Create(newUser);
 
-            var blUser = _mapper.Map<BLUser>(createdUser);
-            return blUser;
+                var blUser = _mapper.Map<BLUser>(createdUser);
+                return blUser;
+            }
+            catch (Exception ex) { 
+                throw new Exception(ex.ToString());
+            }
+          
         }
 
         private string HashPassword(string password)
