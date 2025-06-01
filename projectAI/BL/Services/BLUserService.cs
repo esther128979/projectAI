@@ -9,59 +9,64 @@ using System.Text;
 using AutoMapper;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
-
-
 namespace BL.Services
 {
-    //לעשות כאן MAPPING
     public class BLUserService : IBLUser
     {
-        private readonly IDAL _dal;
+        private readonly IUser _dal;
         private readonly IMapper _mapper;
 
-        public BLUserService(IDAL dal, IMapper mapper)
+        public BLUserService(IUser dal, IMapper mapper)
         {
             _dal = dal;
             _mapper = mapper;
         }
 
-
-
-        public async Task<List<BLUser>> GetAll()
+        public Task<List<BLUser>> GetAll()
         {
             throw new NotImplementedException();
-            //List<User> list = await dal.Customer.GetAll();
-            //return list.Select(c => new BLCustomer()
-            //{
-            //    CustomerId = c.CustomerId,
-            //    CustomerNumber = c.CustomerNumber,
-            //    CustomerName = c.CustomerName,
-            //    Phone = c.Phone,
-            //    Email = c.Email,
-            //    Password = c.Password,
-            //    Gender = (eGender)Enum.Parse(typeof(eGender), c.Gender),
-            //    AgeGroup = c.AgeGroup,
-            //    ProfilePicture = c.ProfilePicture,
-            //    AgeGroupNavigation = (eAgeGroup)Enum.Parse(typeof(eAgeGroup), c.AgeGroupNavigation.AgeDescrepition)
-            //}).ToList();
         }
 
-        public async Task<BLUser> Login(string Email, string Password)
+        public Task<BLUser?> Login(string email, string password)
         {
-
-
-            var user = (await _dal.User.GetAll())
-      .FirstOrDefault(u => u.Email == Email && u.Password == Password);
-
-            if (user == null)
-                throw new Exception("User not found or password incorrect");
-
-            return _mapper.Map<BLUser>(user);
-        
-
+            throw new NotImplementedException();
         }
 
-      
+        public async Task<BLUser> Register(RegisterRequest request)
+        {
+            var allUsers = await _dal.GetAll();
+
+            if (allUsers.Any(u => u.Email == request.Email))
+                throw new Exception("Email already exists");
+
+            var newUser = new User
+            {
+                Email = request.Email,
+                Password = HashPassword(request.Password),
+                RoleId = 2, 
+                DateCreated = DateTime.Now,
+                IsActive = true,
+                Customer = new Customer
+                {
+                    FullName = request.Username,
+                    Phone = request.Phone,
+                    Gender = request.Gender ? "Male" : "Female",
+                    AgeGroup = (int?)request.AgeGroup,
+                    ProfilePicture = request.ProfilePicture
+                }
+            };
+
+            var createdUser = await _dal.Create(newUser);
+
+            var blUser = _mapper.Map<BLUser>(createdUser);
+            return blUser;
+        }
+
+        private string HashPassword(string password)
+        {
+            return password; // לשדרוג בהמשך להצפנה אמיתית
+        }
+
     }
 
 

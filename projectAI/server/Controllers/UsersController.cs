@@ -11,12 +11,13 @@ using BL.Api;
 using DAL.Models;
 using iText.StyledXmlParser.Jsoup.Parser;
 using BL.Models;
+using RegisterRequest = BL.Models.RegisterRequest;
 
 
 namespace server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("DosFlix/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IBL _context;
@@ -27,18 +28,12 @@ namespace server.Controllers
         }
         private JwtSecurityToken GetToken(BLUser user)
         {
-
             var claims = new List<Claim>
-                  {
-                    new Claim(ClaimTypes.Email , user.Email ),
-                    new Claim(ClaimTypes.Name , user.Password)
-                };
-
-            claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
-            //foreach (var role in user..Roles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role.Name?.Trim() ?? ""));
-            //}
+    {
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Name, user.FullName ?? ""),
+        new Claim(ClaimTypes.Role, user.Role.ToString())
+    };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("yourSecretKeyThatIsAtLeast128BitsLong!"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -50,33 +45,57 @@ namespace server.Controllers
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds
             );
-            return token;   
 
+            return token;
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-
             try
             {
-                var user =  _context.User.Login(request.Email, request.Password).Result ;
-
+                var user = await _context.User.Login(request.Email, request.Password);
                 if (user == null)
-                     return Unauthorized("User not found or ID number incorrect");
+                    return Unauthorized("User not found or ID number incorrect");
 
-               var token=GetToken(user);
-
+                var token = GetToken(user);
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return Ok(new { token = tokenString });
+                return Ok(new
+                {
+                    token = tokenString,
+                    username = user.FullName, 
+                    role = user.Role
+                });
             }
             catch (Exception ex)
             {
                 return Unauthorized(ex.Message);
             }
-           
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            try
+            {
+                var user = await _context.User.Register(request); 
+
+                var token = GetToken(user);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+                return Ok(new
+                {
+                    token = tokenString,
+                    username = user.FullName,
+                    role = user.Role
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         //[HttpDelete("{id}")]
@@ -105,16 +124,16 @@ namespace server.Controllers
         //[HttpPost]
         //public async Task<IActionResult> CreateUser(string username, int id)
         //{
-            //var existingUser = await _context.Users.FindAsync(id);
-            //if (existingUser != null)
-            //{
-            //    return Conflict("User with this ID already exists.");
-            //}
+        //var existingUser = await _context.Users.FindAsync(id);
+        //if (existingUser != null)
+        //{
+        //    return Conflict("User with this ID already exists.");
+        //}
 
-            //var user = new User { Id = id, Username = username };
-            //_context.Users.Add(user);
-            //await _context.SaveChangesAsync();
-            //return Ok(user);
+        //var user = new User { Id = id, Username = username };
+        //_context.Users.Add(user);
+        //await _context.SaveChangesAsync();
+        //return Ok(user);
         //}
 
         //[HttpPost("{userId}/roles/{roleName}")]
@@ -148,7 +167,7 @@ namespace server.Controllers
 
         //    return Ok(roles);
         //}
-        #endregion 
+        #endregion
     }
 
 }

@@ -1,6 +1,5 @@
 ﻿
 
-using DAL.Api;
 
 namespace DAL.Api
 {
