@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DAL.Api
 {
-    public interface IUser
-        : ICrud<User>
+    public interface IUser: ICrud<User>
     {
         Task<User?> GetUserById(int id);
         

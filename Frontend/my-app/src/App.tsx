@@ -10,6 +10,7 @@ import { myStore, RootState } from './myStore';
 import AdminScreen from "./components/adminComponents/AdminScreen/AdminScreen"
 // import { UserCardList } from './components/Cart/';
 import Cart from './components/Cart/Cart';
+import { SignUp } from './components/commonComponents/SignUp/SignUp';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<LogIn />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route
         path="/*"
         element={
