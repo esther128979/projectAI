@@ -29,8 +29,7 @@ namespace BL.Services
 
             if (link.ViewLimit.HasValue && link.ViewCount >= link.ViewLimit)
                 return Result.Failure<string>("View limit reached");
-
-            // עדכון ViewCount
+            link.Movie.AmountOfViews = (link.Movie.AmountOfViews ?? 0) + 1;
             link.ViewCount++;
             await _dal.EmailLink.UpdateAsync(link);
 
@@ -42,7 +41,6 @@ namespace BL.Services
                 Ipaddress = ipAddress,
                 UserAgent = userAgent
             };
-
             await _dal.EmailLinkClick.AddAsync(click);
 
             return Result.Success(link.Movie.Link);

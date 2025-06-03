@@ -146,13 +146,6 @@ namespace BL.Profiles
 
             #region Order
 
-            // DAL ➡️ BL
-            //CreateMap<Order, BLOrder>()
-            //    .ForMember(dest => dest.Status,
-            //               opt => opt.MapFrom(src => src.Status ? eStatus.Completed : eStatus.InProgress))
-            //    .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אם צריך
-            //    .ForMember(dest => dest.TotalAmount,
-            //               opt => opt.MapFrom(src => src.TotalAmount)); // ✅ מיפוי חד-כיווני
             CreateMap<Order, BLOrder>()
     .ForMember(dest => dest.Status,
                opt => opt.MapFrom(src => src.Status)) // בלי enum
@@ -160,23 +153,18 @@ namespace BL.Profiles
     .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.IdCustomer))
     .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.DateOrder))
     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IdOrder))
+    .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
     .ForMember(dest => dest.TotalAmount,
                opt => opt.MapFrom(src => src.TotalAmount));
 
-            // BL ➡️ DAL (שולחים חזרה לדאטהבייס)
-            //      CreateMap<BLOrder, Order>()
-            //.ForMember(dest => dest.Status,
-            //           opt => opt.MapFrom(src => src.Status == eStatus.Completed))
-            //.ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
-            //.ForMember(dest => dest.TotalAmount,
-            //           opt => opt.Ignore()); // DB calculates this
+         
             CreateMap<BLOrder, Order>()
           .ForMember(dest => dest.Status,
                      opt => opt.MapFrom(src => src.Status)) // bool פשוט
           .ForMember(dest => dest.IdCustomer, opt => opt.MapFrom(src => src.CustomerId))
           .ForMember(dest => dest.DateOrder, opt => opt.MapFrom(src => src.OrderDate))
           .ForMember(dest => dest.IdOrder, opt => opt.MapFrom(src => src.Id))
-          .ForMember(dest => dest.OrderItems, opt => opt.Ignore()) // אלא אם כן את ממפה אותם
+          .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
           .ForMember(dest => dest.TotalAmount, opt => opt.Ignore()); // מחושב בדאטהבייס
 
 

@@ -32,8 +32,20 @@ namespace DAL.Services
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return order;
+            // ניתוק מה-Tracking כדי לא לקבל את הגרסה הישנה
+            _context.Entry(order).State = EntityState.Detached;
+
+            // שליפה מחדש מה-Database (הפעם באמת)
+            var updatedOrder = await _context.Orders
+                .AsNoTracking()
+                .Include(o => o.OrderItems)
+                .Include(o => o.IdCustomerNavigation)
+                .FirstOrDefaultAsync(o => o.IdOrder == order.IdOrder);
+
+            return updatedOrder!;
         }
+
+
 
         public async Task<Order> Update(Order order)
         {

@@ -8,7 +8,7 @@ public class EmailSender : IEmailSender
 {
     private readonly HttpClient _httpClient;
 
-    private readonly string _googleScriptUrl = "https://script.google.com/macros/s/AKfycbyU-KGw-SzQpbBR6pDlH19fu6BBxwkcHynPGs8owVQ/dev";
+    private readonly string _googleScriptUrl = "https://script.google.com/macros/s/AKfycbxTYDLsP4ZwqP-I5XSSD_9oxDgBw9laDlZCN-QXDlA7pns0Q6Qw9riaO3zZMfmYyN4c/exec";
 
     public EmailSender(HttpClient httpClient)
     {

@@ -57,7 +57,9 @@ public class EmailLinkService : IEmailLink
 
     public async Task<bool> ValidateAndRegisterViewAsync(string token)
     {
-        var link = await _context.EmailLinks.FirstOrDefaultAsync(l => l.UniqueToken == token);
+        var link = await _context.EmailLinks
+            .Include(l => l.Movie) // טוען את הסרט יחד עם הלינק
+            .FirstOrDefaultAsync(l => l.UniqueToken == token);
 
         if (link == null ||
             (link.ExpirationDate.HasValue && link.ExpirationDate.Value < DateTime.UtcNow))
@@ -65,10 +67,17 @@ public class EmailLinkService : IEmailLink
             return false;
         }
 
+        // אם יש סרט, מגדילים את ספירת הצפיות
+        if (link.Movie != null)
+        {
+            link.Movie.AmountOfViews += 1;
+        }
+
         await _context.SaveChangesAsync();
 
         return true;
     }
+
 
     public async Task RegisterClickAsync(int linkId, string? ipAddress, string? userAgent)
     {
@@ -105,6 +114,7 @@ public class EmailLinkService : IEmailLink
     public async Task UpdateAsync(EmailLink link)
     {
         _context.EmailLinks.Update(link);
+        
         await _context.SaveChangesAsync();
     }
 

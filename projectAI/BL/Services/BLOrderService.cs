@@ -71,49 +71,48 @@ namespace BL.Services
             if (order == null)
                 throw new ArgumentNullException(nameof(order));
 
-            // ממפה BLOrder ל-Order (המודל של DAL)
+            // שלב 1 – מיפוי ושמירת ההזמנה
             Order newOrder = mapper.Map<Order>(order);
-
-            // שומר את ההזמנה ב-DAL ומחזיר את ההזמנה עם הפרטים המלאים כולל מזהה
             var savedOrder = await dal.Order.Create(newOrder);
 
-            //שימולב!!
-            //אחרי שנעשה בו מפינג כמובן 
-            //לשנות את זה שניקח את זה מתוך אוביקיט של BL שיש בו מייל
+            // שלב 2 – שליפת פרטי משתמש ולקוח
             var user = await dal.User.GetUserById(savedOrder.IdCustomer);
             var customer = await dal.Customer.GetCustomerById(savedOrder.IdCustomer);
 
-            // יוצר טוקנים ושומר לטבלה EmailLinks
-            foreach (var detail in savedOrder.OrderItems)
+            if (user == null || customer == null)
+                throw new InvalidOperationException("User or customer not found");
+
+            // שלב 3 – יצירת טוקנים ושליחת מיילים - הריצה עצמה לא חוסמת
+            foreach (var item in savedOrder.OrderItems)
             {
                 string token = Guid.NewGuid().ToString("N");
 
                 var emailLink = new EmailLink
                 {
                     UserId = savedOrder.IdCustomer,
-                    MovieId = detail.MovieId,
+                    MovieId = item.MovieId,
                     UniqueToken = token,
                     EmailType = "NewOrder",
                     DateCreated = DateTime.UtcNow,
-                    ExpirationDate = DateTime.UtcNow.AddDays(14) // תוקף של שבועיים
+                    ExpirationDate = DateTime.UtcNow.AddDays(14),
+                    ViewLimit = item.ViewCount,
+                    ViewCount = 0
                 };
 
                 await dal.EmailLink.AddEmailLinkAsync(emailLink);
 
-                // שיחרור קישור לצפייה (הנחה: יש לך שדה Link בסרט)
-                var movie = await dal.Movie.GetMovieById(detail.MovieId);
-                string baseLink = movie?.Link ?? "https://defaultlink.com";
-
+                var movie = await dal.Movie.GetMovieById(item.MovieId);
+                string baseLink = $"https://localhost:7229/DosFlix/EmailLink/track";
                 string fullLink = $"{baseLink}?token={token}";
-                // שליחת מייל עם הקישור דרך שירות מייל
+
                 await emailSender.SendOrderEmailAsync(
                     email: user.Email,
-                    name: customer.FullName,
-                    movieName: movie.Name,
-                    orderLink: fullLink, 
-                    viewerCount: detail.ViewerCount,
-                    viewCount:detail.ViewCount,
-                    totalPrice: (decimal)savedOrder.TotalAmount
+                    name: customer.FullName ?? "פלוני/ת",
+                    movieName: movie?.Name ?? "סרט ללא שם",
+                    orderLink: fullLink,
+                    viewerCount: item.ViewerCount,
+                    viewCount: item.ViewCount,
+                    totalPrice: savedOrder.TotalAmount ?? 0
                 );
             }
         }
