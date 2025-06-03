@@ -204,32 +204,205 @@
 // };
 
 // export default MovieCardAdmin;
+// import {
+//   Card,
+//   CardMedia,
+//   CardContent,
+//   Typography,
+//   Box,
+//   IconButton,
+//   CardActions,
+//   TextField,
+//   Tooltip,
+//   Button
+// } from "@mui/material";
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import SaveIcon from "@mui/icons-material/Save";
+// import CancelIcon from "@mui/icons-material/Close";
+// import { useState } from "react";
+// import { MovieObject, MovieUpdateDTO } from "../../../models/Movie";
+
+// type MovieCardAdminProps = {
+//   movie: MovieObject;
+//   onEdit: (updatedMovie: MovieUpdateDTO) => void;
+//   onDelete: () => void;
+// };
+
+// const MovieCardAdmin = ({ movie, onEdit, onDelete }: MovieCardAdminProps) => {
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editedMovie, setEditedMovie] = useState<MovieUpdateDTO>({
+//     Id: movie.Id,
+//     Name: movie.Name,
+//     Description: movie.Description,
+//     PriceBase: movie.PriceBase,
+//     LengthMinutes: movie.LengthMinutes,
+//     MovieLink: movie.MovieLink,
+//     Image: movie.Image,
+//   });
+
+//   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   //   const { name, value } = e.target;
+//   //   setEditedMovie(prev => ({
+//   //     ...prev,
+//   //     [name]: name === "PriceBase" || name === "LengthMinutes" ? Number(value) : value,
+//   //   }));
+//   // };
+
+//   // const handleSave = () => {
+//   //   onEdit(editedMovie);
+//   //   setIsEditing(false);
+//   // };
+
+//   // const handleCancel = () => {
+//   //   setIsEditing(false);
+//   //   setEditedMovie({
+//   //     Id: movie.Id,
+//   //     Name: movie.Name,
+//   //     Description: movie.Description,
+//   //     PriceBase: movie.PriceBase,
+//   //     LengthMinutes: movie.LengthMinutes,
+//   //     MovieLink: movie.MovieLink,
+//   //     Image: movie.Image,
+//   //   });
+//   // };
+// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const { name, value } = e.target;
+//   console.log(`[MovieCardAdmin] handleChange: ${name} = ${value}`);
+//   setEditedMovie(prev => ({
+//     ...prev,
+//     [name]: name === "PriceBase" || name === "LengthMinutes" ? Number(value) : value,
+//   }));
+// };
+
+// const handleSave = () => {
+//   console.log('[MovieCardAdmin] handleSave called with:', editedMovie);
+//   onEdit(editedMovie);
+//   setIsEditing(false);
+// };
+
+// const handleCancel = () => {
+//   console.log('[MovieCardAdmin] handleCancel called, resetting editedMovie');
+//   setIsEditing(false);
+//   setEditedMovie({
+//     Id: movie.Id,
+//     Name: movie.Name,
+//     Description: movie.Description,
+//     PriceBase: movie.PriceBase,
+//     LengthMinutes: movie.LengthMinutes,
+//     MovieLink: movie.MovieLink,
+//     Image: movie.Image,
+//   });
+// };
+
+//   return (
+//     <Card sx={{ width: 250, display: 'flex', flexDirection: 'column', borderRadius: 3, boxShadow: 6 }}>
+//       <CardMedia
+//         component="img"
+//         height="160"
+//         image={editedMovie.Image}
+//         alt={movie.Name}
+//       />
+//       <CardContent dir="rtl" sx={{ flexGrow: 1 }}>
+//         {isEditing ? (
+//           <>
+//             <TextField
+//               fullWidth
+//               name="Name"
+//               label="שם הסרט"
+//               value={editedMovie.Name}
+//               onChange={handleChange}
+//               variant="standard"
+//               inputProps={{ dir: "rtl" }}
+//             />
+//             <TextField
+//               fullWidth
+//               name="Description"
+//               label="תיאור"
+//               value={editedMovie.Description}
+//               onChange={handleChange}
+//               variant="standard"
+//               multiline
+//               rows={2}
+//               inputProps={{ dir: "rtl" }}
+//             />
+//             <TextField
+//               fullWidth
+//               name="PriceBase"
+//               label="מחיר"
+//               type="number"
+//               value={editedMovie.PriceBase}
+//               onChange={handleChange}
+//               variant="standard"
+//               inputProps={{ dir: "rtl" }}
+//             />
+//             <TextField
+//               fullWidth
+//               name="LengthMinutes"
+//               label="אורך בדקות"
+//               type="number"
+//               value={editedMovie.LengthMinutes}
+//               onChange={handleChange}
+//               variant="standard"
+//               inputProps={{ dir: "rtl" }}
+//             />
+//           </>
+//         ) : (
+//           <>
+//             <Typography variant="h6" fontWeight="bold" gutterBottom>{movie.Name}</Typography>
+//             <Typography variant="body2" color="text.secondary" sx={{ minHeight: 40 }}>
+//               {movie.Description}
+//             </Typography>
+//             <Typography variant="caption">⏱ {movie.LengthMinutes} דקות</Typography><br />
+//             <Typography variant="caption">💰 ₪{movie.PriceBase}</Typography>
+//           </>
+//         )}
+//       </CardContent>
+
+//       <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 1 }}>
+//         {isEditing ? (
+//           <>
+//             <IconButton onClick={handleSave} color="success">
+//               <SaveIcon />
+//             </IconButton>
+//             <IconButton onClick={handleCancel} color="inherit">
+//               <CancelIcon />
+//             </IconButton>
+//           </>
+//         ) : (
+//           <>
+//             <IconButton onClick={() => setIsEditing(true)} color="primary">
+//               <EditIcon />
+//             </IconButton>
+//             <IconButton onClick={onDelete} color="error">
+//               <DeleteIcon />
+//             </IconButton>
+//           </>
+//         )}
+//       </CardActions>
+//     </Card>
+//   );
+// };
+
+// export default MovieCardAdmin;
 import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Box,
-  IconButton,
-  CardActions,
-  TextField,
-  Tooltip,
-  Button
+  Card, CardMedia, CardContent, Typography,
+  TextField, CardActions, IconButton
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { useState } from "react";
 import { MovieObject, MovieUpdateDTO } from "../../../models/Movie";
 
-type MovieCardAdminProps = {
+interface Props {
   movie: MovieObject;
   onEdit: (updatedMovie: MovieUpdateDTO) => void;
   onDelete: () => void;
-};
+}
 
-const MovieCardAdmin = ({ movie, onEdit, onDelete }: MovieCardAdminProps) => {
+const MovieCardAdmin = ({ movie, onEdit, onDelete }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMovie, setEditedMovie] = useState<MovieUpdateDTO>({
     Id: movie.Id,
@@ -241,142 +414,68 @@ const MovieCardAdmin = ({ movie, onEdit, onDelete }: MovieCardAdminProps) => {
     Image: movie.Image,
   });
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setEditedMovie(prev => ({
-  //     ...prev,
-  //     [name]: name === "PriceBase" || name === "LengthMinutes" ? Number(value) : value,
-  //   }));
-  // };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditedMovie(prev => ({
+      ...prev,
+      [name]: name === "PriceBase" || name === "LengthMinutes" ? Number(value) : value,
+    }));
+  };
 
-  // const handleSave = () => {
-  //   onEdit(editedMovie);
-  //   setIsEditing(false);
-  // };
+  const handleSave = () => {
+    onEdit(editedMovie);
+    setIsEditing(false);
+  };
 
-  // const handleCancel = () => {
-  //   setIsEditing(false);
-  //   setEditedMovie({
-  //     Id: movie.Id,
-  //     Name: movie.Name,
-  //     Description: movie.Description,
-  //     PriceBase: movie.PriceBase,
-  //     LengthMinutes: movie.LengthMinutes,
-  //     MovieLink: movie.MovieLink,
-  //     Image: movie.Image,
-  //   });
-  // };
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  console.log(`[MovieCardAdmin] handleChange: ${name} = ${value}`);
-  setEditedMovie(prev => ({
-    ...prev,
-    [name]: name === "PriceBase" || name === "LengthMinutes" ? Number(value) : value,
-  }));
-};
-
-const handleSave = () => {
-  console.log('[MovieCardAdmin] handleSave called with:', editedMovie);
-  onEdit(editedMovie);
-  setIsEditing(false);
-};
-
-const handleCancel = () => {
-  console.log('[MovieCardAdmin] handleCancel called, resetting editedMovie');
-  setIsEditing(false);
-  setEditedMovie({
-    Id: movie.Id,
-    Name: movie.Name,
-    Description: movie.Description,
-    PriceBase: movie.PriceBase,
-    LengthMinutes: movie.LengthMinutes,
-    MovieLink: movie.MovieLink,
-    Image: movie.Image,
-  });
-};
+  const handleCancel = () => {
+    setIsEditing(false);
+    setEditedMovie({
+      Id: movie.Id,
+      Name: movie.Name,
+      Description: movie.Description,
+      PriceBase: movie.PriceBase,
+      LengthMinutes: movie.LengthMinutes,
+      MovieLink: movie.MovieLink,
+      Image: movie.Image,
+    });
+  };
 
   return (
-    <Card sx={{ width: 250, display: 'flex', flexDirection: 'column', borderRadius: 3, boxShadow: 6 }}>
+    <Card sx={{ width: 250, borderRadius: 3, boxShadow: 6 }}>
       <CardMedia
         component="img"
         height="160"
         image={editedMovie.Image}
         alt={movie.Name}
       />
-      <CardContent dir="rtl" sx={{ flexGrow: 1 }}>
+      <CardContent dir="rtl">
         {isEditing ? (
           <>
-            <TextField
-              fullWidth
-              name="Name"
-              label="שם הסרט"
-              value={editedMovie.Name}
-              onChange={handleChange}
-              variant="standard"
-              inputProps={{ dir: "rtl" }}
-            />
-            <TextField
-              fullWidth
-              name="Description"
-              label="תיאור"
-              value={editedMovie.Description}
-              onChange={handleChange}
-              variant="standard"
-              multiline
-              rows={2}
-              inputProps={{ dir: "rtl" }}
-            />
-            <TextField
-              fullWidth
-              name="PriceBase"
-              label="מחיר"
-              type="number"
-              value={editedMovie.PriceBase}
-              onChange={handleChange}
-              variant="standard"
-              inputProps={{ dir: "rtl" }}
-            />
-            <TextField
-              fullWidth
-              name="LengthMinutes"
-              label="אורך בדקות"
-              type="number"
-              value={editedMovie.LengthMinutes}
-              onChange={handleChange}
-              variant="standard"
-              inputProps={{ dir: "rtl" }}
-            />
+            <TextField fullWidth name="Name" label="שם הסרט" value={editedMovie.Name} onChange={handleChange} variant="standard" />
+            <TextField fullWidth name="Description" label="תיאור" value={editedMovie.Description} onChange={handleChange} variant="standard" />
+            <TextField fullWidth name="PriceBase" label="מחיר" type="number" value={editedMovie.PriceBase} onChange={handleChange} variant="standard" />
+            <TextField fullWidth name="LengthMinutes" label="אורך בדקות" type="number" value={editedMovie.LengthMinutes} onChange={handleChange} variant="standard" />
           </>
         ) : (
           <>
-            <Typography variant="h6" fontWeight="bold" gutterBottom>{movie.Name}</Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ minHeight: 40 }}>
-              {movie.Description}
-            </Typography>
+            <Typography variant="h6">{movie.Name}</Typography>
+            <Typography variant="body2" color="text.secondary">{movie.Description}</Typography>
             <Typography variant="caption">⏱ {movie.LengthMinutes} דקות</Typography><br />
             <Typography variant="caption">💰 ₪{movie.PriceBase}</Typography>
           </>
         )}
       </CardContent>
 
-      <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 1 }}>
+      <CardActions sx={{ justifyContent: 'space-between' }}>
         {isEditing ? (
           <>
-            <IconButton onClick={handleSave} color="success">
-              <SaveIcon />
-            </IconButton>
-            <IconButton onClick={handleCancel} color="inherit">
-              <CancelIcon />
-            </IconButton>
+            <IconButton onClick={handleSave} color="success"><SaveIcon /></IconButton>
+            <IconButton onClick={handleCancel}><CancelIcon /></IconButton>
           </>
         ) : (
           <>
-            <IconButton onClick={() => setIsEditing(true)} color="primary">
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={onDelete} color="error">
-              <DeleteIcon />
-            </IconButton>
+            <IconButton onClick={() => setIsEditing(true)} color="primary"><EditIcon /></IconButton>
+            <IconButton onClick={onDelete} color="error"><DeleteIcon /></IconButton>
           </>
         )}
       </CardActions>
