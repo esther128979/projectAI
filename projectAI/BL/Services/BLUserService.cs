@@ -22,15 +22,29 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public Task<List<BLUser>> GetAll()
+        public async Task<List<BLUser>> GetAll()
         {
-            throw new NotImplementedException();
+            var users = await _dal.User.GetAll();
+            return _mapper.Map<List<BLUser>>(users);
         }
 
-        public Task<BLUser?> Login(string email, string password)
+        public async Task<BLUser?> Login(string email, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var allUsers = await _dal.User.GetAll();
+                var user = allUsers.FirstOrDefault(u => u.Email == email && u.Password == password); // בעתיד הצפנה
+                if (user == null)
+                    return null;
+
+                return _mapper.Map<BLUser>(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Login failed", ex);
+            }
         }
+
 
         public async Task<BLUser> Register(RegisterRequest request)
         {
