@@ -26,12 +26,14 @@ namespace server.Controllers
             var result = await _bl.EmailLinkManager.TrackClickAsync(token, ip, userAgent);
 
             if (!result.IsSuccess)
-                return BadRequest(result.Error);
+            {
+                return BadRequest(new { message = result.Error });
+            }
 
             return Redirect(result.Value); // הפנייה לסרט
         }
 
-       
+
 
     }
 }

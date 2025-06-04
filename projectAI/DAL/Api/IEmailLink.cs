@@ -3,25 +3,16 @@ namespace DAL.Api
 {
     public interface IEmailLink
     {
-        Task AddEmailLinkAsync(EmailLink link);
         Task<EmailLink?> GetByTokenAsync(string token);
-        Task<List<EmailLink>> GetLinksByUserIdAsync(int userId);
+        Task<List<EmailLink>> GetAllAsync();
+        Task<EmailLink?> GetByIdAsync(int id);
+        Task<EmailLink> AddAsync(EmailLink emailLink);
+        Task<EmailLink> UpdateAsync(EmailLink emailLink);
+        Task<bool> DeleteByIdAsync(int id);
 
-        // חדש: יצירת קישור עם טוקן
-        Task<EmailLink> CreateEmailLinkAsync(int userId, int movieId, string emailType, int maxViews);
-
-        // חדש: אימות טוקן ועדכון צפייה
-        Task<bool> ValidateAndRegisterViewAsync(string token);
-
-        // חדש: רישום לחיצה לצורכי סטטיסטיקה
-        Task RegisterClickAsync(int linkId, string? ipAddress, string? userAgent);
-
-        // חדש: ניקוי קישורים שפג תוקפם
-        Task DeleteExpiredLinksAsync();
-        Task<EmailLink?> GetByTokenWithClicksAndMovieAsync(string token);
-
-
-        Task UpdateAsync(EmailLink link);
+        Task AddClickAsync(EmailLinkClick click);
+        Task<List<EmailLink>> GetEmailLinksByMovieIdsAsync(List<int> movieIds);
+        Task<int> GetClickCountByLinkIdAsync(int linkId);
 
     }
 }

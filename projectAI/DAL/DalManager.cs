@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using DAL.Services;
+using AutoMapper;
 namespace DAL;
 
 public class DALManager : IDAL
@@ -19,13 +20,12 @@ public class DALManager : IDAL
  
     public IMovie Movie { get; }
     public IEmailLink EmailLink { get;  }
-    public IEmailLinkClick EmailLinkClick { get;  }
     public IUser User { get;  }
 
 
     //public IAgeGruop AgeGruop { get; }
 
-    public DALManager(string connectionString)
+    public DALManager(string connectionString, IMapper mapper)
     {
         ServiceCollection serCollection = new ServiceCollection();
         serCollection.AddDbContext<AppDbContext>(options =>
@@ -38,9 +38,8 @@ public class DALManager : IDAL
         serCollection.AddScoped<IMovie, MovieService>();
         serCollection.AddScoped<ICategory, CategoryService>();
         serCollection.AddScoped<IEmailLink, EmailLinkService>();
-        serCollection.AddScoped<IEmailLinkClick, EmailLinkClickService>();
         serCollection.AddScoped<IUser, UserService>();
-
+        serCollection.AddSingleton(mapper);
         // הגדרת ספק מחלקות שרות
         ServiceProvider p = serCollection.BuildServiceProvider();
         Customer = p.GetRequiredService<ICustomer>();
@@ -48,7 +47,6 @@ public class DALManager : IDAL
         Movie = p.GetRequiredService<IMovie>();
         Category = p.GetRequiredService<ICategory>();
         EmailLink = p.GetRequiredService<IEmailLink>();
-        EmailLinkClick = p.GetRequiredService<IEmailLinkClick>();
         User = p.GetRequiredService<IUser>();
 
 

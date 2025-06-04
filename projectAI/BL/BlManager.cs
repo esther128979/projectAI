@@ -29,7 +29,7 @@ namespace BL
         {
             var serCollection = new ServiceCollection();
 
-            serCollection.AddSingleton<IDAL, DALManager>(_ => new DALManager(connectionString));
+            serCollection.AddSingleton<IDAL, DALManager>(_ => new DALManager(connectionString,mapper));
 
             serCollection.AddScoped<IBLAgeGroup, BLAgeGroupService>();
             serCollection.AddScoped<IBLCategory, BLCategoryService>();

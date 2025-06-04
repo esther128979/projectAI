@@ -21,7 +21,16 @@ namespace DAL.Services
             return await _context.Orders
                 .Include(o => o.IdCustomerNavigation)
                 .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Movie)
                 .ToListAsync();
+        }
+        public async Task<Order?> GetById(int id)
+        {
+            return await _context.Orders
+                .Include(o => o.IdCustomerNavigation)
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Movie)
+                .FirstOrDefaultAsync(o => o.IdOrder == id);
         }
 
         public async Task<Order> Create(Order order)
@@ -32,8 +41,20 @@ namespace DAL.Services
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return order;
+            // ניתוק מה-Tracking כדי לא לקבל את הגרסה הישנה
+            _context.Entry(order).State = EntityState.Detached;
+
+            // שליפה מחדש מה-Database (הפעם באמת)
+            var updatedOrder = await _context.Orders
+                .AsNoTracking()
+                .Include(o => o.OrderItems)
+                .Include(o => o.IdCustomerNavigation)
+                .FirstOrDefaultAsync(o => o.IdOrder == order.IdOrder);
+
+            return updatedOrder!;
         }
+
+
 
         public async Task<Order> Update(Order order)
         {
@@ -56,23 +77,18 @@ namespace DAL.Services
                 .Include(o => o.OrderItems)
                 .ToListAsync();
         }
-
-        public async Task<List<Order>> GetOrdersToday()
+        public async Task UpdateLinkForMovie(int orderItemId, string link)
         {
-            DateTime today = DateTime.UtcNow.Date;
-            return await _context.Orders
-                .Where(o => o.DateOrder == today)
-                .Include(o => o.OrderItems)
-                .ToListAsync();
+            var item = await _context.OrderItems.FindAsync(orderItemId);
+            if (item == null)
+                throw new Exception("Order item not found");
+
+            item.LinkForMovie = link;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order>> GetOrdersByDateRange(DateTime startDate, DateTime endDate)
-        {
-            return await _context.Orders
-                .Where(o => o.DateOrder >= startDate && o.DateOrder <= endDate)
-                .Include(o => o.OrderItems)
-                .ToListAsync();
-        }
+
+
 
 
     }
