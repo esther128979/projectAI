@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
 using BL.Models;
+using DAL.Models;
 using iText.Svg.Renderers.Path.Impl;
 
 namespace BL.Profiles
@@ -10,6 +11,36 @@ namespace BL.Profiles
        
         public MovieProfile()
         {
+            CreateMap<Movie, BLMovie>()
+          .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CategoryCode ?? 0))
+          .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeCode ?? 0))
+          .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.ThereIsWoman ?? false))
+          .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.Length))
+          .ForMember(dest => dest.TotalViews, opt => opt.MapFrom(src => src.AmountOfViews ?? 0))
+          .ForMember(dest => dest.TotalViewers, opt => opt.MapFrom(src => src.OrderItems.Sum(o => o.ViewerCount)))
+          .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.FilmProductionDate))
+          .ForMember(dest => dest.PriceBase, opt => opt.MapFrom(src => src.BasePrice))
+          .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => src.ExtraViewerPrice))
+          .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => src.ExtraViewPrice))
+          .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.Link))
+          .ForMember(dest => dest.CodeCategoryNavigation, opt => opt.MapFrom(src => src.CategoryCodeNavigation))
+          .ForMember(dest => dest.AgeGroupNavigation, opt => opt.MapFrom(src => src.AgeCodeNavigation));
+
+            // BL → DAL
+            CreateMap<BLMovie, Movie>()
+                .ForMember(dest => dest.CategoryCode, opt => opt.MapFrom(src => src.CodeCategory))
+                .ForMember(dest => dest.AgeCode, opt => opt.MapFrom(src => src.AgeGroup))
+                .ForMember(dest => dest.ThereIsWoman, opt => opt.MapFrom(src => src.HasWoman))
+                .ForMember(dest => dest.Length, opt => opt.MapFrom(src => src.LengthMinutes))
+                .ForMember(dest => dest.AmountOfViews, opt => opt.MapFrom(src => src.TotalViews))
+                .ForMember(dest => dest.FilmProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
+                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.PriceBase))
+                .ForMember(dest => dest.ExtraViewerPrice, opt => opt.MapFrom(src => src.PricePerExtraViewer))
+                .ForMember(dest => dest.ExtraViewPrice, opt => opt.MapFrom(src => src.PricePerExtraView))
+                .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.MovieLink))
+                .ForMember(dest => dest.CategoryCodeNavigation, opt => opt.MapFrom(src => src.CodeCategoryNavigation))
+                .ForMember(dest => dest.AgeCodeNavigation, opt => opt.MapFrom(src => src.AgeGroupNavigation));
+
 
             // DTO ➡️ BL (יצירת סרט חדש)
             CreateMap<MovieCreateDTO, BLMovie>()

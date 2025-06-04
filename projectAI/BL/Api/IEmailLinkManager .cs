@@ -10,6 +10,9 @@ namespace BL.Api
     public interface IEmailLinkManager
     {
         Task<Result<string>> TrackClickAsync(string token, string ipAddress, string userAgent);
+        Task CheckAndUpdateOrderStatusesAsync();
+
+        Task<bool> AreAllLinksExpiredForMoviesAsync(List<int> movieIds);
     }
 
 }

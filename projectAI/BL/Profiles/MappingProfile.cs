@@ -17,50 +17,6 @@ namespace BL.Profiles
         public MappingProfile()
         {
 
-            #region MovieMapping
-            CreateMap<Movie, BLMovie>()
-                //.ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => (eCategoryGroup)(src.CategoryCode ?? 0)))
-                //.ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => (eAgeGroup)(src.AgeCode ?? 0)))
-                .ForMember(dest => dest.CodeCategory, opt => opt.MapFrom(src => src.CategoryCode ?? 0))
-                      .ForMember(dest => dest.AgeGroup, opt => opt.MapFrom(src => src.AgeCode ?? 0))
-
-                .ForMember(dest => dest.HasWoman, opt => opt.MapFrom(src => src.ThereIsWoman ?? false))
-                .ForMember(dest => dest.LengthMinutes, opt => opt.MapFrom(src => src.Length))
-                .ForMember(dest => dest.ProductionDate, opt => opt.MapFrom(src => src.FilmProductionDate))
-                .ForMember(dest => dest.PriceBase, opt => opt.MapFrom(src => src.BasePrice))
-                .ForMember(dest => dest.PricePerExtraViewer, opt => opt.MapFrom(src => src.ExtraViewerPrice))
-                .ForMember(dest => dest.PricePerExtraView, opt => opt.MapFrom(src => src.ExtraViewPrice))
-                .ForMember(dest => dest.MovieLink, opt => opt.MapFrom(src => src.Link))
-                .ForMember(dest => dest.CodeCategoryNavigation, opt => opt.MapFrom(src => src.CategoryCodeNavigation))
-                .ForMember(dest => dest.AgeGroupNavigation, opt => opt.MapFrom(src => src.AgeCodeNavigation))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
-                //.ForMember(dest => dest.TotalViewers,
-                //    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewerCount)))
-                //.ForMember(dest => dest.TotalViews,
-                //    opt => opt.MapFrom(src => src.OrderItems.Sum(oi => oi.ViewCount)));
-                .ForMember(dest => dest.TotalViewers,
-        opt => opt.MapFrom(src => src.OrderItems != null ? src.OrderItems.Sum(oi => oi.ViewerCount) : 0))
-          .ForMember(dest => dest.TotalViews,
-         opt => opt.MapFrom(src => src.OrderItems != null ? src.OrderItems.Sum(oi => oi.ViewCount) : 0));
-
-
-            CreateMap<BLMovie, Movie>()
-                .ForMember(dest => dest.CategoryCode, opt => opt.MapFrom(src => (int?)src.CodeCategory))
-                .ForMember(dest => dest.AgeCode, opt => opt.MapFrom(src => (int?)src.AgeGroup))
-                .ForMember(dest => dest.ThereIsWoman, opt => opt.MapFrom(src => src.HasWoman))
-                .ForMember(dest => dest.Length, opt => opt.MapFrom(src => src.LengthMinutes))
-                .ForMember(dest => dest.AmountOfViews, opt => opt.MapFrom(src => src.TotalViews))
-                .ForMember(dest => dest.FilmProductionDate, opt => opt.MapFrom(src => src.ProductionDate))
-                .ForMember(dest => dest.BasePrice, opt => opt.MapFrom(src => src.PriceBase))
-                .ForMember(dest => dest.ExtraViewerPrice, opt => opt.MapFrom(src => src.PricePerExtraViewer))
-                .ForMember(dest => dest.ExtraViewPrice, opt => opt.MapFrom(src => src.PricePerExtraView))
-                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
-                .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.MovieLink));
-
-
-
-
-            #endregion
 
             #region AgeGroup
 
@@ -190,7 +146,7 @@ namespace BL.Profiles
                 .ForMember(dest => dest.ViewCount, opt => opt.MapFrom(src => src.ViewCount))
                 .ForMember(dest => dest.SubTotal, opt => opt.MapFrom(src => src.SubTotal))
                 .ForMember(dest => dest.Movie, opt => opt.Ignore())
-                .ForMember(dest => dest.LinkForMovie, opt => opt.Ignore())
+                .ForMember(dest => dest.LinkForMovie, opt => opt.MapFrom(src => src.LinkForMovie))
                 .ForMember(dest => dest.Order, opt => opt.Ignore());
 
 
@@ -198,22 +154,16 @@ namespace BL.Profiles
 
             #region EmailLink
             CreateMap<EmailLink, BLEmailLink>()
-             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.LinkId))
-             .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.UserId))
-             .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.UniqueToken))
-             .ForMember(dest => dest.SentAt, opt => opt.MapFrom(src => src.DateCreated));
-            CreateMap<BLEmailLink, EmailLink>()
-            .ForMember(dest => dest.LinkId, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.CustomerId))
-            .ForMember(dest => dest.UniqueToken, opt => opt.MapFrom(src => src.Link))
-            .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.SentAt))
-            .ForMember(dest => dest.MovieId, opt => opt.Ignore()) // כי אין אותו ב-BL
-            .ForMember(dest => dest.EmailType, opt => opt.Ignore())
-            .ForMember(dest => dest.ExpirationDate, opt => opt.Ignore())
-            .ForMember(dest => dest.EmailLinkClicks, opt => opt.Ignore())
-            .ForMember(dest => dest.Movie, opt => opt.Ignore())
-            .ForMember(dest => dest.User, opt => opt.Ignore());
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.LinkId))
+                 .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.UserId))
+                 .ForMember(dest => dest.Link, opt => opt.MapFrom(src => src.UniqueToken))
+                 .ForMember(dest => dest.SentAt, opt => opt.MapFrom(src => src.DateCreated));
 
+            CreateMap<BLEmailLink, EmailLink>()
+                .ForMember(dest => dest.LinkId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.CustomerId))
+                .ForMember(dest => dest.UniqueToken, opt => opt.MapFrom(src => src.Link))
+                .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.SentAt));
             #endregion
 
 

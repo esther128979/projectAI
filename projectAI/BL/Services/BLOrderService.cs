@@ -48,22 +48,7 @@ namespace BL.Services
 
 
 
-        public async Task<List<BLOrder>> GetOrdersByDateRange(DateTime startDate, DateTime endDate)
-        {
-            if (startDate > DateTime.Today || endDate > DateTime.Today)
-                throw new Exception("Incorrect date range.");
 
-            List<Order> list2 = await dal.Order.GetOrdersByDateRange(startDate, endDate);
-
-            return mapper.Map<List<BLOrder>>(list2);
-        }
-
-
-        public async Task<List<BLOrder>> GetOrdersToday()
-        {
-            List<Order> list3 = await dal.Order.GetOrdersToday();
-            return mapper.Map<List<BLOrder>>(list3);
-        }
 
 
         public async Task AddOrder(BLOrder order)
@@ -71,18 +56,11 @@ namespace BL.Services
             if (order == null)
                 throw new ArgumentNullException(nameof(order));
 
-            // שלב 1 – מיפוי ושמירת ההזמנה
-            Order newOrder = mapper.Map<Order>(order);
+            var newOrder = mapper.Map<Order>(order);
             var savedOrder = await dal.Order.Create(newOrder);
 
-            // שלב 2 – שליפת פרטי משתמש ולקוח
-            var user = await dal.User.GetUserById(savedOrder.IdCustomer);
-            var customer = await dal.Customer.GetCustomerById(savedOrder.IdCustomer);
+            var emailItems = new List<OrderItemEmailDto>();
 
-            if (user == null || customer == null)
-                throw new InvalidOperationException("User or customer not found");
-
-            // שלב 3 – יצירת טוקנים ושליחת מיילים - הריצה עצמה לא חוסמת
             foreach (var item in savedOrder.OrderItems)
             {
                 string token = Guid.NewGuid().ToString("N");
@@ -99,24 +77,39 @@ namespace BL.Services
                     ViewCount = 0
                 };
 
-                await dal.EmailLink.AddEmailLinkAsync(emailLink);
+                await dal.EmailLink.AddAsync(emailLink);
 
+               
                 var movie = await dal.Movie.GetMovieById(item.MovieId);
                 string baseLink = $"https://localhost:7229/DosFlix/EmailLink/track";
                 string fullLink = $"{baseLink}?token={token}";
 
-                await emailSender.SendOrderEmailAsync(
-                    email: user.Email,
-                    name: customer.FullName ?? "פלוני/ת",
-                    movieName: movie?.Name ?? "סרט ללא שם",
-                    orderLink: fullLink,
-                    viewerCount: item.ViewerCount,
-                    viewCount: item.ViewCount,
-                    totalPrice: savedOrder.TotalAmount ?? 0
-                );
+
+                emailItems.Add(new OrderItemEmailDto
+                {
+                    MovieName = movie?.Name ?? "סרט ללא שם",
+                    ViewerCount = item.ViewerCount,
+                    ViewCount = item.ViewCount,
+                    OrderLink = fullLink
+                });
             }
+
+            var user = await dal.User.GetUserById(savedOrder.IdCustomer);
+            var customer = await dal.Customer.GetCustomerById(savedOrder.IdCustomer);
+
+            if (user == null || customer == null)
+                throw new InvalidOperationException("User or customer not found");
+
+            await emailSender.SendOrderEmailAsync(
+                email: user.Email,
+                name: customer.FullName ?? "לקוח/ה",
+                orderItems: emailItems,
+                totalPrice: savedOrder.TotalAmount ?? 0
+            );
         }
 
+
+      
     }
 }
 

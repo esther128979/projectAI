@@ -12,7 +12,7 @@ namespace BL.Profiles
             CreateMap<OrderCreateDTO, BLOrder>()
     .ForMember(dest => dest.Id, opt => opt.Ignore())
     .ForMember(dest => dest.OrderDate, opt => opt.Ignore())
-    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => false)) // לא הושלמה עדיין
+    .ForMember(dest => dest.Status, opt => opt.MapFrom(src => true)) 
     .ForMember(dest => dest.TotalAmount, opt => opt.Ignore())
     .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems));
 

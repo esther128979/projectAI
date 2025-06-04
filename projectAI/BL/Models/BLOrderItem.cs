@@ -12,7 +12,7 @@ public partial class BLOrderItem
         public decimal SubTotal { get; set; }
 
         public BLMovie? Movie { get; set; }
-    public string? LinkForMovie { get; set; }
+        public string? LinkForMovie { get; set; }
 
 
 }

@@ -7,6 +7,7 @@ using BL.Api;
 using BL.Models;
 using server.Models;
 using AutoMapper;
+using DAL.Services;
 
 namespace server.Controllers
 {
@@ -45,22 +46,11 @@ namespace server.Controllers
             await _bl.Order.AddOrder(dtoOrder);
             return Ok("Order created and email links sent.");
         }
+       
 
-        [HttpGet("today")]
-        public async Task<IActionResult> GetTodayOrders()
-        {
-            var orders = await _bl.Order.GetOrdersToday();
-            return Ok(orders);
-        }
 
-        [HttpGet("bydaterange")]
-        public async Task<IActionResult> GetByDateRange(DateTime start, DateTime end)
-        {
-            var orders = await _bl.Order.GetOrdersByDateRange(start, end);
-            return Ok(orders);
-        }
     }
 
-       
+
 }
 

@@ -3,28 +3,35 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BL.Api;
+using BL.Models;
+using System.Text.Json;
 
 public class EmailSender : IEmailSender
 {
     private readonly HttpClient _httpClient;
 
-    private readonly string _googleScriptUrl = "https://script.google.com/macros/s/AKfycbxTYDLsP4ZwqP-I5XSSD_9oxDgBw9laDlZCN-QXDlA7pns0Q6Qw9riaO3zZMfmYyN4c/exec";
+    private readonly string _googleScriptUrl = "https://script.google.com/macros/s/AKfycbyDCdAAkIImeMDYtET0imtGYTMEPqyQKlCaaAjiG95etcQxI8v5HHVQo8tEo4_SzdHn/exec";
 
     public EmailSender(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<bool> SendOrderEmailAsync(string email, string name, string movieName, string orderLink, int viewerCount, int viewCount, decimal totalPrice)
+    public async Task<bool> SendOrderEmailAsync(string email, string name, List<OrderItemEmailDto> orderItems, decimal totalPrice)
     {
+        // המר רשימת פריטים ל-JSON
+        var options = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        string orderItemsJson = JsonSerializer.Serialize(orderItems, options);
+
         var formContent = new FormUrlEncodedContent(new[]
         {
             new KeyValuePair<string, string>("email", email),
             new KeyValuePair<string, string>("name", name),
-            new KeyValuePair<string, string>("movieName", movieName),
-            new KeyValuePair<string, string>("orderLink", orderLink),
-            new KeyValuePair<string, string>("viewerCount", viewerCount.ToString()),
-            new KeyValuePair<string, string>("viewCount", viewCount.ToString()),
+            new KeyValuePair<string, string>("orderItems", orderItemsJson),
             new KeyValuePair<string, string>("totalPrice", totalPrice.ToString("F2"))
         });
 
