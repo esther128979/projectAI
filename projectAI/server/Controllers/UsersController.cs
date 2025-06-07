@@ -98,12 +98,6 @@ namespace server.Controllers
         }
 
 
-        #region "jwt"
-
-
-
-  
-        #endregion
     }
 
 }
