@@ -97,42 +97,64 @@ export function SignUp() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError('');
+//     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//         e.preventDefault();
+//         setError('');
 
-        try {
-            // const response = await axios.post('https://localhost:7229/DosFlix/Users/register', {
-            //     request: {
-            //         username,
-            //         email,
-            //         password,
-            //         phone,
-            //         gender,
-            //         ageGroup,
-            //         profilePicture: null
-            //     }
-            // });
-            const response = await axios.post('https://localhost:7229/DosFlix/Users/register', {
-  username,
-  email,
-  password,
-  phone,
-  gender,
-  ageGroup,
-  profilePicture: null
-});
+//         try {
+//             // const response = await axios.post('https://localhost:7229/DosFlix/Users/register', {
+//             //     request: {
+//             //         username,
+//             //         email,
+//             //         password,
+//             //         phone,
+//             //         gender,
+//             //         ageGroup,
+//             //         profilePicture: null
+//             //     }
+//             // });
+//             const response = await axios.post('https://localhost:7229/DosFlix/Users/register', {
+//   username,
+//   email,
+//   password,
+//   phone,
+//   gender,
+//   ageGroup,
+//   profilePicture: null
+// });
 
 
-            const { token, username: name, role } = response.data;
-            localStorage.setItem('token', token);
-            dispatch(loginUser({ token, role, username: name }));
+//             const { token, username: name, role } = response.data;
+//             localStorage.setItem('token', token);
+//             dispatch(loginUser({ token, role, username: name }));
 
-            navigate(role === 0 ? '/admin' : role === 1 ? '/manager' : '/user');
-        } catch (err: any) {
-            setError(err.response?.data || 'Registration failed');
-        }
-    };
+//              navigate(role === 0 ? '/admin' : role === 1 ? '/manager' : '/user');
+//             // navigate('/');
+//         } catch (err: any) {
+//             setError(err.response?.data || 'Registration failed');
+//         }
+//     };
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+        const response = await axios.post('https://localhost:7229/DosFlix/Users/register', {
+            username,
+            email,
+            password,
+            phone,
+            gender,
+            ageGroup,
+            profilePicture: null
+        });
+
+        // אחרי הרשמה מוצלחת, פשוט להפנות לדף ההתחברות:
+        navigate('/login');
+    } catch (err: any) {
+        setError(err.response?.data || 'Registration failed');
+    }
+};
 
     return (
         <div className="signup-page">

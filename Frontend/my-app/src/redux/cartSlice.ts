@@ -1,37 +1,56 @@
+
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import { MovieObject } from '../models/Movie';
 
-// // הגדרת סוג המידע שנשמר בעגלה
+// interface CartItem extends MovieObject {
+//   quantity: number;
+// }
+
 // interface CartState {
-//   items: MovieObject[];
+//   items: CartItem[];
 // }
 
 // const initialState: CartState = {
 //   items: [],
 // };
 
-// // יצירת Slice לניהול הסל
 // const cartSlice = createSlice({
 //   name: 'myCart',
 //   initialState,
 //   reducers: {
 //     addToCart: (state, action: PayloadAction<MovieObject>) => {
-//       state.items.push(action.payload);
+//       const existingItem = state.items.find(item => item.Id === action.payload.Id);
+//       if (existingItem) {
+//         existingItem.quantity += 1;
+//       } else {
+//         state.items.push({ ...action.payload, quantity: 1 });
+//       }
 //     },
 //     removeFromCart: (state, action: PayloadAction<number>) => {
 //       state.items = state.items.filter(item => item.Id !== action.payload);
 //     },
-//     clearCart: (state) => {
-//       state.items = [];
+//     increaseQuantity: (state, action: PayloadAction<number>) => {
+//       const item = state.items.find(item => item.Id === action.payload);
+//       if (item) {
+//         item.quantity += 1;
+//       }
+//     },
+//     decreaseQuantity: (state, action: PayloadAction<number>) => {
+//       const item = state.items.find(item => item.Id === action.payload);
+//       if (item) {
+//         if (item.quantity > 1) {
+//           item.quantity -= 1;
+//         } else {
+//           state.items = state.items.filter(i => i.Id !== action.payload);
+//         }
+//       }
 //     },
 //   },
 // });
 
-// // פעולות שניתן להשתמש בהן
-// export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+// export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } = cartSlice.actions;
 // export { cartSlice };
 
-// // Reducer שמנוהל על ידי Redux
 // export default cartSlice.reducer;
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { MovieObject } from '../models/Movie';
@@ -79,10 +98,13 @@ const cartSlice = createSlice({
         }
       }
     },
+    clearCart: (state) => {
+      state.items = [];
+    },
   },
 });
 
-export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = cartSlice.actions;
 export { cartSlice };
 
 export default cartSlice.reducer;

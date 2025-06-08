@@ -376,7 +376,7 @@ export const MovieListAdmin = () => {
     fetchMovies();
   }, []);
 
-  if (!user?.role || user.role !== 'admin') return null;
+  if (!user?.role || user.role !== 1) return null;
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     const { name, value, type, checked } = e.target;

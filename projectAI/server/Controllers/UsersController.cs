@@ -26,6 +26,7 @@ namespace server.Controllers
         {
             _context = context;
         }
+        
         private JwtSecurityToken GetToken(BLUser user)
         {
             var claims = new List<Claim>
