@@ -157,6 +157,10 @@
 //         </div>
 //     );
 // }
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import './LogIn.scss';
 import { useGoogleLogin } from '@react-oauth/google';
@@ -188,9 +192,12 @@ export function LogIn() {
     }, []);
 
     const handleLoginSuccess = ({ token, username, role }: any) => {
+        console.log('good')
+        console.log('המשתמש שהתחבר:', username);
+    console.log('תפקיד המשתמש:', role);
         localStorage.setItem('token', token);
         dispatch(loginUser({ token, role, username }));
-
+  
         if (rememberMe) {
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPassword', password);
@@ -201,7 +208,8 @@ export function LogIn() {
             localStorage.setItem('rememberMe', 'false');
         }
 
-        navigate(role === 0 ? '/admin' : role === 1 ? '/manager' : '/user');
+navigate('/');
+
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -220,6 +228,8 @@ export function LogIn() {
                 email,
                 password
             });
+                console.log('response.data:', response.data); // 🟡 הוספת השורה הזאת
+
             handleLoginSuccess(response.data);
         } catch (error) {
             setError('Invalid email or password');

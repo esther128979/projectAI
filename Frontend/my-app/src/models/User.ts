@@ -30,11 +30,9 @@ export const AgeGroup = {
 export type AgeGroupType = (typeof AgeGroup)[keyof typeof AgeGroup];
 
 export interface User {
-    Name: string
+    FullName: string
     Phone: string
-    Email: string
-    Id: number
-    Address: string
-   AgeGroup:string
-    Gender:string
+   
+   Gender:string
+    AgeGroup:string
 }
