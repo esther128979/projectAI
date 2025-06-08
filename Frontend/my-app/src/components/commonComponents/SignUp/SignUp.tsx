@@ -157,15 +157,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     }
 };
 
-      const { token, username: name, role } = response.data;
-      localStorage.setItem("token", token);
-      dispatch(loginUser({ token, role, username: name }));
-
-      navigate(role === 0 ? "/admin" : role === 1 ? "/manager" : "/user");
-    } catch (err: any) {
-      setError(err.response?.data || "Registration failed");
-    }
-  };
 
   return (
     <div className="signup-page">
