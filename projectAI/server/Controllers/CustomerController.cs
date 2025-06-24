@@ -1,5 +1,7 @@
+
 using Microsoft.AspNetCore.Mvc;
-using DAL.Models;  // או BL.Models לפי הצורך
+using DAL.Models; 
+using BL.Api;     
 
 namespace server.Controllers
 {
@@ -7,9 +9,9 @@ namespace server.Controllers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly IBLCustomer _customerService;
 
-        public CustomersController(ICustomerService customerService)
+        public CustomersController(IBLCustomer customerService)
         {
             _customerService = customerService;
         }
@@ -45,13 +47,72 @@ namespace server.Controllers
             }
         }
 
+        [HttpGet("by-email/{email}")]
+        public async Task<IActionResult> GetByEmail(string email)
+        {
+            try
+            {
+                var customer = await _customerService.GetCustomerByEmail(email);
+                if (customer == null)
+                    return NotFound();
+
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("by-phone/{phone}")]
+        public async Task<IActionResult> GetByPhone(string phone)
+        {
+            try
+            {
+                var customers = await _customerService.GetCustomersByPhone(phone);
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("by-gender/{gender}")]
+        public async Task<IActionResult> GetByGender(string gender)
+        {
+            try
+            {
+                var customers = await _customerService.GetCustomersByGender(gender);
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("by-agegroup/{ageGroup}")]
+        public async Task<IActionResult> GetByAgeGroup(int ageGroup)
+        {
+            try
+            {
+                var customers = await _customerService.GetCustomersByAgeGroup(ageGroup);
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Customer customer)
         {
             try
             {
-                var createdCustomer = await _customerService.Create(customer);
-                return CreatedAtAction(nameof(GetById), new { id = createdCustomer.UserId }, createdCustomer);
+                var created = await _customerService.Create(customer);
+                return CreatedAtAction(nameof(GetById), new { id = created.UserId }, created);
             }
             catch (Exception ex)
             {
@@ -67,8 +128,8 @@ namespace server.Controllers
 
             try
             {
-                var updatedCustomer = await _customerService.Update(customer);
-                return Ok(updatedCustomer);
+                var updated = await _customerService.Update(customer);
+                return Ok(updated);
             }
             catch (Exception ex)
             {
