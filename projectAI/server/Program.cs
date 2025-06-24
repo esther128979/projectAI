@@ -1,4 +1,4 @@
-using System.Reflection;
+ο»Ώusing System.Reflection;
 using System.Text;
 using AutoMapper;
 using BL;
@@ -21,14 +21,14 @@ namespace server
 
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-            // χψιΰδ ΰηϊ μ-AddControllers ςν AddJsonOptions μωξεψ ςμ ωξεϊ δξΰτιιπιν
+            // Χ§Χ¨Χ™ΧΧ” ΧΧ—Χª Χ-AddControllers ΧΆΧ AddJsonOptions ΧΧ©ΧΧ•Χ¨ ΧΆΧ Χ©ΧΧ•Χª Χ”ΧΧΧ¤Χ™Χ™Χ Χ™Χ
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
 
-            // ===== ωιψεϊιν ξεϊΰξιν ΰιωιϊ (BL) =====
+            // ===== Χ©Χ™Χ¨Χ•ΧªΧ™Χ ΧΧ•ΧªΧΧΧ™Χ ΧΧ™Χ©Χ™Χª (BL) =====
             builder.Services.AddSingleton<IBL, BlManager>(sp =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -71,13 +71,13 @@ namespace server
                         OnForbidden = context =>
                         {
                             context.Response.StatusCode = 403;
-                            return context.Response.WriteAsync("ΰιο μκ δψωΰδ μβωϊ μτςεμδ ζε");
+                            return context.Response.WriteAsync("ΧΧ™Χ ΧΧ Χ”Χ¨Χ©ΧΧ” ΧΧ’Χ©Χª ΧΧ¤ΧΆΧ•ΧΧ” Χ–Χ•");
                         },
                         OnChallenge = context =>
                         {
                             context.HandleResponse();
                             context.Response.StatusCode = 401;
-                            return context.Response.WriteAsync("ςμικ μδϊηαψ λγι μβωϊ μτςεμδ ζε");
+                            return context.Response.WriteAsync("ΧΆΧΧ™Χ ΧΧ”ΧªΧ—Χ‘Χ¨ Χ›Χ“Χ™ ΧΧ’Χ©Χª ΧΧ¤ΧΆΧ•ΧΧ” Χ–Χ•");
                         }
                     };
                 });
@@ -98,7 +98,7 @@ namespace server
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "δλπρ λΰο ΰϊ δθεχο ωμκ (Bearer {token})"
+                    Description = "Χ”Χ›Χ Χ΅ Χ›ΧΧ ΧΧª Χ”ΧΧ•Χ§Χ Χ©ΧΧ (Bearer {token})"
                 };
 
                 c.AddSecurityDefinition("Bearer", securityScheme);
@@ -146,3 +146,7 @@ namespace server
         }
     }
 }
+
+
+
+
